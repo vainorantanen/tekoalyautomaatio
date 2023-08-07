@@ -35,6 +35,7 @@ const EmailInput = () => {
       <TextField
         id="email"
         label="Syötä sähköpostiosoitteesi"
+        type='email'
         required
         fullWidth
         variant="outlined"

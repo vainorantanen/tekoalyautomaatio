@@ -1,4 +1,3 @@
-/*
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
@@ -11,15 +10,6 @@ const userSchema = mongoose.Schema({
   },
   name: String,
   passwordHash: String,
-  courses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Course'
-    }
-  ],
-  imageurl : {
-    type : String
-  }
 })
 
 userSchema.plugin(uniqueValidator)
@@ -37,4 +27,3 @@ userSchema.set('toJSON', {
 const User = mongoose.model('User', userSchema)
 
 module.exports = User
-*/

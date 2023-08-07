@@ -66,6 +66,9 @@ const Navbar = ({ user, logout }) => {
             <StyledButton color="inherit" component={Link} to="/hyodyntaminen">
               Tekoäly liiketoiminnassa
             </StyledButton>
+            <StyledButton color="inherit" component={Link} to="/login">
+              Kirjaudu
+            </StyledButton>
           </div>
         </Toolbar>
       </AppBar>
@@ -85,6 +88,9 @@ const Navbar = ({ user, logout }) => {
           </ListItemButton>
           <ListItemButton component={Link} to="/hyodyntaminen" onClick={toggleDrawer}>
             <ListItemText primary="Tekoäly liiketoiminnassa" />
+          </ListItemButton>
+          <ListItemButton component={Link} to="/login" onClick={toggleDrawer}>
+            <ListItemText primary="Kirjaudu" />
           </ListItemButton>
         </List>
       </Drawer>
