@@ -17,6 +17,7 @@ import AddPost from './components/AddPost/AddPost'
 import ScrollToTop from './components/ScrollToTop'
 import ForCompanies from './components/ForCompanies/ForCompanies'
 import OpenProjectsFeed from './components/OpenProjects/OpenProjectsFeed'
+import AiInfo from './components/AiInfo/AiInfo'
 
 const theme = createTheme({
   typography: {
@@ -40,6 +41,7 @@ const App = () => {
           <Route path='/lisaailmoitus' element={<AddPost />} />
           <Route path='/yrityksille' element={<ForCompanies />} />
           <Route path='/avoimetprojektit' element={<OpenProjectsFeed />} />
+          <Route path='/hyodyntaminen' element={<AiInfo />} />
         </Routes>
         <Footer />
       </Box>
