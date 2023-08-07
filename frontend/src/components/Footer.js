@@ -11,6 +11,7 @@ const Footer = () => {
         textAlign: 'center',
         padding: '20px',
         lineHeight: '3rem',
+        borderRadius: '0.5rem',
         border: '2px solid white'
       }}>
         <Typography variant="body1" sx={{
@@ -22,7 +23,7 @@ const Footer = () => {
         </Typography>
 
         <Typography variant="body1" className="copyright">
-          &copy; {new Date().getFullYear()} Tekoälyautomaatio.fi. All rights reserved.
+          Tekoälyautomaatio.fi.
         </Typography>
 
         <Typography variant="body1" className="address" sx={{

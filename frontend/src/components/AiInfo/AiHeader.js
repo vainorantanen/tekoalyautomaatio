@@ -23,11 +23,12 @@ const AiHeader = () => {
             width: '80vw',
           },
         }}>
+          <Box sx={{ background: 'linear-gradient(to right, blue, black);', borderRadius: '0.5rem', padding: '1rem' }}>
           <Typography
             sx={{
-              fontSize: '2rem',
+              fontSize: '1.6rem',
               '@media (max-width: 442px)': {
-                fontSize: '1.4rem',
+                fontSize: '1.2rem',
               },
             }}
           >Tällä sivulla</Typography>
@@ -42,6 +43,7 @@ const AiHeader = () => {
                 <Typography>Miten tekoälyä voi hyödyntää liiketoiminnassa?</Typography>
             </Box>
             
+          </Box>
           </Box>
         </Box>
         <Box>
