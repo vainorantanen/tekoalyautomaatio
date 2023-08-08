@@ -4,37 +4,27 @@ import { useDispatch } from 'react-redux'
 import loginService from '../services/login'
 import userService from '../services/user'
 import { loginUser } from '../reducers/user'
-import { useField } from '../hooks'
-
-import { set as setNotification } from '../reducers/notification'
+import { useState } from "react";
+import { useNotification } from '../hooks'
 
 const LoginForm = () => {
-  const username = useField('text')
-  const password = useField('password')
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch()
 
-  const notify = (message, type = 'info') => {
-    dispatch(setNotification({ message, type }))
-  }
-
-  const handleSubmit = (event) => {
+  const notify = useNotification()
+  
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    loginService
-      .login({
-        username: username.value,
-        password: password.value,
-      })
-      .then((user) => {
-        console.log('user in handlesubmit', user)
-        userService.setUser(user)
-
-        dispatch(loginUser(user))
-        notify(`${user.name} logged in!`)
-      })
-      .catch(() => {
-        notify('wrong username/password', 'alert')
-      })
+    try {
+      dispatch(loginUser({ username, password }))
+      notify('Kirjauduttu sisään', 'success')
+      setUsername('')
+      setPassword('')
+    } catch (e) {
+      notify('Väärä käyttäjätunnus tai salasana', 'error')
+    }
   }
 
   return (
@@ -68,9 +58,9 @@ const LoginForm = () => {
           id="login-username"
           label="Käyttäjätunnus"
           required
-          value={username.value}
+          value={username}
           className="username-input"
-          onChange={username.onChange}
+          onChange={({ target }) => setUsername(target.value)}
           sx={{ marginBottom: '1rem' }}
         />
         <TextField
@@ -78,9 +68,9 @@ const LoginForm = () => {
           label="Salasana"
           type="password"
           required
-          value={password.value}
+          value={password}
           className="password-input"
-          onChange={password.onChange}
+          onChange={({ target }) => setPassword(target.value)}
           sx={{ marginBottom: '1rem' }}
         />
 

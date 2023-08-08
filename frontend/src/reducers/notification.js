@@ -20,7 +20,7 @@ export const notify = (message, type='success') => {
     dispatch(set({ message, type }))
     setTimeout(() => {
       dispatch(clear())
-    }, 2000)
+    }, 5000)
   }
 }
 

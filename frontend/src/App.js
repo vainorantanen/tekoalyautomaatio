@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box
+import { Box, Button, Typography
 
 } from '@mui/material'
 
@@ -23,6 +23,7 @@ import AiInfo from './components/AiInfo/AiInfo'
 import LoginForm from './components/LoginForm'
 
 import { useNotification, useInitialization, useClearUser } from './hooks/index'
+import Notification from './components/Notification'
 
 const theme = createTheme({
   typography: {
@@ -48,14 +49,15 @@ const App = () => {
 
   const logout = async () => {
     clearUser()
-    notifyWith('logged out')
+    notifyWith('Kirjauduttu ulos')
   }
 
 
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        <Navbar />
+        <Navbar logout={logout} />
+        <Notification />
         <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />}/>
