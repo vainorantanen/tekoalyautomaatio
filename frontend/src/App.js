@@ -1,12 +1,14 @@
 import React from 'react'
 
-import { Box
+import { Box, Button, Typography
 
 } from '@mui/material'
 
 import { ThemeProvider } from '@emotion/react'
 import { createTheme } from '@mui/material/styles'
 import { Route, Routes } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
 import './App.css'
 
 import Home from './components/Home/Home'
@@ -18,6 +20,11 @@ import ScrollToTop from './components/ScrollToTop'
 import ForCompanies from './components/ForCompanies/ForCompanies'
 import OpenProjectsFeed from './components/OpenProjects/OpenProjectsFeed'
 import AiInfo from './components/AiInfo/AiInfo'
+import LoginForm from './components/LoginForm'
+
+import { useNotification, useInitialization, useClearUser } from './hooks/index'
+import Notification from './components/Notification'
+import RegisterPage from './components/RegisterPage'
 
 const theme = createTheme({
   typography: {
@@ -30,11 +37,28 @@ const theme = createTheme({
 
 const App = () => {
 
+  const stateInitializer = useInitialization()
+  const notifyWith = useNotification()
+
+  const clearUser = useClearUser()
+
+  const user = useSelector(({ user }) => user)
+
+  useEffect(() => {
+    stateInitializer()
+  }, [])
+
+  const logout = async () => {
+    clearUser()
+    notifyWith('Kirjauduttu ulos')
+  }
+
 
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        <Navbar />
+        <Navbar logout={logout} />
+        <Notification />
         <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />}/>
@@ -42,6 +66,8 @@ const App = () => {
           <Route path='/yrityksille' element={<ForCompanies />} />
           <Route path='/avoimetprojektit' element={<OpenProjectsFeed />} />
           <Route path='/hyodyntaminen' element={<AiInfo />} />
+          <Route path='/login' element={<LoginForm />} />
+          <Route path='/register' element={<RegisterPage />} />
         </Routes>
         <Footer />
       </Box>

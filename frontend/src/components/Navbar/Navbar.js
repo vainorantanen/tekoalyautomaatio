@@ -15,6 +15,7 @@ import {
 import { Menu as MenuIcon } from '@mui/icons-material'
 import './navbar.css'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const theme = createTheme({
   palette: {
@@ -36,8 +37,10 @@ const StyledButton = styled(Button)({
     backgroundImage: 'linear-gradient(to bottom, #003eff, #006eff)', }
 })
 
-const Navbar = ({ user, logout }) => {
+const Navbar = ({ logout }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  const user = useSelector(({ user }) => user)
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen)
@@ -54,18 +57,30 @@ const Navbar = ({ user, logout }) => {
             <StyledButton color="inherit" component={Link} to="/">
               Etusivu
             </StyledButton>
-            <StyledButton color="inherit" component={Link} to="/yrityksille">
-              Yrityksille
-            </StyledButton>
-            <StyledButton color="inherit" component={Link} to="/avoimetprojektit">
-              Avoimet tekoälyprojektit
-            </StyledButton>
-            <StyledButton color="inherit" component={Link} to="/lisaailmoitus">
-              Lisää ilmoitus
-            </StyledButton>
-            <StyledButton color="inherit" component={Link} to="/hyodyntaminen">
-              Tekoäly liiketoiminnassa
-            </StyledButton>
+              <StyledButton color="inherit" component={Link} to="/yrityksille">
+                Yrityksille
+              </StyledButton>
+
+              <StyledButton color="inherit" component={Link} to="/avoimetprojektit">
+                Avoimet tekoälyprojektit
+              </StyledButton>
+
+              <StyledButton color="inherit" component={Link} to="/lisaailmoitus">
+                Lisää ilmoitus
+              </StyledButton>
+
+              <StyledButton color="inherit" component={Link} to="/hyodyntaminen">
+                Tekoäly liiketoiminnassa
+              </StyledButton>
+            {user ? (
+                <StyledButton color="inherit" onClick={logout}>
+                Kirjaudu ulos
+              </StyledButton>
+              ): (
+                <StyledButton color="inherit" component={Link} to="/login">
+                Kirjaudu
+              </StyledButton>
+              )}
           </div>
         </Toolbar>
       </AppBar>
@@ -86,6 +101,15 @@ const Navbar = ({ user, logout }) => {
           <ListItemButton component={Link} to="/hyodyntaminen" onClick={toggleDrawer}>
             <ListItemText primary="Tekoäly liiketoiminnassa" />
           </ListItemButton>
+          {user ? (
+            <ListItemButton component={Link} onClick={logout}>
+            <ListItemText primary="Kirjaudu ulos" />
+          </ListItemButton>
+          ): (
+            <ListItemButton component={Link} to="/login" onClick={toggleDrawer}>
+            <ListItemText primary="Kirjaudu" />
+          </ListItemButton>
+          )}
         </List>
       </Drawer>
     </ThemeProvider>

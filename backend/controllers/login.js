@@ -1,4 +1,3 @@
-/*
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const loginRouter = require('express').Router()
@@ -11,6 +10,9 @@ loginRouter.post('/', async (request, response) => {
   const passwordCorrect = user === null
     ? false
     : await bcrypt.compare(password, user.passwordHash)
+
+  console.log('salis', passwordCorrect)
+  console.log('user login.js', user)
 
   if (!(user && passwordCorrect)) {
     return response.status(401).json({
@@ -31,4 +33,3 @@ loginRouter.post('/', async (request, response) => {
 })
 
 module.exports = loginRouter
-*/
