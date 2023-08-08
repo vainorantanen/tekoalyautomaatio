@@ -11,7 +11,6 @@ import {
   ListItemText,
   ListItemButton,
   styled,
-  Box,
 } from '@mui/material'
 import { Menu as MenuIcon } from '@mui/icons-material'
 import './navbar.css'
@@ -58,18 +57,21 @@ const Navbar = ({ logout }) => {
             <StyledButton color="inherit" component={Link} to="/">
               Etusivu
             </StyledButton>
-            <StyledButton color="inherit" component={Link} to="/yrityksille">
-              Yrityksille
-            </StyledButton>
-            <StyledButton color="inherit" component={Link} to="/avoimetprojektit">
-              Avoimet tekoälyprojektit
-            </StyledButton>
-            <StyledButton color="inherit" component={Link} to="/lisaailmoitus">
-              Lisää ilmoitus
-            </StyledButton>
-            <StyledButton color="inherit" component={Link} to="/hyodyntaminen">
-              Tekoäly liiketoiminnassa
-            </StyledButton>
+              <StyledButton color="inherit" component={Link} to="/yrityksille">
+                Yrityksille
+              </StyledButton>
+
+              <StyledButton color="inherit" component={Link} to="/avoimetprojektit">
+                Avoimet tekoälyprojektit
+              </StyledButton>
+
+              <StyledButton color="inherit" component={Link} to="/lisaailmoitus">
+                Lisää ilmoitus
+              </StyledButton>
+
+              <StyledButton color="inherit" component={Link} to="/hyodyntaminen">
+                Tekoäly liiketoiminnassa
+              </StyledButton>
             {user ? (
                 <StyledButton color="inherit" onClick={logout}>
                 Kirjaudu ulos
@@ -99,9 +101,15 @@ const Navbar = ({ logout }) => {
           <ListItemButton component={Link} to="/hyodyntaminen" onClick={toggleDrawer}>
             <ListItemText primary="Tekoäly liiketoiminnassa" />
           </ListItemButton>
-          <ListItemButton component={Link} to="/login" onClick={toggleDrawer}>
+          {user ? (
+            <ListItemButton component={Link} onClick={logout}>
+            <ListItemText primary="Kirjaudu ulos" />
+          </ListItemButton>
+          ): (
+            <ListItemButton component={Link} to="/login" onClick={toggleDrawer}>
             <ListItemText primary="Kirjaudu" />
           </ListItemButton>
+          )}
         </List>
       </Drawer>
     </ThemeProvider>

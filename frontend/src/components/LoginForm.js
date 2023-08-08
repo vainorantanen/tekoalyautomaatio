@@ -1,11 +1,10 @@
 import React from 'react'
 import { Container, Box, TextField, Button, Typography } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import loginService from '../services/login'
-import userService from '../services/user'
 import { loginUser } from '../reducers/user'
 import { useState } from "react";
 import { useNotification } from '../hooks'
+import { Link } from 'react-router-dom'
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -96,7 +95,9 @@ const LoginForm = () => {
         <Typography sx={{
           fontSize: '1rem',
           textAlign: 'center',
-        }}>Eikö sinulla ole vielä käyttäjää? <Button>Reksiteröidy</Button></Typography>
+        }}>Eikö sinulla ole vielä käyttäjää? <Button component={Link}
+          to='/register'
+        >Reksiteröidy</Button></Typography>
       </Box>
     </Container>
   )
