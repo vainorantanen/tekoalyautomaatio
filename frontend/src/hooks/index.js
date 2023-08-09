@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { notify } from '../reducers/notification'
 import { initializeUsers } from '../reducers/users'
 import { initUser, clearUser } from '../reducers/user'
+import { initializePosts } from '../reducers/projectPosts'
 
 export const useNotification = () => {
   const dispatch = useDispatch()
@@ -17,6 +18,7 @@ export const useInitialization = () => {
 
   return ()  => {
     dispatch(initializeUsers())
+    dispatch(initializePosts())
     dispatch(initUser())
   }
 }

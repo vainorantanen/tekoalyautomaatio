@@ -28,6 +28,7 @@ router.post('/', async (request, response) => {
 
 router.get('/', async (request, response) => {
   const users = await User.find({})
+    .populate('projectPosts', { description: 1, timeStamp: 1 })
 
   response.json(users)
 })
