@@ -22,13 +22,13 @@ const HomeInfoBox = () => {
         <Typography sx={{
           fontSize: '3rem'
         }}>Yli 60%</Typography>
-        <Typography>Yrityksistä hyödyntää tekoälyä toiminnassaan jollain tavalla</Typography>
+        <Typography>Yrityksistä hyödyntää tekoälyä toiminnassaan</Typography>
       </Box>
       <Box>
         <Typography sx={{
           fontSize: '3rem'
         }}>3 miljoonaa</Typography>
-        <Typography>Työpaikkat jotka tekoäly tarjoaa 2025 mennessä</Typography>
+        <Typography>Tekoälyn luomat työpaikat vuoteen 2025 mennessä</Typography>
       </Box>
       <Box>
         <Typography sx={{

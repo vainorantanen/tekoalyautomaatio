@@ -27,6 +27,8 @@ import Notification from './components/Notification'
 import RegisterPage from './components/RegisterPage'
 import SingleProjectPage from './components/OpenProjects/SingleProjectPage'
 import DevsPosts from './components/DevsPosts/DevsPosts'
+import AddPostInfo from './components/AddPost/AddPostInfo'
+import AddDevPost from './components/AddPost/AddDevPost'
 
 const theme = createTheme({
   typography: {
@@ -64,7 +66,9 @@ const App = () => {
         <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/lisaailmoitus' element={<AddPost />} />
+          <Route path='/lisaailmoitus' element={<AddPostInfo />} />
+          <Route path='/lisaailmoitus/etsitekijaa' element={<AddPost />} />
+          <Route path='/lisaailmoitus/kehittajanilmoitus' element={<AddDevPost />} />
           <Route path='/yrityksille' element={<ForCompanies />} />
           <Route path='/avoimetprojektit' element={<OpenProjectsFeed />} />
           <Route path='/avoimetprojektit/:id' element={<SingleProjectPage />} />

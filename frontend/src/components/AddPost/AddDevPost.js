@@ -9,9 +9,10 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useNotification } from '../../hooks'
-import { addPost } from '../../reducers/projectPosts'
+import { addDevPost } from '../../reducers/devsPosts'
 
-const AddPost = () => {
+
+const AddDevPost = () => {
   const [description, setDescription] = useState('')
 
   const user = useSelector(({ user }) => user)
@@ -23,7 +24,7 @@ const AddPost = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      dispatch(addPost({
+      dispatch(addDevPost({
         description,
         timeStamp: new Date(),
       }))
@@ -48,7 +49,7 @@ const AddPost = () => {
             },
           }}
         >
-          Kirjaudu kuluttajatilillä sisään lisätäksesi ilmoitus.
+          Kirjaudu kehittäjätilillä sisään lisätäksesi ilmoitus.
         </Typography>
       </Container>
     )
@@ -92,7 +93,7 @@ const AddPost = () => {
       >
         <TextField
           id="description"
-          label="Kuvaile etsimääsi tekoälyprojektia..."
+          label="Kuvaile tarjoamaasi tekoälyprojektia..."
           required
           multiline
           rows={15}
@@ -124,4 +125,4 @@ const AddPost = () => {
   )
 }
 
-export default AddPost
+export default AddDevPost

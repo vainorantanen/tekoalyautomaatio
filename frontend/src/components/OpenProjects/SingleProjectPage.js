@@ -17,7 +17,7 @@ const SingleProjectPage = () => {
   const projectPost = useSelector(({ projectPosts }) => projectPosts.find(p => p.id === id))
 
   return (
-    <Box sx={{ minHeight: '90vh', marginTop: '5rem' }}>
+    <Box sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
         <Typography>{projectPost.description}</Typography>
     </Box>
   )

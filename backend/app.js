@@ -10,6 +10,7 @@ const contactRouter = require('./controllers/contact')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const projectPostRouter = require('./controllers/projectPosts')
+const devsPostsRouter = require('./controllers/devsPosts')
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
@@ -41,6 +42,7 @@ app.use('/api/contacts', contactRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/projectposts', projectPostRouter)
+app.use('/api/devsposts', devsPostsRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

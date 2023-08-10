@@ -11,8 +11,6 @@ const Footer = () => {
         textAlign: 'center',
         padding: '20px',
         lineHeight: '3rem',
-        borderRadius: '0.5rem',
-        border: '2px solid white'
       }}>
         <Typography variant="body1" sx={{
           fontSize: '24px',
