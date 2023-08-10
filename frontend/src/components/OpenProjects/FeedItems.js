@@ -7,6 +7,7 @@ import {
 } from '@mui/material'
 import { useSelector } from 'react-redux'
 import FeedPostCard from './FeedPostCard'
+import { Link } from 'react-router-dom'
 
 const FeedItems = () => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -18,10 +19,11 @@ const FeedItems = () => {
 
   const projectPosts = useSelector(({ projectPosts }) => projectPosts)
 
-  if (!projectPosts) {
+  if (!projectPosts || projectPosts.length === 0) {
     return (
       <Container sx={{ marginTop: '6rem' }}>
-        <Typography>Loading data..</Typography>
+        <Typography>Ei löytynyt yhtään ilmoitusta</Typography>
+        <Button component={Link} to='/lisaailmoitus'>Lisää omasi!</Button>
       </Container>
     )
   }
