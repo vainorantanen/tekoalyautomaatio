@@ -9,16 +9,9 @@ const Footer = () => {
     <footer>
       <Box sx={{
         textAlign: 'center',
-        padding: '20px',
+        padding: '1rem',
         lineHeight: '3rem',
       }}>
-        <Typography variant="body1" sx={{
-          fontSize: '24px',
-          fontWeight: 'bold',
-          color: '#ffffff',
-        }}>
-          Tekoälyautomaatio.fi
-        </Typography>
 
         <Typography variant="body1" className="copyright">
           Tekoälyautomaatio.fi.

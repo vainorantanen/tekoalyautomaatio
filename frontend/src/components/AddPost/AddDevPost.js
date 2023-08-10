@@ -14,6 +14,7 @@ import { addDevPost } from '../../reducers/devsPosts'
 
 const AddDevPost = () => {
   const [description, setDescription] = useState('')
+  const [ title, setTitle ] = useState('')
 
   const user = useSelector(({ user }) => user)
   const notify = useNotification()
@@ -25,11 +26,13 @@ const AddDevPost = () => {
     event.preventDefault()
     try {
       dispatch(addDevPost({
+        title,
         description,
         timeStamp: new Date(),
       }))
       notify('Postaus lisätty onnistuneesti', 'success')
-      setDescription('')      
+      setDescription('')
+      setTitle('')
     } catch (error) {
       notify('Ilmeni jokin ongelma postauksen teossa, yritä myöhemmin uudelleen', 'error')
     }
@@ -93,6 +96,14 @@ const AddDevPost = () => {
           maxWidth: '30rem',
         }}
       >
+        <TextField
+          id="title"
+          label="Otsikko"
+          required
+          value={title}
+          onChange={({ target }) => setTitle(target.value)}
+          sx={{ marginBottom: '1rem' }}
+        />
         <TextField
           id="description"
           label="Kuvaile tarjoamaasi tekoälyprojektia..."

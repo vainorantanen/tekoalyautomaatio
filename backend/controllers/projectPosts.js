@@ -12,11 +12,12 @@ router.get('/', async (request, response) => {
 
 router.post('/', userExtractor, async (request, response) => {
   //console.log("RBODY", request.body)
-  const { description, timeStamp, } = request.body
+  const { description, timeStamp, title } = request.body
   //console.log("aINFO", additionalinfo)
   const projectPost = new ProjectPost({
     description,
     timeStamp,
+    title
   })
 
   const user = request.user

@@ -26,7 +26,11 @@ const SingleProjectPage = () => {
 
   return (
     <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
-        <Typography>{projectPost.description}</Typography>
+        <Typography sx={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{projectPost.title}</Typography>
+        <Typography sx={{ marginBottom: '1rem' }}>{projectPost.user.name}</Typography>
+        <Typography sx={{
+          whiteSpace: 'break-spaces'
+        }}>{projectPost.description}</Typography>
     </Container>
   )
 }

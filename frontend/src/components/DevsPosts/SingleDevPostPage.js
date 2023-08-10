@@ -26,7 +26,11 @@ const SingleDevPostPage = () => {
 
   return (
     <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
-        <Typography>{devsPost.description}</Typography>
+        <Typography sx={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{devsPost.title}</Typography>
+        <Typography sx={{ marginBottom: '1rem' }}>{devsPost.user.name}</Typography>
+        <Typography sx={{
+          whiteSpace: 'break-spaces'
+        }}>{devsPost.description}</Typography>
     </Container>
   )
 }

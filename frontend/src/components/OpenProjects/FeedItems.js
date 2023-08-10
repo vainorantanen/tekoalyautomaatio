@@ -52,11 +52,11 @@ const FeedItems = () => {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: 'column',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
               justifyContent: 'center',
               gap: '1rem',
               marginBottom: '1rem',
-              borderRadius: '1rem',
             }}
           >
             {/* Rendering the current page of filtered posts */}
