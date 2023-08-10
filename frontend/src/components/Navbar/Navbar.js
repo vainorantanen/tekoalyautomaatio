@@ -65,6 +65,10 @@ const Navbar = ({ logout }) => {
                 Avoimet tekoälyprojektit
               </StyledButton>
 
+              <StyledButton color="inherit" component={Link} to="/kehittajienilmoitukset">
+                Kehittäjien ilmoitukset
+              </StyledButton>
+
               <StyledButton color="inherit" component={Link} to="/lisaailmoitus">
                 Lisää ilmoitus
               </StyledButton>
@@ -94,6 +98,9 @@ const Navbar = ({ logout }) => {
           </ListItemButton>
           <ListItemButton component={Link} to="/avoimetprojektit" onClick={toggleDrawer}>
             <ListItemText primary="Avoimet tekoälyprojektit" />
+          </ListItemButton>
+          <ListItemButton component={Link} to="/kehittajienilmoitukset" onClick={toggleDrawer}>
+            <ListItemText primary="Kehittäjien ilmoitukset" />
           </ListItemButton>
           <ListItemButton component={Link} to="/lisaailmoitus" onClick={toggleDrawer}>
             <ListItemText primary="Lisää ilmoitus" />

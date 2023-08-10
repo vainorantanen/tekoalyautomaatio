@@ -16,7 +16,13 @@ const userSchema = mongoose.Schema({
       ref: 'ProjectPost'
     }
   ],
-  isDeveloper: Boolean
+  isDeveloper: Boolean,
+  devsPosts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'DevsPost'
+    }
+  ]
 })
 
 userSchema.plugin(uniqueValidator)
