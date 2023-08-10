@@ -6,14 +6,14 @@ const FeedHeader = () => {
     <Box>
         <Typography
         sx={{
-          fontSize: '2.5rem',
+          fontSize: '1.8rem',
           textAlign: 'center',
+          marginBottom: '2rem',
           '@media (max-width: 442px)': {
-            fontSize: '1.5rem',
-            marginBottom: '2rem'
+            fontSize: '1.2rem',
           },
         }}
-      >Tekoälyautomaatio.fi</Typography>
+      >Avoimet tekoälyprojektit etsivät tekijöitä!</Typography>
     </Box>
   )
 }

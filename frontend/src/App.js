@@ -29,6 +29,8 @@ import SingleProjectPage from './components/OpenProjects/SingleProjectPage'
 import DevsPosts from './components/DevsPosts/DevsPosts'
 import AddPostInfo from './components/AddPost/AddPostInfo'
 import AddDevPost from './components/AddPost/AddDevPost'
+import SingleDevPostPage from './components/DevsPosts/SingleDevPostPage'
+import Profile from './components/Profile/Profile'
 
 const theme = createTheme({
   typography: {
@@ -76,6 +78,8 @@ const App = () => {
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/kehittajienilmoitukset' element={<DevsPosts />} />
+          <Route path='/kehittajienilmoitukset/:id' element={<SingleDevPostPage /> } />
+          <Route path='/profiili' element={<Profile />} />
         </Routes>
         <Footer />
       </Box>

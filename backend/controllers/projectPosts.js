@@ -23,7 +23,7 @@ router.post('/', userExtractor, async (request, response) => {
 
   console.log('user projectPostisa: ', user)
 
-  if (!user) {
+  if (!user || user.isDeveloper === true) {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 

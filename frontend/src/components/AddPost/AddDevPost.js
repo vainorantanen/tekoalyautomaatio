@@ -62,8 +62,10 @@ const AddDevPost = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh',
-        borderRadius: '1rem',
+        minHeight: '90vh',
+        borderRadius: '0.5rem',
+        backgroundColor: '#222222',
+        marginTop: '5rem'
       }}
     >
       <Typography

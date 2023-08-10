@@ -57,18 +57,6 @@ const Navbar = ({ logout }) => {
             <StyledButton color="inherit" component={Link} to="/">
               Etusivu
             </StyledButton>
-              <StyledButton color="inherit" component={Link} to="/yrityksille">
-                Yrityksille
-              </StyledButton>
-
-              <StyledButton color="inherit" component={Link} to="/avoimetprojektit">
-                Avoimet tekoälyprojektit
-              </StyledButton>
-
-              <StyledButton color="inherit" component={Link} to="/kehittajienilmoitukset">
-                Kehittäjien ilmoitukset
-              </StyledButton>
-
               <StyledButton color="inherit" component={Link} to="/lisaailmoitus">
                 Lisää ilmoitus
               </StyledButton>
@@ -90,6 +78,9 @@ const Navbar = ({ logout }) => {
       </AppBar>
       <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer}>
         <List>
+          {user && (
+            <ListItemText sx={{ marginLeft: '8px' }}>{user.name} kirjautunut</ListItemText>
+          )}
           <ListItemButton component={Link} to="/" onClick={toggleDrawer}>
             <ListItemText primary="Etusivu" />
           </ListItemButton>
@@ -108,6 +99,11 @@ const Navbar = ({ logout }) => {
           <ListItemButton component={Link} to="/hyodyntaminen" onClick={toggleDrawer}>
             <ListItemText primary="Tekoäly liiketoiminnassa" />
           </ListItemButton>
+          {user && (
+            <ListItemButton component={Link} to="/profiili">
+              <ListItemText primary="Profiili" />
+            </ListItemButton>
+          )}
           {user ? (
             <ListItemButton component={Link} onClick={logout}>
             <ListItemText primary="Kirjaudu ulos" />

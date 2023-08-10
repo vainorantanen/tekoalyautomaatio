@@ -1,19 +1,21 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
+import FeedItems from './FeedItems'
 
 const DevsPosts = () => {
   return (
-    <Box sx={{ marginTop: '5rem', minHeight: '80vh' }}>
+    <Box sx={{ marginTop: '6rem', minHeight: '90vh' }}>
         <Typography sx={{
-          fontSize: '2.5rem',
+          fontSize: '1.8rem',
           textAlign: 'center',
+          marginBottom: '2rem',
           '@media (max-width: 442px)': {
-            fontSize: '1.5rem',
-            marginBottom: '2rem'
+            fontSize: '1.3rem',
           },
         }}>
             Kehittäjien ilmoitukset
         </Typography>
+        <FeedItems />
     </Box>
   )
 }

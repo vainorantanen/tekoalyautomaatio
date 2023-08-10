@@ -3,7 +3,7 @@
   
   }
   
-  @media (max-width: 600px) {
+  @media (max-width: 625px) {
     .nav-buttons {
       display: none !important;
     }

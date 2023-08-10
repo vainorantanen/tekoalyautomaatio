@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 
 
-const SingleProjectPage = () => {
+const SingleDevPostPage = () => {
 
   const dispatch = useDispatch()
   const notifyWith = useNotification()
@@ -14,9 +14,9 @@ const SingleProjectPage = () => {
   const id = useParams().id
 
   const user = useSelector(({ user }) => user)
-  const projectPost = useSelector(({ projectPosts }) => projectPosts.find(p => p.id === id))
+  const devsPost = useSelector(({ devsPosts }) => devsPosts.find(p => p.id === id))
 
-  if (!projectPost) {
+  if (!devsPost) {
     return (
       <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
         <Typography>Ladataan...</Typography>
@@ -26,9 +26,9 @@ const SingleProjectPage = () => {
 
   return (
     <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
-        <Typography>{projectPost.description}</Typography>
+        <Typography>{devsPost.description}</Typography>
     </Container>
   )
 }
 
-export default SingleProjectPage
+export default SingleDevPostPage
