@@ -70,7 +70,7 @@ const FeedItems = () => {
                   backgroundColor: currentPage === index + 1 ? 'blue' : 'transparent',
                   color: currentPage === index + 1 ? 'white' : 'inherit',
                   ':hover': {
-                    backgroundColor: currentPage === index + 1 ? 'blue' : 'lightblue',
+                    backgroundColor: currentPage === index + 1 ? 'blue' : '#8B8FFF',
                   },
                 }}
                 key={index} onClick={() => paginate(index + 1)}>

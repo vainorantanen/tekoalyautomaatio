@@ -15,7 +15,8 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'ProjectPost'
     }
-  ]
+  ],
+  isDeveloper: Boolean
 })
 
 userSchema.plugin(uniqueValidator)

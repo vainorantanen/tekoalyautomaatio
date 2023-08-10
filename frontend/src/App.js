@@ -25,6 +25,7 @@ import LoginForm from './components/LoginForm'
 import { useNotification, useInitialization, useClearUser } from './hooks/index'
 import Notification from './components/Notification'
 import RegisterPage from './components/RegisterPage'
+import SingleProjectPage from './components/OpenProjects/SingleProjectPage'
 
 const theme = createTheme({
   typography: {
@@ -65,6 +66,7 @@ const App = () => {
           <Route path='/lisaailmoitus' element={<AddPost />} />
           <Route path='/yrityksille' element={<ForCompanies />} />
           <Route path='/avoimetprojektit' element={<OpenProjectsFeed />} />
+          <Route path='/avoimetprojektit/:id' element={<SingleProjectPage />} />
           <Route path='/hyodyntaminen' element={<AiInfo />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterPage />} />

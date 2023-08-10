@@ -18,6 +18,7 @@ const RegisterPage = () => {
   const [isTermsAccepted, setIsTermsAccepted] = useState(false)
   const [openTermsDialog, setOpenTermsDialog] = useState(false)
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [ isDeveloper, setIsDeveloper ] = useState(false)
 
   const notify = useNotification()
 
@@ -30,12 +31,13 @@ const RegisterPage = () => {
       return
     }
     try {
-        await usersService.create({ username, password, name })
+        await usersService.create({ username, password, name, isDeveloper })
         setName('')
         setPassword('')
         setUsername('')
         setConfirmPassword('')
         setIsTermsAccepted(false)
+        setIsDeveloper(false)
         notify('Käyttäjä rekisteröity onnistuneesti', 'success')
     } catch (error) {
         notify('Rekiströinti epäonnistui', 'error')
@@ -55,6 +57,10 @@ const RegisterPage = () => {
     setIsTermsAccepted(e.target.checked)
   }
 
+  const handleIsDeveloperCheckboxChange = (e) => {
+    setIsDeveloper(e.target.checked)
+  }
+
   return (
     <Box sx={{ marginTop: '6rem',
       display: 'flex',
@@ -72,6 +78,11 @@ const RegisterPage = () => {
         Rekiströidy
       </Typography>
       <Box sx={{ maxWidth: '30rem', }} component="form" onSubmit={handleSubmit}>
+      <FormControlLabel
+          control={<Checkbox checked={isDeveloper} onChange={handleIsDeveloperCheckboxChange} />}
+          label="Haluan rekisteröidä käyttäjän palveluja tarjoavana kehittäjänä"
+          sx={{ marginBottom: '1rem' }}
+        />
         <TextField
           id="register-username"
           label="Käyttäjätunnus"
@@ -151,7 +162,7 @@ const RegisterPage = () => {
         <DialogContent>
           {/* Add your terms of service content here */}
           <Typography>
-            Lorem ipsum
+            Hyväksyn kaiken tietojen käytön. Huom! Ohjelmistomme on vielä kehitysvaiheessa.
           </Typography>
         </DialogContent>
         <DialogActions>

@@ -18,7 +18,6 @@ const LoginForm = () => {
     event.preventDefault()
     try {
       dispatch(loginUser({ username, password }))
-      notify('Kirjauduttu sisään', 'success')
       setUsername('')
       setPassword('')
     } catch (e) {

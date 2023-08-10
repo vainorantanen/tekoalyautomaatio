@@ -7,9 +7,9 @@ import {
   Box,
 } from '@mui/material'
 
-import projectPostService from '../../services/projectPosts'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNotification } from '../../hooks'
+import { addPost } from '../../reducers/projectPosts'
 
 const AddPost = () => {
   const [description, setDescription] = useState('')
@@ -17,18 +17,16 @@ const AddPost = () => {
   const user = useSelector(({ user }) => user)
   const notify = useNotification()
   
-  const addFeedPost = async (newPost) => {
-    const addedPost = await projectPostService.create(newPost)
-    //setFeedPosts(feedPosts.concat(addedPost))
-  }
+  const dispatch = useDispatch()
+
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      await addFeedPost({
+      dispatch(addPost({
         description,
         timeStamp: new Date(),
-      })
+      }))
       notify('Postaus lisätty onnistuneesti', 'success')
       setDescription('')      
     } catch (error) {

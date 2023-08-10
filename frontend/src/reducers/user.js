@@ -27,8 +27,9 @@ export const loginUser = (credentials) => {
       const user = await loginService.login(credentials)
       storageService.saveUser(user)
       dispatch(set(user))
+      dispatch(notify('Kirjauduttu sisään', 'success'))
     } catch (e) {
-      //dispatch(notify('wrong username or password', 'error'))
+      dispatch(notify('Väärä käyttäjätunnus tai salasana', 'error'))
       console.log("Error", e)
     }
   }

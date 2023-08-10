@@ -20,6 +20,7 @@ const middleware = require('./utils/middleware')
 
 mongoose.set('strictQuery', false)
 
+
 logger.info('connecting to', config.MONGODB_URI)
 
 mongoose
@@ -30,6 +31,7 @@ mongoose
   .catch((error) => {
     logger.error('error connecting to MongoDB:', error.message)
   })
+
 
 app.use(cors())
 app.use(express.static('build'))
