@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-
 import loginService from '../services/login'
 import storageService from '../services/storage'
 import { notify } from './notification'
+import usersService from '../services/users'
 
 const initialState = null
 
@@ -15,11 +15,20 @@ const slice = createSlice({
     },
     clear() {
       return initialState
-    }
+    },
+    add(state, { payload }) {
+      return state.concat(payload)
+    },
+    remove(state, { payload }) {
+      return state.filter(s => s.id !== payload)
+    },
+    alter(state, { payload }) {
+      return state.map(s => s.id !== payload.id ? s : payload)
+    },
   },
 })
 
-export const { set, clear } = slice.actions
+export const { set, clear, add, remove, alter } = slice.actions
 
 export const loginUser = (credentials) => {
   return async dispatch => {
@@ -38,6 +47,15 @@ export const loginUser = (credentials) => {
 export const initUser = () => {
   return async dispatch => {
     const user = storageService.loadUser()
+    dispatch(set(user))
+  }
+}
+
+export const updateUser= (object) => {
+  return async dispatch => {
+    const user = await usersService.update(object)
+    //storageService.loadUser(user)
+    // sitten ihanku kirjauduttais uudestaan sisään:
     dispatch(set(user))
   }
 }

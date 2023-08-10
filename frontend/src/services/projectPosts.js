@@ -2,11 +2,6 @@ import axios from 'axios'
 import storageService from './storage'
 const baseUrl = '/api/projectposts'
 
-/*
-const headers = {
-  'Authorization': storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
-}
-*/
 const getAll = async () => {
   const request = await axios.get(baseUrl)
   return request.data

@@ -19,6 +19,7 @@ const RegisterPage = () => {
   const [openTermsDialog, setOpenTermsDialog] = useState(false)
   const [confirmPassword, setConfirmPassword] = useState('')
   const [ isDeveloper, setIsDeveloper ] = useState(false)
+  const [ description, setDescription ] = useState('')
 
   const notify = useNotification()
 
@@ -31,13 +32,14 @@ const RegisterPage = () => {
       return
     }
     try {
-        await usersService.create({ username, password, name, isDeveloper })
+        await usersService.create({ username, password, name, isDeveloper, description })
         setName('')
         setPassword('')
         setUsername('')
         setConfirmPassword('')
         setIsTermsAccepted(false)
         setIsDeveloper(false)
+        setDescription('')
         notify('Käyttäjä rekisteröity onnistuneesti', 'success')
     } catch (error) {
         notify('Rekiströinti epäonnistui', 'error')
@@ -119,6 +121,16 @@ const RegisterPage = () => {
           fullWidth
           value={confirmPassword}
           onChange={({ target }) => setConfirmPassword(target.value)}
+          margin="normal"
+        />
+        <TextField
+          id="description"
+          label="Tietoja minusta"
+          fullWidth
+          multiline
+          rows={6}
+          value={description}
+          onChange={({ target }) => setDescription(target.value)}
           margin="normal"
         />
         <FormControlLabel

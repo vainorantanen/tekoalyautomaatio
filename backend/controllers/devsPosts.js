@@ -11,9 +11,7 @@ router.get('/', async (request, response) => {
 })
 
 router.post('/', userExtractor, async (request, response) => {
-  //console.log("RBODY", request.body)
   const { description, timeStamp, title } = request.body
-  //console.log("aINFO", additionalinfo)
   const devsPost = new DevsPost({
     description,
     timeStamp,
@@ -21,8 +19,6 @@ router.post('/', userExtractor, async (request, response) => {
   })
 
   const user = request.user
-
-  console.log('user DevsPostisa: ', user)
 
   if (!user || user.isDeveloper === false) {
     return response.status(401).json({ error: 'operation not permitted' })

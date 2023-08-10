@@ -100,7 +100,7 @@ const Navbar = ({ logout }) => {
             <ListItemText primary="Tekoäly liiketoiminnassa" />
           </ListItemButton>
           {user && (
-            <ListItemButton component={Link} to="/profiili">
+            <ListItemButton component={Link} to={`/profiili`}>
               <ListItemText primary="Profiili" />
             </ListItemButton>
           )}
