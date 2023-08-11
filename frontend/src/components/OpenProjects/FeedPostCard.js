@@ -31,7 +31,7 @@ const FeedPostCard = ({ post }) => {
         },
       }}
     >
-      <Typography sx={{ fontSize: '1.5rem' }}>{post.title}</Typography>
+      <Typography sx={{ fontSize: '1.3rem' }}>{post.title}</Typography>
       <Typography>{post.user.name}</Typography>
       <Typography>Julkaistu {post.timeStamp.split('T')[0]}</Typography>
       <Typography sx={{ color: '#555',

@@ -34,6 +34,7 @@ import Profile from './components/Profile/Profile'
 import DevsList from './components/Devs/DevsList'
 import SingleDevPage from './components/Devs/SingleDevPage'
 import ModifyBuyerPost from './components/Profile/ModifyBuyerPost'
+import ModifyDevPost from './components/Profile/ModifyDevPost'
 
 const theme = createTheme({
   typography: {
@@ -83,7 +84,8 @@ const App = () => {
           <Route path='/kehittajienilmoitukset' element={<DevsPosts />} />
           <Route path='/kehittajienilmoitukset/:id' element={<SingleDevPostPage /> } />
           <Route path='/profiili' element={<Profile />} />
-          <Route path='/profiili/muokkaa/:id' element={<ModifyBuyerPost />} />
+          <Route path='/profiili/kayttaja/muokkaa/:id' element={<ModifyBuyerPost />} />
+          <Route path='/profiili/kehittaja/muokkaa/:id' element={<ModifyDevPost />} />
           <Route path='/kehittajat' element={<DevsList />} />
           <Route path='/kehittajat/:id' element={<SingleDevPage />} />
         </Routes>

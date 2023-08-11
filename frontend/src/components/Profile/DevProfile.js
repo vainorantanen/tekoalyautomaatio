@@ -2,6 +2,7 @@ import { Box, Container, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ModifyDescriptionForm from './ModifyDescriptionForm'
+import DevsOwnPosts from './DevsOwnPosts'
 
 const DevProfile = () => {
     const user = useSelector(({ user }) => user)
@@ -18,6 +19,7 @@ const DevProfile = () => {
             <Typography sx={{ whiteSpace: 'break-spaces' }}>{user.description}</Typography>
         </Box>
         <ModifyDescriptionForm />
+        <DevsOwnPosts />
     </Container>
   )
 }
