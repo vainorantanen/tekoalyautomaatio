@@ -16,7 +16,7 @@ const FeedItems = () => {
     setCurrentPage(1)
   }, [])
 
-  const devs = useSelector(({users}) => users)
+  const devs = useSelector(({users}) => users).filter(d => d.isDeveloper === true)
 
   if (!devs || devs.length === 0) {
     return (
