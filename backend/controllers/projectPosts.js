@@ -47,22 +47,22 @@ router.put('/:id', async (request, response) => {
 
   response.json(updatedprojectPost)
 })
-/*
+
 router.delete('/:id', userExtractor, async (request, response) => {
-  const blog = await Blog.findById(request.params.id)
+  const post = await ProjectPost.findById(request.params.id)
 
   const user = request.user
 
-  if (!user || blog.user.toString() !== user.id.toString()) {
+  if (!user || post.user.toString() !== user.id.toString()) {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
-  user.blogs = user.blogs.filter(b => b.toString() !== blog.id.toString() )
+  user.projectPosts = user.projectPosts.filter(b => b.toString() !== post.id.toString() )
 
   await user.save()
-  await blog.remove()
+  await post.remove()
 
   response.status(204).end()
 })
-*/
+
 module.exports = router
