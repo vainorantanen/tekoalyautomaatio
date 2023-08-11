@@ -11,6 +11,10 @@ const userSchema = mongoose.Schema({
   name: String,
   description: String,
   passwordHash: String,
+  email: {
+    type: String,
+    required: true
+  },
   projectPosts: [
     {
       type: mongoose.Schema.Types.ObjectId,

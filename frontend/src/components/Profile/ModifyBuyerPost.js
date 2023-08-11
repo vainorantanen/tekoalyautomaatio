@@ -41,10 +41,11 @@ const ModifyBuyerPost = () => {
         id="description"
         label="Muokkaa esittelyä"
         multiline
-        rows={8}
+        rows={16}
+        fullWidth
         value={description}
         onChange={({ target }) => setDescription(target.value)}
-        sx={{ marginBottom: '1rem', width: '100%', maxWidth: '30rem' }}
+        sx={{ marginBottom: '1rem',  maxWidth: '40rem' }}
       />
         <Button
         onClick={handleSubmit}

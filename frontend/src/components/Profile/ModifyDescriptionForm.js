@@ -8,7 +8,9 @@ import { updateUser } from '../../reducers/user'
 
 const ModifyDescriptionForm = () => {
 
-    const user = useSelector(({user}) => user)
+    const localUser = useSelector(({user}) => user)
+    const user = useSelector(({users}) => users).find(u => u.id === localUser.id)
+
     const [description, setDescription] = useState(user.description)
 
     const notify = useNotification()
@@ -32,10 +34,11 @@ const ModifyDescriptionForm = () => {
         id="description"
         label="Muokkaa esittelyä"
         multiline
-        rows={8}
+        fullWidth
+        rows={12}
         value={description}
         onChange={({ target }) => setDescription(target.value)}
-        sx={{ marginBottom: '1rem', width: '100%', maxWidth: '30rem' }}
+        sx={{ marginBottom: '1rem', maxWidth: '40rem' }}
       />
       <Button
         onClick={handleSubmit}

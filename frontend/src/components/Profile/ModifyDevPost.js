@@ -39,12 +39,13 @@ const ModifyDevPost = () => {
         <Typography sx={{ marginBottom: '4rem' }}>Muokkaa ilmoituksen sisältöä</Typography>
         <TextField
         id="description"
-        label="Muokkaa esittelyä"
+        label="Muokkaa ilmoitusta"
         multiline
-        rows={8}
+        fullWidth
+        rows={16}
         value={description}
         onChange={({ target }) => setDescription(target.value)}
-        sx={{ marginBottom: '1rem', width: '100%', maxWidth: '30rem' }}
+        sx={{ marginBottom: '1rem',  maxWidth: '40rem' }}
       />
         <Button
         onClick={handleSubmit}
