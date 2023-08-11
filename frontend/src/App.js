@@ -35,6 +35,7 @@ import DevsList from './components/Devs/DevsList'
 import SingleDevPage from './components/Devs/SingleDevPage'
 import ModifyBuyerPost from './components/Profile/ModifyBuyerPost'
 import ModifyDevPost from './components/Profile/ModifyDevPost'
+import Feed from './components/Feed/Feed'
 
 const theme = createTheme({
   typography: {
@@ -88,6 +89,7 @@ const App = () => {
           <Route path='/profiili/kehittaja/muokkaa/:id' element={<ModifyDevPost />} />
           <Route path='/kehittajat' element={<DevsList />} />
           <Route path='/kehittajat/:id' element={<SingleDevPage />} />
+          <Route path='/feed' element={<Feed />} />
         </Routes>
         <Footer />
       </Box>

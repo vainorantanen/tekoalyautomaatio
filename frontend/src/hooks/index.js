@@ -5,6 +5,7 @@ import { initializeUsers } from '../reducers/users'
 import { initUser, clearUser } from '../reducers/user'
 import { initializePosts } from '../reducers/projectPosts'
 import { initializeDevsPosts } from '../reducers/devsPosts'
+import { initializeFeedPosts } from '../reducers/feedPosts'
 
 export const useNotification = () => {
   const dispatch = useDispatch()
@@ -21,6 +22,7 @@ export const useInitialization = () => {
     dispatch(initializeUsers())
     dispatch(initializePosts())
     dispatch(initializeDevsPosts())
+    dispatch(initializeFeedPosts())
     dispatch(initUser())
   }
 }

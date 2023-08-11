@@ -4,6 +4,7 @@ import userReducer from './reducers/user'
 import usersReducer from './reducers/users'
 import projectPostReducer from './reducers/projectPosts'
 import devsPostReducer from './reducers/devsPosts'
+import feedPostsReducer from './reducers/feedPosts'
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
     user: userReducer,
     users: usersReducer,
     projectPosts: projectPostReducer,
-    devsPosts: devsPostReducer
+    devsPosts: devsPostReducer,
+    feedPosts: feedPostsReducer
   }
 })
 

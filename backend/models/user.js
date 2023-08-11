@@ -27,6 +27,12 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'DevsPost'
     }
+  ],
+  feedPosts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'FeedPost'
+    }
   ]
 })
 
