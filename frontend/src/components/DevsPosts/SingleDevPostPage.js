@@ -1,7 +1,7 @@
 import { Container, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 
 
@@ -27,7 +27,8 @@ const SingleDevPostPage = () => {
   return (
     <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
         <Typography sx={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{devsPost.title}</Typography>
-        <Typography sx={{ marginBottom: '1rem' }}>{devsPost.user.name}</Typography>
+        <Typography component={Link} to={`/kehittajat/${devsPost.user.id}`} sx={{ marginBottom: '1rem',
+      textDecoration: 'underline', color: 'white' }}>{devsPost.user.name}</Typography>
         <Typography sx={{
           whiteSpace: 'break-spaces'
         }}>{devsPost.description}</Typography>
