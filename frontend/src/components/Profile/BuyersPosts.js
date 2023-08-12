@@ -35,14 +35,14 @@ const BuyersPosts = () => {
 
   return (
     <Box>
-        <Typography>Sinun ilmoituksesi</Typography>
+        <Typography sx={{ marginBottom: '2rem' }}>Omat ilmoitukset</Typography>
         <Box>
         {userPosts.length > 0 ? userPosts.map(p => (
             <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',
             borderRadius: '0.5rem', marginBottom: '1rem'}}>
                 <Typography sx={{ fontSize: '1.3rem' }}>{p.title}</Typography>
                 <Typography sx={{ whiteSpace: 'break-spaces' }}>{p.description}</Typography>
-                <Button component={Link} to={`/profiili/kayttaja/muokkaa/${p.id}`} >Muokkaa ilmoituksen sisältöä</Button>
+                <Button component={Link} to={`/profiili/kayttaja/muokkaa/ilmoitus/${p.id}`} >Muokkaa ilmoituksen sisältöä</Button>
                 <Button component={Link} to={`/avoimetprojektit/${p.id}`}>Siirry ilmoitukseen</Button>
                 <Button sx={{ color: 'red' }} onClick={() => handleDelete(p.id)}>Poista ilmoitus</Button>
             </Box>  

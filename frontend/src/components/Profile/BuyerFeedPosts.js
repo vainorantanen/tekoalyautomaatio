@@ -3,13 +3,13 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
-import { removeDevPost } from '../../reducers/devsPosts'
+import { removeFeedPost } from '../../reducers/feedPosts'
 
-const DevsOwnPosts = () => {
+const BuyerFeedPosts = () => {
     const notify = useNotification()
     const user = useSelector(({user}) => user)
   const dispatch = useDispatch()
-    const userPosts = useSelector(({ devsPosts }) => devsPosts).filter(p => p.user.id === user.id)
+    const userFeedPosts = useSelector(({ feedPosts }) => feedPosts).filter(p => p.user.id === user.id)
 
   const handleDelete = async (postId) => {
     const confirmed = window.confirm('Haluatko varmasti poistaa tämän ilmoituksen?')
@@ -18,14 +18,14 @@ const DevsOwnPosts = () => {
     }
 
     try {
-      dispatch(removeDevPost({ id: postId }))
+      dispatch(removeFeedPost({ id: postId }))
       notify('Poistettu onnistuneesti', 'success')
     } catch (error) {
       notify('Ilmeni jokin ongelma poistossa', 'erro')
     }
   }
 
-  if (!userPosts) {
+  if (!userFeedPosts) {
     return (
       <Container>
         <Typography>Ladataan...</Typography>
@@ -35,14 +35,12 @@ const DevsOwnPosts = () => {
 
   return (
     <Box>
-        <Typography>Sinun ilmoituksesi</Typography>
         <Box>
-        {userPosts.length > 0 ? userPosts.map(p => (
+        {userFeedPosts.length > 0 ? userFeedPosts.map(p => (
             <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',
             borderRadius: '0.5rem', marginBottom: '1rem'}}>
-                <Typography sx={{ fontSize: '1.3rem' }}>{p.title}</Typography>
                 <Typography sx={{ whiteSpace: 'break-spaces' }}>{p.description}</Typography>
-                <Button component={Link} to={`/profiili/kehittaja/muokkaa/ilmoitus/${p.id}`} >Muokkaa ilmoituksen sisältöä</Button>
+                <Button component={Link} to={`/profiili/kayttaja/muokkaa/ilmoitus/${p.id}`} >Muokkaa ilmoituksen sisältöä</Button>
                 <Button component={Link} to={`/kehittajienilmoitukset/${p.id}`}>Siirry ilmoitukseen</Button>
                 <Button sx={{ color: 'red' }} onClick={() => handleDelete(p.id)}>Poista ilmoitus</Button>
             </Box>  
@@ -54,4 +52,4 @@ const DevsOwnPosts = () => {
   )
 }
 
-export default DevsOwnPosts
+export default BuyerFeedPosts

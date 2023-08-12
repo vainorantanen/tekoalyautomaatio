@@ -11,6 +11,8 @@ const AddPostInfo = () => {
           <Button component={Link} to='/lisaailmoitus/etsitekijaa'>Lisää tekoälyprojektipyyntö</Button>
           <Typography>Oletko kehittäjä?</Typography>
           <Button component={Link} to='/lisaailmoitus/kehittajanilmoitus'>Lisää tekoälyprojekti kehittäjänä</Button>
+          <Typography>Haluatko lisätä julkaisun feediin?</Typography>
+          <Button component={Link} to='/lisaajulkaisu'>Lisää tekoälyprojekti kehittäjänä</Button>
         </Container>
     </Box>
   )

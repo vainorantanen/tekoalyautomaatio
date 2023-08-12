@@ -2,6 +2,7 @@ import { Container, Typography, Box } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import BuyersPosts from './BuyersPosts'
+import BuyerFeedPosts from './BuyerFeedPosts'
 
 const BuyerProfile = () => {
   const localUser = useSelector(({user}) => user)
@@ -22,6 +23,8 @@ const BuyerProfile = () => {
             <Typography sx={{ whiteSpace: 'break-spaces' }}>{user.description}</Typography>
         </Box>
         <BuyersPosts />
+        <Typography sx={{ marginBottom: '2rem', marginTop: '2rem' }}>Omat julkaisut</Typography>
+        <BuyerFeedPosts />
     </Container>
   )
 }

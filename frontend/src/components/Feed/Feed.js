@@ -1,10 +1,10 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import React from 'react'
 import FeedItems from './FeedItems'
 
 const Feed = () => {
   return (
-    <Box sx={{ marginTop: '6rem', minHeight: '90vh' }}>
+    <Container sx={{ marginTop: '6rem', minHeight: '90vh', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
         <Typography sx={{
           fontSize: '1.8rem',
           textAlign: 'center',
@@ -15,8 +15,18 @@ const Feed = () => {
         }}>
             Feed
         </Typography>
+        <Typography sx={{
+          fontSize: '1.2rem',
+          textAlign: 'center',
+          marginBottom: '2rem',
+          '@media (max-width: 442px)': {
+            fontSize: '1rem',
+          },
+        }}>
+            Selaa tekoälyyn liittyviä julkaisuja
+        </Typography>
         <FeedItems />
-    </Box>
+    </Container>
   )
 }
 

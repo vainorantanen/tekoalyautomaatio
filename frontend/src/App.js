@@ -36,6 +36,7 @@ import SingleDevPage from './components/Devs/SingleDevPage'
 import ModifyBuyerPost from './components/Profile/ModifyBuyerPost'
 import ModifyDevPost from './components/Profile/ModifyDevPost'
 import Feed from './components/Feed/Feed'
+import AddFeedPost from './components/AddPost/AddFeedPost'
 
 const theme = createTheme({
   typography: {
@@ -85,11 +86,12 @@ const App = () => {
           <Route path='/kehittajienilmoitukset' element={<DevsPosts />} />
           <Route path='/kehittajienilmoitukset/:id' element={<SingleDevPostPage /> } />
           <Route path='/profiili' element={<Profile />} />
-          <Route path='/profiili/kayttaja/muokkaa/:id' element={<ModifyBuyerPost />} />
-          <Route path='/profiili/kehittaja/muokkaa/:id' element={<ModifyDevPost />} />
+          <Route path='/profiili/kayttaja/muokkaa/ilmoitus/:id' element={<ModifyBuyerPost />} />
+          <Route path='/profiili/kehittaja/muokkaa/ilmoitus/:id' element={<ModifyDevPost />} />
           <Route path='/kehittajat' element={<DevsList />} />
           <Route path='/kehittajat/:id' element={<SingleDevPage />} />
           <Route path='/feed' element={<Feed />} />
+          <Route path='/lisaajulkaisu' element={<AddFeedPost />} /> 
         </Routes>
         <Footer />
       </Box>
