@@ -15,7 +15,7 @@ const AllUsers = () => {
             fontSize: '1.3rem',
           },
         }}>
-            Kehittäjät
+            Käyttäjät
         </Typography>
         <Typography sx={{
           fontSize: '1.3rem',
@@ -25,7 +25,7 @@ const AllUsers = () => {
             fontSize: '1rem',
           },
         }}>
-            Selaa alustalla toimivia kehittäjiä
+            Selaa alustan profiileja
         </Typography>
         <AllUsersList />
     </Container>

@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const FeedPost = require('../models/feedPost')
+const FeedPostComment = require('../models/comment')
 
 const { userExtractor } = require('../utils/middleware')
 
@@ -7,6 +8,14 @@ router.get('/', async (request, response) => {
   const feedPosts = await FeedPost
     .find({})
     .populate('user', { name: 1 })
+    .populate({
+      path: 'comments',
+      select: 'content timeStamp user', // Include the user field
+      populate: {
+        path: 'user',
+        select: 'name'
+      }
+    })
   response.json(feedPosts)
 })
 
@@ -64,6 +73,39 @@ router.delete('/:id', userExtractor, async (request, response) => {
   await post.remove()
 
   response.status(204).end()
+})
+
+router.post('/:id/comments', userExtractor, async (request, response) => {
+  const { comment } = request.body
+
+  const user = request.user
+
+  if (!user) {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
+
+  const feedPost = await FeedPost.findById(request.params.id)
+
+  const commentToAdd = new FeedPostComment({
+    user: user._id,
+    content: comment,
+    timeStamp: new Date()
+  })
+
+  console.log('com', commentToAdd)
+
+  feedPost.comments = feedPost.comments.concat(commentToAdd)
+  user.comments = user.comments.concat(commentToAdd._id)
+  console.log('data')
+  console.log(feedPost.comments)
+  console.log(user.comments)
+
+  let feedPostAfter = await feedPost.save()
+  await user.save()
+
+  console.log('after', feedPostAfter)
+
+  response.json(feedPost)
 })
 
 module.exports = router

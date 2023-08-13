@@ -5,26 +5,14 @@ const schema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  description : {
+  content : {
     type: String,
     required: true
   },
   timeStamp: {
     type: Date,
     required: true
-  },
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'FeedPostComment'
-    }
-  ],
-  likes: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  ]
+  }
 })
 
 schema.set('toJSON', {
@@ -35,4 +23,4 @@ schema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('FeedPost', schema)
+module.exports = mongoose.model('FeedPostComment', schema)

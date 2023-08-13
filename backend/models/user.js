@@ -33,7 +33,13 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'FeedPost'
     }
-  ]
+  ],
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'FeedPostComment'
+    }
+  ],
 })
 
 userSchema.plugin(uniqueValidator)

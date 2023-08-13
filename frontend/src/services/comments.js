@@ -1,6 +1,6 @@
 import axios from 'axios'
 import storageService from './storage'
-const baseUrl = '/api/feedposts'
+const baseUrl = '/api/comments'
 
 const getAll = async () => {
   const request = await axios.get(baseUrl)
