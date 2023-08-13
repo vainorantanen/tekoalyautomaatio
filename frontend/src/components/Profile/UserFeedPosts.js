@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import { removeFeedPost } from '../../reducers/feedPosts'
 
-const BuyerFeedPosts = () => {
+const UserFeedPosts = () => {
     const notify = useNotification()
     const user = useSelector(({user}) => user)
   const dispatch = useDispatch()
@@ -40,16 +40,16 @@ const BuyerFeedPosts = () => {
             <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',
             borderRadius: '0.5rem', marginBottom: '1rem'}}>
                 <Typography sx={{ whiteSpace: 'break-spaces' }}>{p.description}</Typography>
-                <Button component={Link} to={`/profiili/kayttaja/muokkaa/ilmoitus/${p.id}`} >Muokkaa ilmoituksen sisältöä</Button>
-                <Button component={Link} to={`/kehittajienilmoitukset/${p.id}`}>Siirry ilmoitukseen</Button>
+                <Button component={Link} to={`/profiili/muokkaa/julkaisu/${p.id}`} >Muokkaa julkaisua</Button>
+                <Button component={Link} to={`/feed/${p.id}`}>Siirry ilmoitukseen</Button>
                 <Button sx={{ color: 'red' }} onClick={() => handleDelete(p.id)}>Poista ilmoitus</Button>
             </Box>  
         )) : (
-            <Typography>Ei vielä ilmoituksia</Typography>
+            <Typography>Ei vielä julkaisuja</Typography>
         )}
         </Box>
     </Box>
   )
 }
 
-export default BuyerFeedPosts
+export default UserFeedPosts

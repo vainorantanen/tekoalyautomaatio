@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { Box, Button, Typography
+import { Box
 
 } from '@mui/material'
 
 import { ThemeProvider } from '@emotion/react'
 import { createTheme } from '@mui/material/styles'
 import { Route, Routes } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import './App.css'
 
@@ -37,6 +37,8 @@ import ModifyBuyerPost from './components/Profile/ModifyBuyerPost'
 import ModifyDevPost from './components/Profile/ModifyDevPost'
 import Feed from './components/Feed/Feed'
 import AddFeedPost from './components/AddPost/AddFeedPost'
+import SingleFeedPostPage from './components/Feed/SingleFeedPostPage'
+import ModifyFeedPost from './components/Profile/ModifyFeedPost'
 
 const theme = createTheme({
   typography: {
@@ -88,9 +90,11 @@ const App = () => {
           <Route path='/profiili' element={<Profile />} />
           <Route path='/profiili/kayttaja/muokkaa/ilmoitus/:id' element={<ModifyBuyerPost />} />
           <Route path='/profiili/kehittaja/muokkaa/ilmoitus/:id' element={<ModifyDevPost />} />
+          <Route path='/profiili/muokkaa/julkaisu/:id' element={<ModifyFeedPost />} />
           <Route path='/kehittajat' element={<DevsList />} />
           <Route path='/kehittajat/:id' element={<SingleDevPage />} />
           <Route path='/feed' element={<Feed />} />
+          <Route path='/feed/:id' element={<SingleFeedPostPage />} />
           <Route path='/lisaajulkaisu' element={<AddFeedPost />} /> 
         </Routes>
         <Footer />

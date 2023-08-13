@@ -54,8 +54,7 @@ export const initUser = () => {
 export const updateUser= (object) => {
   return async dispatch => {
     const user = await usersService.update(object)
-    //storageService.loadUser(user)
-    // sitten ihanku kirjauduttais uudestaan sisään:
+    console.log('user after update', user)
     dispatch(set(user))
   }
 }

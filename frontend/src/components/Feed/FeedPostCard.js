@@ -6,6 +6,8 @@ const FeedPostCard = ({ post }) => {
 
   return (
     <Box
+    component={Link}
+    to={`/feed/${post.id}`}
       sx={{
         backgroundColor: 'white',
         color: 'black',
@@ -22,6 +24,9 @@ const FeedPostCard = ({ post }) => {
           marginLeft: '0.1rem',
           marginRight: '0.1rem',
         },
+        transition: '0.2s ease',
+        '&:hover': {
+          transform: 'scale(1.01)',}
       }}
     >
   

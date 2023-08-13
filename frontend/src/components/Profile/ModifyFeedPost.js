@@ -1,12 +1,13 @@
-import { Button, Container, TextField, Typography } from '@mui/material'
 import React from 'react'
+
+import { Button, Container, TextField, Typography } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { useNotification } from '../../hooks'
-import { updatePost } from '../../reducers/projectPosts'
+import { updateFeedPost } from '../../reducers/feedPosts'
 
-const ModifyBuyerPost = () => {
+const ModifyFeedPost = () => {
   
   const notify = useNotification()
   const dispatch = useDispatch()
@@ -14,11 +15,12 @@ const ModifyBuyerPost = () => {
     const postId = useParams().id
     const user = useSelector(({user}) => user)
 
-    const userPost = useSelector(({ projectPosts }) => projectPosts).find(p => p.id === postId)
-    const [description, setDescription] = useState(userPost.description);
+    const userPost = useSelector(({ feedPosts }) => feedPosts).find(p => p.id === postId)
+    const [description, setDescription] = useState(userPost.description)
+    
     const handleSubmit = async () => {
       try {
-          dispatch(updatePost({...userPost, description }))
+          dispatch(updateFeedPost({...userPost, description }))
           setDescription('')
           notify('Päivitys tehty onnistuneesti', 'success')
       } catch (error) {
@@ -38,10 +40,10 @@ const ModifyBuyerPost = () => {
         <Typography sx={{ marginBottom: '4rem' }}>Muokkaa ilmoituksen sisältöä</Typography>
         <TextField
         id="description"
-        label="Muokkaa esittelyä"
+        label="Muokkaa ilmoitusta"
         multiline
-        rows={16}
         fullWidth
+        rows={16}
         value={description}
         onChange={({ target }) => setDescription(target.value)}
         sx={{ marginBottom: '1rem',  maxWidth: '40rem' }}
@@ -65,4 +67,4 @@ const ModifyBuyerPost = () => {
   )
 }
 
-export default ModifyBuyerPost
+export default ModifyFeedPost

@@ -38,9 +38,9 @@ router.get('/', async (request, response) => {
 
 
 router.put('/:id', userExtractor, async (request, response) => {
-  const { description } = request.body
+  const { description, email } = request.body
 
-  let updatedUser = await User.findByIdAndUpdate(request.params.id,  { description }, { new: true })
+  let updatedUser = await User.findByIdAndUpdate(request.params.id,  { description, email }, { new: true })
 
   updatedUser = await User.findById(updatedUser._id)
 

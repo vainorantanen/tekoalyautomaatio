@@ -4,7 +4,7 @@ import FeedItems from './FeedItems'
 
 const Feed = () => {
   return (
-    <Container sx={{ marginTop: '6rem', minHeight: '90vh', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
+    <Container sx={{ marginTop: '6rem', minHeight: '90vh' }}>
         <Typography sx={{
           fontSize: '1.8rem',
           textAlign: 'center',
