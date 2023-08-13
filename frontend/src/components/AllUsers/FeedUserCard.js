@@ -2,12 +2,12 @@ import React from 'react'
 import { Typography, Box, } from '@mui/material'
 import { Link } from 'react-router-dom'
 
-const FeedDevCard = ({ dev }) => {
+const FeedUserCard = ({ user }) => {
 
   return (
     <Box
       component={Link}
-      to={`/kehittajat/${dev.id}`}
+      to={`/users/${user.id}`}
       sx={{
         backgroundColor: 'white',
         color: 'black',
@@ -31,7 +31,7 @@ const FeedDevCard = ({ dev }) => {
         },
       }}
     >
-      <Typography>{dev.name}</Typography>
+      <Typography>{user.name}</Typography>
       <Typography sx={{ color: '#555',
         overflow: 'hidden',
         whiteSpace: 'break-spaces',
@@ -40,9 +40,9 @@ const FeedDevCard = ({ dev }) => {
         WebkitLineClamp: 6, // Show only one line of description
         WebkitBoxOrient: 'vertical',
         lineHeight: '1.4', // Increase line height for better readability
-       }}>{dev.description}</Typography>
+       }}>{user.description}</Typography>
     </Box>
   )
 }
 
-export default FeedDevCard
+export default FeedUserCard

@@ -99,6 +99,9 @@ const Navbar = ({ logout }) => {
           <ListItemButton component={Link} to="/kehittajat" onClick={toggleDrawer}>
             <ListItemText primary="Kehittäjät" />
           </ListItemButton>
+          <ListItemButton component={Link} to="/users" onClick={toggleDrawer}>
+            <ListItemText primary="Etsi käyttäjiä" />
+          </ListItemButton>
           <ListItemButton component={Link} to="/kehittajienilmoitukset" onClick={toggleDrawer}>
             <ListItemText primary="Kehittäjien ilmoitukset" />
           </ListItemButton>

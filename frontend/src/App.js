@@ -39,6 +39,8 @@ import Feed from './components/Feed/Feed'
 import AddFeedPost from './components/AddPost/AddFeedPost'
 import SingleFeedPostPage from './components/Feed/SingleFeedPostPage'
 import ModifyFeedPost from './components/Profile/ModifyFeedPost'
+import AllUsers from './components/AllUsers/AllUsers'
+import SingleUserPage from './components/AllUsers/SingleUserPage'
 
 const theme = createTheme({
   typography: {
@@ -93,6 +95,8 @@ const App = () => {
           <Route path='/profiili/muokkaa/julkaisu/:id' element={<ModifyFeedPost />} />
           <Route path='/kehittajat' element={<DevsList />} />
           <Route path='/kehittajat/:id' element={<SingleDevPage />} />
+          <Route path='/users' element={<AllUsers />} />
+          <Route path='/users/:id' element={<SingleUserPage />} />
           <Route path='/feed' element={<Feed />} />
           <Route path='/feed/:id' element={<SingleFeedPostPage />} />
           <Route path='/lisaajulkaisu' element={<AddFeedPost />} /> 
