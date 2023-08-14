@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const ProjectPost = require('../models/projectPost')
+const Offer = require('../models/offer')
 
 const { userExtractor } = require('../utils/middleware')
 
@@ -7,6 +8,7 @@ router.get('/', async (request, response) => {
   const projectPosts = await ProjectPost
     .find({})
     .populate('user', { name: 1 })
+    .populate({ path: 'offers' })
   response.json(projectPosts)
 })
 
@@ -63,6 +65,39 @@ router.delete('/:id', userExtractor, async (request, response) => {
   await post.remove()
 
   response.status(204).end()
+})
+
+router.post('/:id/offers', userExtractor, async (request, response) => {
+  const { description, timeStamp, isApproved } = request.body
+
+  const user = request.user
+
+  if (!user) {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
+
+  const projectPost = await ProjectPost.findById(request.params.id)
+
+  const offerToAdd = new Offer({
+    description,
+    timeStamp,
+    isApproved
+  })
+
+  offerToAdd.user = user._id
+
+  await offerToAdd.save()
+
+  projectPost.offers = projectPost.offers.concat(offerToAdd._id)
+  let updatedprojectPost = await projectPost.save()
+
+  user.offers = user.offers.concat(offerToAdd._id)
+  await user.save()
+
+  updatedprojectPost = await ProjectPost.findById(projectPost.id).populate('user').populate({ path: 'offers' })
+  console.log('up', updatedprojectPost)
+  response.status(201).json(updatedprojectPost)
+
 })
 
 module.exports = router

@@ -1,8 +1,10 @@
-import { Container, Typography } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useNotification } from '../../hooks'
+import MakeOfferForm from './MakeOfferForm'
+import Togglable from '../Togglable'
 
 
 const SingleProjectPage = () => {
@@ -31,6 +33,19 @@ const SingleProjectPage = () => {
         <Typography sx={{
           whiteSpace: 'break-spaces'
         }}>{projectPost.description}</Typography>
+        {user && user.isDeveloper === true && (
+        <Togglable buttonLabel='Tee tarjous'>
+          <MakeOfferForm projectPost={projectPost}/>
+        </Togglable>
+      )}
+      <Box>
+        {projectPost.offers.map(offer => (
+          <Box key={offer.id} sx={{ color: 'black', backgroundColor: 'white', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
+            <Typography>{offer.timeStamp.split('T')[0]}</Typography>
+            <Typography>{offer.description}</Typography>
+          </Box>
+        ))}
+      </Box>
     </Container>
   )
 }

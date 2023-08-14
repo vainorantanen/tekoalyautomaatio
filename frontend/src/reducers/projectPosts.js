@@ -44,9 +44,10 @@ export const updatePost= (object) => {
   }
 }
 
-export const commentPost = (id, comment) => {
+export const makeOffer = (id, content) => {
   return async dispatch => {
-    const data = await projectPostService.comment(id, comment)
+    console.log(id, content)
+    const data = await projectPostService.makeoffer(id, content)
     dispatch(alter(data))
   }
 }

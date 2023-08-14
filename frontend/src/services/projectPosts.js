@@ -28,5 +28,12 @@ const remove = async (id) => {
   await axios.delete(`${baseUrl}/${id}`, { headers })
 }
 
+const makeoffer = async (id, content) => {
+  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+  const headers = token ? { 'Authorization': token } : {}
+  const request = await axios.post(`${baseUrl}/${id}/offers`, content, { headers })
+  return request.data
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, update, remove }
+export default { getAll, create, update, remove, makeoffer }
