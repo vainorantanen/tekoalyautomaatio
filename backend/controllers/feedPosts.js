@@ -10,12 +10,8 @@ router.get('/', async (request, response) => {
     .populate('user', { name: 1 })
     .populate({
       path: 'comments',
-      select: 'content timeStamp user', // Include the user field
-      populate: {
-        path: 'user',
-        select: 'name'
-      }
     })
+
   response.json(feedPosts)
 })
 
@@ -87,25 +83,46 @@ router.post('/:id/comments', userExtractor, async (request, response) => {
   const feedPost = await FeedPost.findById(request.params.id)
 
   const commentToAdd = new FeedPostComment({
-    user: user._id,
     content: comment,
     timeStamp: new Date()
   })
 
-  console.log('com', commentToAdd)
+  commentToAdd.user = user._id
 
-  feedPost.comments = feedPost.comments.concat(commentToAdd)
+  await commentToAdd.save()
+
+  feedPost.comments = feedPost.comments.concat(commentToAdd._id)
+  let updatedFeedPost = await feedPost.save()
+
   user.comments = user.comments.concat(commentToAdd._id)
-  console.log('data')
-  console.log(feedPost.comments)
-  console.log(user.comments)
-
-  let feedPostAfter = await feedPost.save()
   await user.save()
 
-  console.log('after', feedPostAfter)
+  updatedFeedPost = await FeedPost.findById(feedPost.id).populate('user').populate({ path: 'comments' })
+  response.status(201).json(updatedFeedPost)
 
-  response.json(feedPost)
+})
+
+router.delete('/:id/comments/:cid', userExtractor, async (request, response) => {
+  const feedPost = await FeedPost.findById(request.params.id)
+  const user = request.user
+  const commentId = request.params.cid
+
+  const commentToDelete = await FeedPostComment.findById(commentId)
+
+  if (!user || !(commentToDelete.user.toString() === user._id.toString() || user._id.toString() === feedPost.user.toString())) {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
+
+  await commentToDelete.remove()
+
+  user.comments = user.comments.filter(c => c.id !== commentId)
+  await user.save()
+  feedPost.comments = feedPost.comments.filter(c => c.id !== commentId)
+  let updatedFeedPost = await feedPost.save()
+
+  updatedFeedPost = await FeedPost.findById(feedPost.id).populate('user').populate({ path: 'comments' })
+  response.status(201).json(updatedFeedPost)
+
 })
 
 module.exports = router

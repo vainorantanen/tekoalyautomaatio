@@ -14,7 +14,6 @@ router.get('/', async (request, response) => {
 router.post('/', userExtractor, async (request, response) => {
   //console.log("RBODY", request.body)
   const { comment, targetId } = request.body
-  console.log('body', comment, targetId)
   //console.log("aINFO", additionalinfo)
   const feedPostComment = new FeedPostComment({
     content: comment,

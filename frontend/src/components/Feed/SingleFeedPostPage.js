@@ -5,7 +5,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import CommentSection from './CommentSection'
 import { addComment } from '../../reducers/comments'
-
+import { commentFeedPost } from '../../reducers/feedPosts'
 
 const SingleFeedPostPage = () => {
   const [comment, setComment] = useState('')
@@ -20,9 +20,11 @@ const SingleFeedPostPage = () => {
 
   const handleComment = async () => {
     try {
-      dispatch(addComment({targetId: feedPost.id, comment}))
+      //dispatch(addComment({targetId: feedPost.id, comment}))
+      dispatch(commentFeedPost(feedPost.id, comment))
       notifyWith('Kommentti lisätty onnistuneesti', 'success')
       setComment('')
+      
     } catch (error) {
       notifyWith('Kommentin lisäys epäonnistui', 'error')
     }
