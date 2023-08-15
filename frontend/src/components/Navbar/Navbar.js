@@ -116,11 +116,11 @@ const Navbar = ({ logout }) => {
               <ListItemText primary="Profiili" />
             </ListItemButton>
           )}
-          {user && user.isDeveloper ? (
+          {user && (
             <ListItemButton component={Link} to={`/portaali`}>
               <ListItemText primary="Portaali" />
             </ListItemButton>
-          ) : null}
+          )}
           {user ? (
             <ListItemButton component={Link} onClick={logout}>
             <ListItemText primary="Kirjaudu ulos" />

@@ -42,7 +42,7 @@ const SingleProjectPage = () => {
         {projectPost.offers.map(offer => (
           <Box key={offer.id} sx={{ color: 'black', backgroundColor: 'white', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
             <Typography>{offer.timeStamp.split('T')[0]}</Typography>
-            <Typography>{offer.description}</Typography>
+            <Typography sx={{ whiteSpace: 'break-spaces' }}>{offer.description}</Typography>
           </Box>
         ))}
       </Box>

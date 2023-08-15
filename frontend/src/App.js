@@ -102,6 +102,7 @@ const App = () => {
           <Route path='/feed/:id' element={<SingleFeedPostPage />} />
           <Route path='/lisaajulkaisu' element={<AddFeedPost />} /> 
           <Route path='/portaali' element={<Portal />} />
+          <Route path='/portaali/ilmoitukset/:id' element={<SingleProjectPage />} />
         </Routes>
         <Footer />
       </Box>

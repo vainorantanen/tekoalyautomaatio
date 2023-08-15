@@ -4,6 +4,8 @@ import {
   Button,
   Typography,
   Container,
+  FormControlLabel,
+  Checkbox,
   Box,
 } from '@mui/material'
 
@@ -14,12 +16,16 @@ import { addPost } from '../../reducers/projectPosts'
 const AddPost = () => {
   const [description, setDescription] = useState('')
   const [ title, setTitle ] = useState('')
+  const [ isPortalPost, setIsPortalPost ] = useState(false)
 
   const user = useSelector(({ user }) => user)
   const notify = useNotification()
   
   const dispatch = useDispatch()
 
+  const handleIsPortalPostChange = (e) => {
+    setIsPortalPost(e.target.checked)
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -28,6 +34,7 @@ const AddPost = () => {
         title,
         description,
         timeStamp: new Date(),
+        isPortalPost
       }))
       notify('Postaus lisätty onnistuneesti', 'success')
       setDescription('')
@@ -95,6 +102,11 @@ const AddPost = () => {
           maxWidth: '30rem',
         }}
       >
+        <FormControlLabel
+          control={<Checkbox checked={isPortalPost} onChange={handleIsPortalPostChange} />}
+          label="Valitse tämä, jos haluat julkaista ilmoituksen vain toimittajien nähtäville"
+          sx={{ marginBottom: '1rem' }}
+        />
         <TextField
           id="title"
           label="Otsikko"

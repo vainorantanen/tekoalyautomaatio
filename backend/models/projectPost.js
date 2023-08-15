@@ -22,7 +22,8 @@ const schema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Offer'
     }
-  ]
+  ],
+  isPortalPost: Boolean
 })
 
 schema.set('toJSON', {
