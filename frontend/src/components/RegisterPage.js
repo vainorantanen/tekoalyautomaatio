@@ -29,7 +29,7 @@ const RegisterPage = () => {
 
     if (password !== confirmPassword) {
       // Passwords don't match, handle error here (e.g., display an error message)
-      console.log('Salasanat eivät täsmää!')
+      notify('Salasanat eivät täsmää!', 'error')
       return
     }
     try {

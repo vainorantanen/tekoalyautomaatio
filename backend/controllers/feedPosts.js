@@ -102,6 +102,31 @@ router.post('/:id/comments', userExtractor, async (request, response) => {
 
 })
 
+router.post('/:id/likes', userExtractor, async (request, response) => {
+  const user = request.user
+
+  if (!user) {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
+
+  const feedPost = await FeedPost.findById(request.params.id)
+
+  // implement here that if feedPost.likes contains user.id.toString() then return error
+  if (feedPost.likes.includes(user._id.toString())) {
+    return response.status(400).json({ error: 'You have already liked this post' })
+  }
+
+  feedPost.likes = feedPost.likes.concat(user._id)
+  let updatedFeedPost = await feedPost.save()
+
+  user.likedPosts = user.likedPosts.concat(feedPost._id)
+  await user.save()
+
+  updatedFeedPost = await FeedPost.findById(feedPost.id).populate('user').populate({ path: 'comments' })
+  response.status(201).json(updatedFeedPost)
+
+})
+
 router.delete('/:id/comments/:cid', userExtractor, async (request, response) => {
   const feedPost = await FeedPost.findById(request.params.id)
   const user = request.user

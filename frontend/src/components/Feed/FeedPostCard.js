@@ -1,6 +1,7 @@
 import React from 'react'
-import { Typography, Box, } from '@mui/material'
+import { Typography, Box, Button, } from '@mui/material'
 import { Link } from 'react-router-dom'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 const FeedPostCard = ({ post }) => {
 
@@ -41,6 +42,8 @@ const FeedPostCard = ({ post }) => {
         WebkitBoxOrient: 'vertical',
         lineHeight: '1.4', // Increase line height for better readability
        }}>{post.description}</Typography>
+       <Typography>{post.likes.length} Tykkäystä</Typography>
+      <Button>Tykkää <ThumbUpIcon /></Button>
     </Box>
   )
 }

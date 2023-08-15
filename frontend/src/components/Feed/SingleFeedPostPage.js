@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import CommentSection from './CommentSection'
-import { addComment } from '../../reducers/comments'
-import { commentFeedPost } from '../../reducers/feedPosts'
+import { commentFeedPost, likeFeedPost } from '../../reducers/feedPosts'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 const SingleFeedPostPage = () => {
   const [comment, setComment] = useState('')
   const dispatch = useDispatch()
   const notifyWith = useNotification()
-  const navigate = useNavigate()
 
   const id = useParams().id
 
@@ -20,7 +19,6 @@ const SingleFeedPostPage = () => {
 
   const handleComment = async () => {
     try {
-      //dispatch(addComment({targetId: feedPost.id, comment}))
       dispatch(commentFeedPost(feedPost.id, comment))
       notifyWith('Kommentti lisätty onnistuneesti', 'success')
       setComment('')
@@ -29,6 +27,16 @@ const SingleFeedPostPage = () => {
       notifyWith('Kommentin lisäys epäonnistui', 'error')
     }
   }
+
+  const handleLike = async () => {
+    try {
+      dispatch(likeFeedPost(feedPost.id));
+      notifyWith('Tykkäys lisätty onnistuneesti', 'success');
+    } catch (error) {
+      notifyWith('Olet jo tykännyt tästä julkaisusta', 'error');
+    }
+  };
+  
 
   if (!feedPost) {
     return (
@@ -45,7 +53,10 @@ const SingleFeedPostPage = () => {
         <Typography sx={{
           whiteSpace: 'break-spaces'
         }}>{feedPost.description}</Typography>
-
+      <Typography>{feedPost.likes.length} Tykkäystä</Typography>
+      {user && (
+        <Button onClick={handleLike}>Tykkää <ThumbUpIcon /></Button>
+      )}
         {/*Kommenttiosio*/}
         <TextField
           id="comment"

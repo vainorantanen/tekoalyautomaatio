@@ -44,9 +44,23 @@ export const updatePost= (object) => {
   }
 }
 
-export const commentPost = (id, comment) => {
+export const makeOffer = (id, content) => {
   return async dispatch => {
-    const data = await projectPostService.comment(id, comment)
+    const data = await projectPostService.makeoffer(id, content)
+    dispatch(alter(data))
+  }
+}
+
+export const modifyOfferApprovedState = (offerId, targetId) => {
+  return async dispatch => {
+    const data = await projectPostService.modifyAccept(targetId, offerId)
+    dispatch(alter(data))
+  }
+}
+
+export const removOfferFromProjectPost = (offerId, targetId) => {
+  return async dispatch => {
+    const data = await projectPostService.removeOffer(targetId, offerId)
     dispatch(alter(data))
   }
 }

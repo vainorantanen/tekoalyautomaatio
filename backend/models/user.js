@@ -40,6 +40,18 @@ const userSchema = mongoose.Schema({
       ref: 'FeedPostComment'
     }
   ],
+  offers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Offer'
+    }
+  ],
+  likedPosts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'FeedPostComment'
+    }
+  ]
 })
 
 userSchema.plugin(uniqueValidator)

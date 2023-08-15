@@ -40,7 +40,7 @@ const CommentSection = () => {
     <Box>
         {feedPost.comments.map(comment => (
             <Box key={comment.id} sx={{ backgroundColor: 'white', color: 'black', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
-                <Typography>{users.find(u => u.id === comment.user).name}</Typography>
+                <Typography>{users.find(u => u.id === comment.user).name || 'Joku'}</Typography>
                 <Typography>{comment.timeStamp.split('T')[0]}</Typography>
                 <Typography>{comment.content}</Typography>
                 {user && (user.id === comment.user || user.id === feedPost.user.id) ? (

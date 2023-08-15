@@ -17,7 +17,7 @@ const FeedItems = () => {
     setCurrentPage(1)
   }, [])
 
-  const projectPosts = useSelector(({ projectPosts }) => projectPosts)
+  const projectPosts = useSelector(({ projectPosts }) => projectPosts).filter(p => !p.isPortalPost)
 
   if (!projectPosts || projectPosts.length === 0) {
     return (

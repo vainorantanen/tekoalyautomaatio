@@ -1,6 +1,7 @@
 import feedPostService from '../services/feedPosts'
 
 import { createSlice } from '@reduxjs/toolkit'
+import { notify } from './notification'
 
 const slice = createSlice({
   name: 'feedPosts',
@@ -48,6 +49,22 @@ export const commentFeedPost = (id, comment) => {
   return async dispatch => {
     const data = await feedPostService.comment(id, comment)
     dispatch(alter(data))
+  }
+}
+
+export const likeFeedPost = (id) => {
+  return async dispatch => {
+    try {
+      const data = await feedPostService.like(id);
+      dispatch(alter(data));
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        dispatch(notify('Olet jo tykännyt tästä julkaisusta', 'error'))
+        return error
+      } else {
+        throw error;
+      }
+    }
   }
 }
 
