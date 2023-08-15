@@ -22,6 +22,13 @@ const update = async (object) => {
   return request.data
 }
 
+const modifyAccept = async (targetId, offerId) => {
+  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+  const headers = token ? { 'Authorization': token } : {}
+  const request = await axios.put(`${baseUrl}/${targetId}/offerAccept/${offerId}`, { headers })
+  return request.data
+}
+
 const remove = async (id) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
@@ -35,5 +42,13 @@ const makeoffer = async (id, content) => {
   return request.data
 }
 
+const removeOffer = async (postId, offerId) => {
+  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+  const headers = token ? { 'Authorization': token } : {}
+  const request = await axios.delete(`${baseUrl}/${postId}/offers/${offerId}`, { headers })
+  return request.data
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, update, remove, makeoffer }
+export default { getAll, create, update, remove, makeoffer, modifyAccept,
+removeOffer }
