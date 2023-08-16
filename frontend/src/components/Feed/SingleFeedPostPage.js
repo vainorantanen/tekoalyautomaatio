@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import CommentSection from './CommentSection'
-import { commentFeedPost, likeFeedPost } from '../../reducers/feedPosts'
+import { commentFeedPost, disLikeFeedPost, likeFeedPost } from '../../reducers/feedPosts'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
 const SingleFeedPostPage = () => {
   const [comment, setComment] = useState('')
@@ -29,11 +30,25 @@ const SingleFeedPostPage = () => {
   }
 
   const handleLike = async () => {
+    if (feedPost.likes.includes(user.id)) {
+      notifyWith('Olet jo tykännyt tästä julkaisusta', 'error');
+      return
+    }
+
     try {
       dispatch(likeFeedPost(feedPost.id));
       notifyWith('Tykkäys lisätty onnistuneesti', 'success');
     } catch (error) {
       notifyWith('Olet jo tykännyt tästä julkaisusta', 'error');
+    }
+  };
+
+  const handleDisLike = async () => {
+    try {
+      dispatch(disLikeFeedPost(feedPost.id));
+      notifyWith('Tykkäys poistettu onnistuneesti', 'success');
+    } catch (error) {
+      notifyWith('VIrhe tykkäyksen poistossa', 'error');
     }
   };
   
@@ -54,9 +69,9 @@ const SingleFeedPostPage = () => {
           whiteSpace: 'break-spaces'
         }}>{feedPost.description}</Typography>
       <Typography>{feedPost.likes.length} Tykkäystä</Typography>
-      {user && (
+      {user && !feedPost.likes.includes(user.id) ? (
         <Button onClick={handleLike}>Tykkää <ThumbUpIcon /></Button>
-      )}
+      ): <Button onClick={handleDisLike}>En tykkääkään <ThumbDownIcon /></Button>}
         {/*Kommenttiosio*/}
         <TextField
           id="comment"

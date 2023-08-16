@@ -68,6 +68,13 @@ export const likeFeedPost = (id) => {
   }
 }
 
+export const disLikeFeedPost = (id) => {
+  return async dispatch => {
+    const data = await feedPostService.dislike(id)
+    dispatch(alter(data))
+  }
+}
+
 export const removeCommentFromFeedPost = (id, comment) => {
   return async dispatch => {
     const data = await feedPostService.removeComment(id, comment)

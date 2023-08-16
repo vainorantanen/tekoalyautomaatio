@@ -42,6 +42,13 @@ const removeComment = async (postId, commentId) => {
   return request.data
 }
 
+const dislike = async (postId) => {
+  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+  const headers = token ? { 'Authorization': token } : {}
+  const request = await axios.delete(`${baseUrl}/${postId}/likes`, { headers })
+  return request.data
+}
+
 const like = async (id) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
@@ -50,4 +57,4 @@ const like = async (id) => {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, update, remove, comment, removeComment, like }
+export default { getAll, create, update, remove, comment, removeComment, like, dislike }
