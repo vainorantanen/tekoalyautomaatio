@@ -25,7 +25,7 @@ const update = async (object) => {
 const modifyAccept = async (targetId, offerId) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
-  const request = await axios.put(`${baseUrl}/${targetId}/offerAccept/${offerId}`, { headers })
+  const request = await axios.put(`${baseUrl}/${targetId}/offerAccept/${offerId}`, {}, { headers })
   return request.data
 }
 

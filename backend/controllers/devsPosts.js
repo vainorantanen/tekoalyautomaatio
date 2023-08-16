@@ -36,8 +36,16 @@ router.post('/', userExtractor, async (request, response) => {
   response.status(201).json(createdDevsPost)
 })
 
-router.put('/:id', async (request, response) => {
+router.put('/:id', userExtractor, async (request, response) => {
   const { description, isOpen } = request.body
+
+  const user = request.user
+
+  const devPost = await DevsPost.findById(request.params.id)
+
+  if (!user || devPost.user.toString() !== user.id.toString()) {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
 
   let updatedDevsPost = await DevsPost.findByIdAndUpdate(request.params.id,  { description, isOpen }, { new: true })
 

@@ -5,6 +5,10 @@ const schema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  offeror: {
+    type: String,
+    required: true
+  },
   description : {
     type: String,
     required: true
@@ -16,6 +20,10 @@ const schema = mongoose.Schema({
   isApproved: {
     type: Boolean,
     required: true
+  },
+  targetPost: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ProjectPost'
   }
 })
 

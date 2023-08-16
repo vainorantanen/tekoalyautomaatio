@@ -44,18 +44,31 @@ router.post('/', userExtractor, async (request, response) => {
   response.status(201).json(createdFeedPost)
 })
 
-router.put('/:id', async (request, response) => {
+router.put('/:id', userExtractor, async (request, response) => {
   const { description } = request.body
+
+  const user = request.user
+
+  // käyttäjän tulee olla sama kuin postauksen lisännyt käyttäjä
+
+  const feedPost = await FeedPost.findById(request.params.id)
+
+  if (!user || feedPost.user.toString() !== user.id.toString()) {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
 
   let updatedFeedPost = await FeedPost.findByIdAndUpdate(request.params.id,  { description }, { new: true })
 
-  updatedFeedPost = await FeedPost.findById(updatedFeedPost._id).populate('user')
+  updatedFeedPost = await FeedPost.findById(updatedFeedPost._id).populate('user').populate({ path: 'comments' })
 
   response.json(updatedFeedPost)
 })
 
 router.delete('/:id', userExtractor, async (request, response) => {
-  const post = await FeedPost.findById(request.params.id)
+
+  const postId = request.params.id
+  const post = await FeedPost.findById(postId)
+
 
   const user = request.user
 
@@ -63,9 +76,15 @@ router.delete('/:id', userExtractor, async (request, response) => {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
+  // poistetaan käyttäjän feedposteista kyseinen feedpost
+
   user.feedPosts = user.feedPosts.filter(b => b.toString() !== post.id.toString() )
 
   await user.save()
+
+  // Remove related comments for the post
+  await FeedPostComment.deleteMany({ targetPost: postId })
+
   await post.remove()
 
   response.status(204).end()
@@ -84,7 +103,9 @@ router.post('/:id/comments', userExtractor, async (request, response) => {
 
   const commentToAdd = new FeedPostComment({
     content: comment,
-    timeStamp: new Date()
+    timeStamp: new Date(),
+    commentorName: user.name,
+    targetPost: feedPost._id
   })
 
   commentToAdd.user = user._id
@@ -93,9 +114,6 @@ router.post('/:id/comments', userExtractor, async (request, response) => {
 
   feedPost.comments = feedPost.comments.concat(commentToAdd._id)
   let updatedFeedPost = await feedPost.save()
-
-  user.comments = user.comments.concat(commentToAdd._id)
-  await user.save()
 
   updatedFeedPost = await FeedPost.findById(feedPost.id).populate('user').populate({ path: 'comments' })
   response.status(201).json(updatedFeedPost)
@@ -119,8 +137,22 @@ router.post('/:id/likes', userExtractor, async (request, response) => {
   feedPost.likes = feedPost.likes.concat(user._id)
   let updatedFeedPost = await feedPost.save()
 
-  user.likedPosts = user.likedPosts.concat(feedPost._id)
-  await user.save()
+  updatedFeedPost = await FeedPost.findById(feedPost.id).populate('user').populate({ path: 'comments' })
+  response.status(201).json(updatedFeedPost)
+
+})
+
+router.delete('/:id/likes', userExtractor, async (request, response) => {
+  const user = request.user
+
+  const feedPost = await FeedPost.findById(request.params.id)
+
+  if (!user || !feedPost.likes.includes(user.id)) {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
+
+  feedPost.likes = feedPost.likes.filter(l => l._id.toString() !== user._id.toString())
+  let updatedFeedPost = await feedPost.save()
 
   updatedFeedPost = await FeedPost.findById(feedPost.id).populate('user').populate({ path: 'comments' })
   response.status(201).json(updatedFeedPost)
@@ -140,9 +172,7 @@ router.delete('/:id/comments/:cid', userExtractor, async (request, response) => 
 
   await commentToDelete.remove()
 
-  user.comments = user.comments.filter(c => c.id !== commentId)
-  await user.save()
-  feedPost.comments = feedPost.comments.filter(c => c.id !== commentId)
+  feedPost.comments = feedPost.comments.filter(c => c._id.toString() !== commentId)
   let updatedFeedPost = await feedPost.save()
 
   updatedFeedPost = await FeedPost.findById(feedPost.id).populate('user').populate({ path: 'comments' })

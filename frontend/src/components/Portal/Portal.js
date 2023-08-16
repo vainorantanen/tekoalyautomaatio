@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import DevPortal from './DevPortal'
@@ -9,7 +9,11 @@ const Portal = () => {
   const user = useSelector(({user}) => user)
 
   if (!user) {
-    return <Typography>Kirjaudu sisään nähdäksesi portaali</Typography>
+    return (
+      <Container sx={{ marginTop: '5rem', minHeight: '90vh' }}>
+        <Typography>Kirjaudu sisään nähdäksesi portaali</Typography>
+      </Container>
+    )
   }
 
   return (

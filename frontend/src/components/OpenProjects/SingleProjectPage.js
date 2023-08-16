@@ -56,6 +56,13 @@ const SingleProjectPage = () => {
     )
   }
 
+  if (!user && projectPost.isPortalPost) {
+    return ( <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
+      <Typography>Et voi nähdä portaalipostauksia, ne ovat salaisia!</Typography>
+      </Container>
+    )
+  }
+
   return (
     <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
         <Typography sx={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{projectPost.title}</Typography>
