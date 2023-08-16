@@ -12,6 +12,14 @@ const schema = mongoose.Schema({
   timeStamp: {
     type: Date,
     required: true
+  },
+  commentorName: {
+    type: String,
+    required: true
+  },
+  targetPost: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'FeedPost'
   }
 })
 
