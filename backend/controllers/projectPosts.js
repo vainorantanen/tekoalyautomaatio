@@ -20,7 +20,8 @@ router.post('/', userExtractor, async (request, response) => {
     description,
     timeStamp,
     title,
-    isPortalPost
+    isPortalPost,
+    offers: []
   })
 
   const user = request.user
@@ -41,8 +42,18 @@ router.post('/', userExtractor, async (request, response) => {
   response.status(201).json(createdprojectPost)
 })
 
-router.put('/:id', async (request, response) => {
+router.put('/:id', userExtractor, async (request, response) => {
   const { description } = request.body
+
+  const user = request.user
+
+  // käyttäjän tulee olla sama kuin postauksen lisännyt käyttäjä
+
+  const projectPost = await ProjectPost.findById(request.params.id)
+
+  if (!user || projectPost.user.toString() !== user.id.toString()) {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
 
   let updatedprojectPost = await ProjectPost.findByIdAndUpdate(request.params.id,  { description }, { new: true })
 
@@ -51,17 +62,22 @@ router.put('/:id', async (request, response) => {
   response.json(updatedprojectPost)
 })
 
-router.put('/:id/offerAccept/:oid', async (request, response) => {
+router.put('/:id/offerAccept/:oid', userExtractor, async (request, response) => {
+
+  const user = request.user
 
   const projectPostId = request.params.id
   const offerId = request.params.oid
-  console.log('ids', projectPostId, offerId)
 
   const projectPost = await ProjectPost.findById(projectPostId)
 
+  // vain projectPostin lisännyt käyttäjä voi hyväksyä tarjouksen
+  if (!user || projectPost.user.toString() !== user.id.toString()) {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
+
   // Update the isApproved field of the specified offer
   const updatedOffer = await Offer.findByIdAndUpdate(offerId, { isApproved: true }, { new: true })
-  console.log('upd offeri', updatedOffer)
   // Find the projectPost and update its offers array with the updated offer
 
   const updatedOffersArray = projectPost.offers.map(offer =>
@@ -74,7 +90,6 @@ router.put('/:id/offerAccept/:oid', async (request, response) => {
     { new: true }
   ).populate('user').populate({ path: 'offers' })
 
-  console.log('updated', updatedprojectPost)
   response.json(updatedprojectPost)
 })
 
@@ -90,6 +105,9 @@ router.delete('/:id', userExtractor, async (request, response) => {
   user.projectPosts = user.projectPosts.filter(b => b.toString() !== post.id.toString() )
 
   await user.save()
+
+  await Offer.deleteMany({ targetPost: request.params.id })
+
   await post.remove()
 
   response.status(204).end()
@@ -100,7 +118,7 @@ router.post('/:id/offers', userExtractor, async (request, response) => {
 
   const user = request.user
 
-  if (!user) {
+  if (!user || user.isDeveloper === false) {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
@@ -109,7 +127,9 @@ router.post('/:id/offers', userExtractor, async (request, response) => {
   const offerToAdd = new Offer({
     description,
     timeStamp,
-    isApproved
+    isApproved,
+    offeror: user.name,
+    targetPost: projectPost._id
   })
 
   offerToAdd.user = user._id
@@ -123,7 +143,6 @@ router.post('/:id/offers', userExtractor, async (request, response) => {
   await user.save()
 
   updatedprojectPost = await ProjectPost.findById(projectPost.id).populate('user').populate({ path: 'offers' })
-  console.log('up', updatedprojectPost)
   response.status(201).json(updatedprojectPost)
 
 })
@@ -135,15 +154,15 @@ router.delete('/:id/offers/:oid', userExtractor, async (request, response) => {
 
   const offerToDelete = await Offer.findById(offerId)
 
-  if (!user) {
+  if (!user || !(offerToDelete.user.toString() === user._id.toString() || user._id.toString() === projectPost.user.toString())) {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
   await offerToDelete.remove()
 
-  user.offers = user.offers.filter(c => c.id !== offerId)
+  user.offers = user.offers.filter(c => c._id.toString() !== offerId)
   await user.save()
-  projectPost.offers = projectPost.offers.filter(c => c.id !== offerId)
+  projectPost.offers = projectPost.offers.filter(c => c._id.toString() !== offerId)
   let updatedprojectPost = await projectPost.save()
 
   updatedprojectPost = await ProjectPost.findById(projectPost.id).populate('user').populate({ path: 'offers' })

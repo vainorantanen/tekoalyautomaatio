@@ -172,7 +172,7 @@ router.delete('/:id/comments/:cid', userExtractor, async (request, response) => 
 
   await commentToDelete.remove()
 
-  feedPost.comments = feedPost.comments.filter(c => c.id !== commentId)
+  feedPost.comments = feedPost.comments.filter(c => c._id.toString() !== commentId)
   let updatedFeedPost = await feedPost.save()
 
   updatedFeedPost = await FeedPost.findById(feedPost.id).populate('user').populate({ path: 'comments' })
