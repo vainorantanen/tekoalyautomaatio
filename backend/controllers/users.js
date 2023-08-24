@@ -41,6 +41,14 @@ router.get('/', async (request, response) => {
 router.put('/:id', userExtractor, async (request, response) => {
   const { description, email } = request.body
 
+  const user = request.user
+
+  const wantedUser = await User.findById(request.params.id)
+
+  if (!user || wantedUser.id.toString() !== user.id.toString()) {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
+
   let updatedUser = await User.findByIdAndUpdate(request.params.id,  { description, email }, { new: true })
 
   updatedUser = await User.findById(updatedUser._id)

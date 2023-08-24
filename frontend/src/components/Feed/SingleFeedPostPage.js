@@ -1,7 +1,7 @@
 import { Container, Typography, TextField, Button } from '@mui/material'
 import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import CommentSection from './CommentSection'
 import { commentFeedPost, disLikeFeedPost, likeFeedPost } from '../../reducers/feedPosts'
@@ -62,11 +62,12 @@ const SingleFeedPostPage = () => {
   }
 
   return (
-    <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
+    <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem'}}>
         <Typography component={Link} to={`/users/${feedPost.user.id}`} sx={{ marginBottom: '1rem',
       textDecoration: 'underline', color: 'white' }}>{feedPost.user.name}</Typography>
         <Typography sx={{
-          whiteSpace: 'break-spaces'
+          whiteSpace: 'break-spaces',
+          marginBottom: '2rem'
         }}>{feedPost.description}</Typography>
       <Typography>{feedPost.likes.length} Tykkäystä</Typography>
       {user && !feedPost.likes.includes(user.id) ? (
@@ -79,7 +80,7 @@ const SingleFeedPostPage = () => {
           required
           multiline
           fullWidth
-          rows={2}
+          rows={1}
           value={comment}
           onChange={({ target }) => setComment(target.value)}
           sx={{ marginBottom: '1rem', marginTop: '1rem' }}

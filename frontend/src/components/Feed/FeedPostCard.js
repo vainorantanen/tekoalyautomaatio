@@ -40,10 +40,10 @@ const FeedPostCard = ({ post }) => {
         display: '-webkit-box',
         WebkitLineClamp: 3, // Show only one line of description
         WebkitBoxOrient: 'vertical',
+        marginTop: '2rem',
         lineHeight: '1.4', // Increase line height for better readability
        }}>{post.description}</Typography>
        <Typography>{post.likes.length} Tykkäystä</Typography>
-      <Button>Tykkää <ThumbUpIcon /></Button>
     </Box>
   )
 }

@@ -13,9 +13,9 @@ router.get('/', async (request, response) => {
 })
 
 router.post('/', userExtractor, async (request, response) => {
-  //console.log("RBODY", request.body)
+
   const { description, timeStamp, title, isPortalPost } = request.body
-  //console.log("aINFO", additionalinfo)
+  
   const projectPost = new ProjectPost({
     description,
     timeStamp,
