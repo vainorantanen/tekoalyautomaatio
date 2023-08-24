@@ -4,12 +4,14 @@ import {
   Button,
   Container,
   Typography,
+  TextField
 } from '@mui/material'
 import { useSelector } from 'react-redux'
 import FeedUserCard from './FeedUserCard'
 
 const AllUsersList = () => {
     const [currentPage, setCurrentPage] = useState(1)
+    const [searchTerm, setSearchTerm] = useState('');
   const postsPerPage = 5
 
   useEffect(() => {
@@ -17,6 +19,11 @@ const AllUsersList = () => {
   }, [])
 
   const allUsers = useSelector(({users}) => users)
+
+  const filteredUsers = allUsers.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) // Filter by name
+  );
 
   if (!allUsers || allUsers.length === 0) {
     return (
@@ -28,7 +35,7 @@ const AllUsersList = () => {
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
-  const currentUsers = allUsers.slice(indexOfFirstPost, indexOfLastPost)
+  const currentUsers = filteredUsers.slice(indexOfFirstPost, indexOfLastPost)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
@@ -45,8 +52,16 @@ const AllUsersList = () => {
           },
         }}
       >
-        {/* Right Column - Filtered posts */}
-        <Box sx={{ flex: 2 }}>
+        <Box>
+          <TextField
+            label="Hae käyttäjiä nimellä"
+            variant="outlined"
+            fullWidth
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </Box>
+        <Box>
           <Box
             sx={{
               display: 'flex',
