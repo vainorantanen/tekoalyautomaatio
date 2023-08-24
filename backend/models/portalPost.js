@@ -33,4 +33,4 @@ schema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('ProjectPost', schema)
+module.exports = mongoose.model('PortalPost', schema)

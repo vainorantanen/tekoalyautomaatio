@@ -42,6 +42,7 @@ import ModifyFeedPost from './components/Profile/ModifyFeedPost'
 import AllUsers from './components/AllUsers/AllUsers'
 import SingleUserPage from './components/AllUsers/SingleUserPage'
 import Portal from './components/Portal/Portal'
+import SinglePostPortalView from './components/Portal/SinglePostPortalView'
 
 const theme = createTheme({
   typography: {
@@ -102,7 +103,7 @@ const App = () => {
           <Route path='/feed/:id' element={<SingleFeedPostPage />} />
           <Route path='/lisaajulkaisu' element={<AddFeedPost />} /> 
           <Route path='/portaali' element={<Portal />} />
-          <Route path='/portaali/ilmoitukset/:id' element={<SingleProjectPage />} />
+          <Route path='/portaali/ilmoitukset/:id' element={<SinglePostPortalView />} />
         </Routes>
         <Footer />
       </Box>

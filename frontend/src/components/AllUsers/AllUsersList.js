@@ -46,17 +46,14 @@ const AllUsersList = () => {
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
-          '@media (min-width: 600px)': {
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-          },
         }}
       >
-        <Box>
+        <Box sx={{ textAlign: 'center', marginBottom: '1rem' }}>
           <TextField
             label="Hae käyttäjiä nimellä"
             variant="outlined"
             fullWidth
+            sx={{ maxWidth: '40rem' }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -73,9 +70,12 @@ const AllUsersList = () => {
             }}
           >
             {/* Rendering the current page of filtered posts */}
-            {currentUsers.map((user) => (
+            {currentUsers.length > 0 ? (
+              currentUsers.map((user) => (
               <FeedUserCard key={user.id} user={user} />
-            ))}
+            ))): (
+              <Typography>Haullesi ei löytynyt yhtään käyttäjiä</Typography>
+            )}
           </Box>
           {/* Pagination */}
           <Box className="pagination" sx={{ textAlign: 'center', marginBottom: '1rem' }}>

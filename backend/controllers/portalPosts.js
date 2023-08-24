@@ -1,22 +1,22 @@
 const router = require('express').Router()
-const ProjectPost = require('../models/projectPost')
+const PortalPost = require('../models/portalPost')
 const Offer = require('../models/offer')
 
 const { userExtractor } = require('../utils/middleware')
 
 router.get('/', async (request, response) => {
-  const projectPosts = await ProjectPost
+  const portalPosts = await PortalPost
     .find({})
     .populate('user', { name: 1 })
     .populate({ path: 'offers' })
-  response.json(projectPosts)
+  response.json(portalPosts)
 })
 
 router.post('/', userExtractor, async (request, response) => {
 
   const { description, title } = request.body
 
-  const projectPost = new ProjectPost({
+  const portalPost = new PortalPost({
     description,
     title,
     timeStamp: new Date(),
@@ -29,16 +29,16 @@ router.post('/', userExtractor, async (request, response) => {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
-  projectPost.user = user._id
+  portalPost.user = user._id
 
-  let createdprojectPost = await projectPost.save()
+  let createdportalPost = await portalPost.save()
 
-  user.projectPosts = user.projectPosts.concat(createdprojectPost._id)
+  user.portalPosts = user.portalPosts.concat(createdportalPost._id)
   await user.save()
 
-  createdprojectPost = await ProjectPost.findById(createdprojectPost._id).populate('user')
+  createdportalPost = await PortalPost.findById(createdportalPost._id).populate('user')
 
-  response.status(201).json(createdprojectPost)
+  response.status(201).json(createdportalPost)
 })
 
 router.put('/:id', userExtractor, async (request, response) => {
@@ -48,52 +48,52 @@ router.put('/:id', userExtractor, async (request, response) => {
 
   // käyttäjän tulee olla sama kuin postauksen lisännyt käyttäjä
 
-  const projectPost = await ProjectPost.findById(request.params.id)
+  const portalPost = await PortalPost.findById(request.params.id)
 
-  if (!user || projectPost.user.toString() !== user.id.toString()) {
+  if (!user || portalPost.user.toString() !== user.id.toString()) {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
-  let updatedprojectPost = await ProjectPost.findByIdAndUpdate(request.params.id,  { description }, { new: true })
+  let updatedportalPost = await PortalPost.findByIdAndUpdate(request.params.id,  { description }, { new: true })
 
-  updatedprojectPost = await ProjectPost.findById(updatedprojectPost._id).populate('user').populate({ path: 'offers' })
+  updatedportalPost = await PortalPost.findById(updatedportalPost._id).populate('user').populate({ path: 'offers' })
 
-  response.json(updatedprojectPost)
+  response.json(updatedportalPost)
 })
 
 router.put('/:id/offerAccept/:oid', userExtractor, async (request, response) => {
 
   const user = request.user
 
-  const projectPostId = request.params.id
+  const portalPostId = request.params.id
   const offerId = request.params.oid
 
-  const projectPost = await ProjectPost.findById(projectPostId)
+  const portalPost = await PortalPost.findById(portalPostId)
 
-  // vain projectPostin lisännyt käyttäjä voi hyväksyä tarjouksen
-  if (!user || projectPost.user.toString() !== user.id.toString()) {
+  // vain portalPostin lisännyt käyttäjä voi hyväksyä tarjouksen
+  if (!user || portalPost.user.toString() !== user.id.toString()) {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
   // Update the isApproved field of the specified offer
   const updatedOffer = await Offer.findByIdAndUpdate(offerId, { isApproved: true }, { new: true })
-  // Find the projectPost and update its offers array with the updated offer
+  // Find the portalPost and update its offers array with the updated offer
 
-  const updatedOffersArray = projectPost.offers.map(offer =>
+  const updatedOffersArray = portalPost.offers.map(offer =>
     offer._id.equals(updatedOffer._id) ? updatedOffer : offer
   )
 
-  const updatedprojectPost = await ProjectPost.findByIdAndUpdate(
-    projectPostId,
+  const updatedportalPost = await PortalPost.findByIdAndUpdate(
+    portalPostId,
     { offers: updatedOffersArray },
     { new: true }
   ).populate('user').populate({ path: 'offers' })
 
-  response.json(updatedprojectPost)
+  response.json(updatedportalPost)
 })
 
 router.delete('/:id', userExtractor, async (request, response) => {
-  const post = await ProjectPost.findById(request.params.id)
+  const post = await PortalPost.findById(request.params.id)
 
   const user = request.user
 
@@ -101,7 +101,7 @@ router.delete('/:id', userExtractor, async (request, response) => {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
-  user.projectPosts = user.projectPosts.filter(b => b.toString() !== post.id.toString() )
+  user.portalPosts = user.portalPosts.filter(b => b.toString() !== post.id.toString() )
 
   await user.save()
 
@@ -121,39 +121,39 @@ router.post('/:id/offers', userExtractor, async (request, response) => {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
-  const projectPost = await ProjectPost.findById(request.params.id)
+  const portalPost = await PortalPost.findById(request.params.id)
 
   const offerToAdd = new Offer({
     description,
     timeStamp: new Date(),
     isApproved: false,
     offeror: user.name,
-    targetPost: projectPost._id
+    targetPost: portalPost._id
   })
 
   offerToAdd.user = user._id
 
   await offerToAdd.save()
 
-  projectPost.offers = projectPost.offers.concat(offerToAdd._id)
-  let updatedprojectPost = await projectPost.save()
+  portalPost.offers = portalPost.offers.concat(offerToAdd._id)
+  let updatedportalPost = await portalPost.save()
 
   user.offers = user.offers.concat(offerToAdd._id)
   await user.save()
 
-  updatedprojectPost = await ProjectPost.findById(projectPost.id).populate('user').populate({ path: 'offers' })
-  response.status(201).json(updatedprojectPost)
+  updatedportalPost = await PortalPost.findById(portalPost.id).populate('user').populate({ path: 'offers' })
+  response.status(201).json(updatedportalPost)
 
 })
 
 router.delete('/:id/offers/:oid', userExtractor, async (request, response) => {
-  const projectPost = await ProjectPost.findById(request.params.id)
+  const portalPost = await PortalPost.findById(request.params.id)
   const user = request.user
   const offerId = request.params.oid
 
   const offerToDelete = await Offer.findById(offerId)
 
-  if (!user || !(offerToDelete.user.toString() === user._id.toString() || user._id.toString() === projectPost.user.toString())) {
+  if (!user || !(offerToDelete.user.toString() === user._id.toString() || user._id.toString() === portalPost.user.toString())) {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
@@ -161,11 +161,11 @@ router.delete('/:id/offers/:oid', userExtractor, async (request, response) => {
 
   user.offers = user.offers.filter(c => c._id.toString() !== offerId)
   await user.save()
-  projectPost.offers = projectPost.offers.filter(c => c._id.toString() !== offerId)
-  let updatedprojectPost = await projectPost.save()
+  portalPost.offers = portalPost.offers.filter(c => c._id.toString() !== offerId)
+  let updatedportalPost = await portalPost.save()
 
-  updatedprojectPost = await ProjectPost.findById(projectPost.id).populate('user').populate({ path: 'offers' })
-  response.status(201).json(updatedprojectPost)
+  updatedportalPost = await PortalPost.findById(portalPost.id).populate('user').populate({ path: 'offers' })
+  response.status(201).json(updatedportalPost)
 
 })
 

@@ -40,6 +40,12 @@ const userSchema = mongoose.Schema({
       ref: 'Offer'
     }
   ],
+  portalPosts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'PortalPost'
+    }
+  ]
 })
 
 userSchema.plugin(uniqueValidator)

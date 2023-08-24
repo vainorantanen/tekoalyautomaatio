@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { useNotification } from '../../hooks'
 import { addPost } from '../../reducers/projectPosts'
+import { addPortalPost } from '../../reducers/portalPosts'
 
 const AddPost = () => {
   const [description, setDescription] = useState('')
@@ -30,12 +31,16 @@ const AddPost = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      dispatch(addPost({
-        title,
-        description,
-        timeStamp: new Date(),
-        isPortalPost
-      }))
+      if (isPortalPost) {
+        dispatch(addPortalPost({
+          title, description
+        }))
+      } else {
+        dispatch(addPost({
+          title,
+          description,
+        }))
+      }
       notify('Postaus lisätty onnistuneesti', 'success')
       setDescription('')
       setTitle('')

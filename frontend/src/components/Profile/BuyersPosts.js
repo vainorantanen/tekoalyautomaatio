@@ -9,7 +9,8 @@ const BuyersPosts = () => {
     const notify = useNotification()
     const user = useSelector(({user}) => user)
   const dispatch = useDispatch()
-    const userPosts = useSelector(({ projectPosts }) => projectPosts).filter(p => p.user.id === user.id)
+    const userProjectPosts = useSelector(({ projectPosts }) => projectPosts).filter(p => p.user.id === user.id)
+    const userPortalPosts = useSelector(({ portalPosts }) => portalPosts).filter(p => p.user.id === user.id)
 
   const handleDelete = async (postId) => {
     const confirmed = window.confirm('Haluatko varmasti poistaa tämän ilmoituksen?')
@@ -25,7 +26,7 @@ const BuyersPosts = () => {
     }
   }
 
-  if (!userPosts) {
+  if (!userProjectPosts || !userPortalPosts) {
     return (
       <Container>
         <Typography>Ladataan...</Typography>
@@ -33,14 +34,11 @@ const BuyersPosts = () => {
     )
   }
 
-  const publicProjects = userPosts.filter(p => !p.isPortalPost)
-  const portalProjects = userPosts.filter(p => p.isPortalPost)
-
   return (
     <Box>
         <Typography sx={{ marginBottom: '2rem' }}>Omat ilmoitukset</Typography>
         <Box>
-        {publicProjects.length > 0 ? publicProjects.map(p => (
+        {userProjectPosts.length > 0 ? userProjectPosts.map(p => (
             <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',
             borderRadius: '0.5rem', marginBottom: '1rem'}}>
                 <Typography sx={{ fontSize: '1.3rem' }}>{p.title}</Typography>
@@ -55,7 +53,7 @@ const BuyersPosts = () => {
         </Box>
         <Typography>Omat portaali-ilmoitukset</Typography>
         <Box>
-        {portalProjects.length > 0 ? portalProjects.map(p => (
+        {userPortalPosts.length > 0 ? userPortalPosts.map(p => (
             <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',
             borderRadius: '0.5rem', marginBottom: '1rem'}}>
                 <Typography sx={{ fontSize: '1.3rem' }}>{p.title}</Typography>

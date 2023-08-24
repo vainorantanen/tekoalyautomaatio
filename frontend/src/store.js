@@ -6,6 +6,7 @@ import projectPostReducer from './reducers/projectPosts'
 import devsPostReducer from './reducers/devsPosts'
 import feedPostsReducer from './reducers/feedPosts'
 import commentsReducer from './reducers/comments'
+import portalPostsReducer from './reducers/portalPosts'
 
 const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
     projectPosts: projectPostReducer,
     devsPosts: devsPostReducer,
     feedPosts: feedPostsReducer,
-    comments: commentsReducer
+    comments: commentsReducer,
+    portalPosts: portalPostsReducer
   }
 })
 

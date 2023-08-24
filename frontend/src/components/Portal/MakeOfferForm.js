@@ -3,10 +3,10 @@ import React from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNotification } from '../../hooks'
-import { makeOffer } from '../../reducers/projectPosts'
+import { makePortalOffer } from '../../reducers/portalPosts'
 
 
-const MakeOfferForm = ({ projectPost }) => {
+const MakeOfferForm = ({ portalPost }) => {
   const [description, setDescription] = useState('')
 
   const user = useSelector(({ user }) => user)
@@ -17,7 +17,7 @@ const MakeOfferForm = ({ projectPost }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      dispatch(makeOffer(projectPost.id, { description }))
+      dispatch(makePortalOffer(portalPost.id, { description }))
       setDescription('')
       notify('Tarjous lisätty onnistuneesti', 'success')
     } catch (error) {
