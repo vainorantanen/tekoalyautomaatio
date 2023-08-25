@@ -19,6 +19,7 @@ router.post('/', userExtractor, async (request, response) => {
   const projectPost = new ProjectPost({
     description,
     title,
+    isOpen: true,
     timeStamp: new Date(),
     offers: []
   })
@@ -42,7 +43,7 @@ router.post('/', userExtractor, async (request, response) => {
 })
 
 router.put('/:id', userExtractor, async (request, response) => {
-  const { description } = request.body
+  const { description, isOpen } = request.body
 
   const user = request.user
 
@@ -54,7 +55,7 @@ router.put('/:id', userExtractor, async (request, response) => {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
-  let updatedprojectPost = await ProjectPost.findByIdAndUpdate(request.params.id,  { description }, { new: true })
+  let updatedprojectPost = await ProjectPost.findByIdAndUpdate(request.params.id,  { description, isOpen }, { new: true })
 
   updatedprojectPost = await ProjectPost.findById(updatedprojectPost._id).populate('user').populate({ path: 'offers' })
 

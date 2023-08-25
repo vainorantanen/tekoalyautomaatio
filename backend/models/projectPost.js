@@ -23,6 +23,7 @@ const schema = mongoose.Schema({
       ref: 'Offer'
     }
   ],
+  isOpen: Boolean
 })
 
 schema.set('toJSON', {
