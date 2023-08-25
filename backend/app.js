@@ -5,6 +5,7 @@ const cors = require('cors')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 require('express-async-errors')
+const path = require('path')
 
 const contactRouter = require('./controllers/contact')
 const usersRouter = require('./controllers/users')
@@ -51,6 +52,14 @@ app.use('/api/feedposts', feedPostsRouter)
 app.use('/api/comments', commentsRouter)
 app.use('/api/portalposts', portalPostsRouter)
 app.use('/api/chats', chatsRouter)
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, './build/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
