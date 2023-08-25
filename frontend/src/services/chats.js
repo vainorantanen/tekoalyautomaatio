@@ -28,10 +28,10 @@ const remove = async (id) => {
   await axios.delete(`${baseUrl}/${id}`, { headers })
 }
 
-const addmessage = async (id, message) => {
+const addmessage = async (id, content) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
-  const request = await axios.post(`${baseUrl}/${id}/messages`, { message }, { headers })
+  const request = await axios.post(`${baseUrl}/${id}/messages`, content, { headers })
   return request.data
 }
 

@@ -13,10 +13,6 @@ const schema = mongoose.Schema({
     type: Date,
     required: true
   },
-  targetUser: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
 })
 
 schema.set('toJSON', {

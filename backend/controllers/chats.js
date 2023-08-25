@@ -77,15 +77,15 @@ router.post('/:id/messages', userExtractor, async (request, response) => {
   const user = request.user
 
   const chat = await Chat.findById(request.params.id)
+  console.log(user._id.toString() === chat.user1.toString())
 
-  if (!user || !chat) {
+  if (!user || !chat || (user._id.toString() !== chat.user1.toString() && user._id.toString() !== chat.user2.toString() )) {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
   const message = new Message({
     content,
     timeStamp: new Date(),
-    targetUser: chat.user2
   })
 
   message.user = user._id
@@ -95,7 +95,7 @@ router.post('/:id/messages', userExtractor, async (request, response) => {
   chat.messages = chat.messages.concat(message._id)
   let updatedchat = await chat.save()
 
-  updatedchat = await Chat.findById(chat.id).populate('user').populate({ path: 'messages' })
+  updatedchat = await Chat.findById(chat.id).populate('user1').populate('user2').populate({ path: 'messages' })
   response.status(201).json(updatedchat)
 
 })

@@ -43,9 +43,9 @@ export const updateChat = (object) => {
   }
 }
 
-export const addMessageToChat = (id, comment) => {
+export const addMessageToChat = (id, content) => {
   return async dispatch => {
-    const data = await chatsService.comment(id, comment)
+    const data = await chatsService.addmessage(id, content)
     dispatch(alter(data))
   }
 }

@@ -1,7 +1,7 @@
 import { Box, Button, Container, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import MakeOfferForm from './MakeOfferForm'
 import Togglable from '../Togglable'
@@ -89,7 +89,10 @@ const SingleProjectPage = () => {
           <MakeOfferForm projectPost={projectPost}/>
         </Togglable>
       )}
-      <Button onClick={handleChatStart}>Aloita uusi keskustelu käyttäjän {projectPost.user.name} kanssa</Button>
+      {user && user.id !== projectPost.user.id && (
+              <Button onClick={handleChatStart}>Aloita uusi keskustelu käyttäjän {projectPost.user.name} kanssa</Button>
+
+      )}
       <Box>
         {projectPost.offers.map(offer => (
           <Box key={offer.id} sx={{ color: 'black', backgroundColor: 'white', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
