@@ -43,6 +43,8 @@ import AllUsers from './components/AllUsers/AllUsers'
 import SingleUserPage from './components/AllUsers/SingleUserPage'
 import Portal from './components/Portal/Portal'
 import SinglePostPortalView from './components/Portal/SinglePostPortalView'
+import ChatsList from './components/Chat/ChatsList'
+import SingleChatPage from './components/Chat/SingleChatPage'
 
 const theme = createTheme({
   typography: {
@@ -104,6 +106,8 @@ const App = () => {
           <Route path='/lisaajulkaisu' element={<AddFeedPost />} /> 
           <Route path='/portaali' element={<Portal />} />
           <Route path='/portaali/ilmoitukset/:id' element={<SinglePostPortalView />} />
+          <Route path='/omatkeskustelut' element={<ChatsList />} />
+          <Route path='/omatkeskustelut/:id' element={<SingleChatPage />} />
         </Routes>
         <Footer />
       </Box>

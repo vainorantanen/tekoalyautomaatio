@@ -8,6 +8,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { useNotification } from '../../hooks'
 import { useDispatch } from 'react-redux'
 import { modifyPortalOfferApprovedState, removeOfferFromPortalPost } from '../../reducers/portalPosts'
+import { addChat } from '../../reducers/chats'
 
 const SinglePostBuyerView = () => {
 
@@ -42,6 +43,20 @@ const SinglePostBuyerView = () => {
       notifyWith('Poistettu onnistuneesti', 'success')
     } catch (error) {
       notifyWith('Tarjouksen poisto epäonnistui', 'error')
+    }
+
+  }
+
+  const handleChatStart = async (offer) => {
+    const confirmed = window.confirm(`Luodaanko uusi keskustelu käyttäjän ${offer.offeror} kanssa?`)
+    if (!confirmed) {
+      return // If the user clicks "Cancel," do nothing
+    }
+    try {
+      dispatch(addChat({targetUser: offer.user}))
+      notifyWith('Uusi keskustelu luotu onnistuneesti', 'success')
+    } catch (error) {
+      notifyWith('Luonti epäonnistui', 'error')
     }
 
   }
@@ -101,12 +116,14 @@ const SinglePostBuyerView = () => {
             {offer.isApproved && (
               <Typography>Tarjous hyväksytty <CheckCircleIcon/></Typography>
             )}
-            <Typography>Hinta: {offer.price} euroa</Typography>
             <Typography>{offer.offeror}</Typography>
             <Typography>{offer.timeStamp.split('T')[0]}</Typography>
             <Typography sx={{ whiteSpace: 'break-spaces' }}>{offer.description}</Typography>
             {user && user.id === post.user.id && !offer.isApproved ? (
               <Button onClick={() => handleAcceptbid(offer.id)}>Hyväksy tarjous</Button>
+            ): null}
+            {user && user.id === post.user.id ? (
+              <Button onClick={() => handleChatStart(offer)}>Aloita keskustelu tarjoajan {offer.offeror} kanssa</Button>
             ): null}
             {user && (user.id === post.user.id || user.id === offer.user) && (
               <Button sx={{ color: 'red' }} onClick={() => handleDeletebid(offer.id)}>Poista tarjous</Button>

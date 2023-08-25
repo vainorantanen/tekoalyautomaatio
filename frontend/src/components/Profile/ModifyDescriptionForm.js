@@ -19,7 +19,6 @@ const ModifyDescriptionForm = () => {
     const handleSubmit = async () => {
         try {
             dispatch(updateUser({...user, description }))
-            setDescription('')
             notify('Päivitys tehty onnistuneesti', 'success')
         } catch (error) {
             notify('Ilmeni jokin ongelma päivityksessä, yritä myöhemmin uudelleen', 'error')

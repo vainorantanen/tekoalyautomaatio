@@ -1,19 +1,19 @@
 import { Box, Button, Container, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import MakeOfferForm from './MakeOfferForm'
 import Togglable from '../Togglable'
 import { CheckCircleOutline } from '@mui/icons-material'
 import { modifyOfferApprovedState, removOfferFromProjectPost } from '../../reducers/projectPosts'
+import { addChat } from '../../reducers/chats'
 
 
 const SingleProjectPage = () => {
 
   const dispatch = useDispatch()
   const notifyWith = useNotification()
-  const navigate = useNavigate()
 
   const id = useParams().id
 
@@ -48,6 +48,20 @@ const SingleProjectPage = () => {
 
   }
 
+  const handleChatStart = async () => {
+    const confirmed = window.confirm(`Luodaanko uusi keskustelu käyttäjän ${projectPost.user.name} kanssa?`)
+    if (!confirmed) {
+      return // If the user clicks "Cancel," do nothing
+    }
+    try {
+      dispatch(addChat({targetUser: projectPost.user.id}))
+      notifyWith('Uusi keskustelu luotu onnistuneesti', 'success')
+    } catch (error) {
+      notifyWith('Luonti epäonnistui', 'error')
+    }
+
+  }
+
   if (!projectPost) {
     return (
       <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
@@ -75,16 +89,25 @@ const SingleProjectPage = () => {
           <MakeOfferForm projectPost={projectPost}/>
         </Togglable>
       )}
-      <Box>
+      {user && user.id !== projectPost.user.id && (
+              <Button onClick={handleChatStart}>Aloita uusi keskustelu käyttäjän {projectPost.user.name} kanssa</Button>
+
+      )}
+      <Box sx={{ marginTop: '2rem' }}>
+        <Typography sx={{ marginBottom: '2rem' }}>Tarjoukset</Typography>
         {projectPost.offers.map(offer => (
           <Box key={offer.id} sx={{ color: 'black', backgroundColor: 'white', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
             {offer.isApproved && (
               <Typography>Tarjous hyväksytty <CheckCircleOutline /></Typography>
             )}
+            <Typography>{offer.offeror}</Typography>
             <Typography>{offer.timeStamp.split('T')[0]}</Typography>
             <Typography sx={{ whiteSpace: 'break-spaces' }}>{offer.description}</Typography>
             {user && user.id === projectPost.user.id && !offer.isApproved ? (
               <Button onClick={() => handleAcceptOffer(offer.id)}>Hyväksy tarjous</Button>
+            ): null}
+            {user && user.id === projectPost.user.id ? (
+              <Button onClick={() => handleChatStart(offer)}>Aloita keskustelu tarjoajan {offer.offeror} kanssa</Button>
             ): null}
             {user && (user.id === projectPost.user.id || user.id === offer.user) && (
               <Button sx={{ color: 'red' }} onClick={() => handleDeleteOffer(offer.id)}>Poista tarjous</Button>
