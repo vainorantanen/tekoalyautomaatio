@@ -9,7 +9,9 @@ import { TextField, Button, Typography, Box,
 
 } from '@mui/material'
 import { useNotification } from '../hooks'
-import usersService from '../services/users'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../reducers/users'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('')
@@ -23,6 +25,8 @@ const RegisterPage = () => {
   const [ email, setEmail ] = useState('')
 
   const notify = useNotification()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -33,7 +37,7 @@ const RegisterPage = () => {
       return
     }
     try {
-        await usersService.create({ username, password, name, isDeveloper, description, email })
+        dispatch(addUser({ username, password, name, isDeveloper, description, email }))
         setName('')
         setPassword('')
         setUsername('')
@@ -43,6 +47,7 @@ const RegisterPage = () => {
         setDescription('')
         setEmail('')
         notify('Käyttäjä rekisteröity onnistuneesti', 'success')
+        navigate('/login')
     } catch (error) {
         notify('Rekiströinti epäonnistui', 'error')
     }

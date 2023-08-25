@@ -84,22 +84,21 @@ const SinglePostDevView = () => {
           <MakeOfferForm portalPost={post}/>
         </Togglable>
       )}
-      <Typography>Tarjouksesi tähän projektiin</Typography>
+      <Typography sx={{ textAlign: 'center', marginBottom: '1rem' }}>Omat tarjouksesi tähän projektiin</Typography>
       <Box>
         {user && userBidsOnPost.length > 0 ? userBidsOnPost.map(offer => (
           <Box key={offer.id} sx={{ color: 'black', backgroundColor: 'white', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
             {offer.isApproved && (
               <Typography>Tarjous hyväksytty <CheckCircleIcon/></Typography>
             )}
-            <Typography>Hinta: {offer.price} euroa</Typography>
             <Typography>{offer.offeror}</Typography>
             <Typography>{offer.timeStamp.split('T')[0]}</Typography>
-            <Typography sx={{ whiteSpace: 'break-spaces' }}>{offer.description}</Typography>
+            <Typography sx={{ whiteSpace: 'break-spaces', marginBottom: '1rem', marginTop: '1rem' }}>{offer.description}</Typography>
             {user && (user.id === post.user.id || user.id === offer.user) && (
               <Button sx={{ color: 'red' }} onClick={() => handleDeletebid(offer.id)}>Poista tarjous</Button>
             )}
           </Box>
-        )): <Typography>Et ole tarjonnut tähän vielä</Typography>}
+        )): <Typography sx={{ textAlign: 'center' }}>Et ole tarjonnut tähän vielä</Typography>}
       </Box>
     </Container>
   )

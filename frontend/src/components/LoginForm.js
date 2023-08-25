@@ -4,14 +4,14 @@ import { useDispatch } from 'react-redux'
 import { loginUser } from '../reducers/user'
 import { useState } from "react";
 import { useNotification } from '../hooks'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   const notify = useNotification()
   
   const handleSubmit = async (event) => {
@@ -20,6 +20,7 @@ const LoginForm = () => {
       dispatch(loginUser({ username, password }))
       setUsername('')
       setPassword('')
+      navigate('/')
     } catch (e) {
       notify('Väärä käyttäjätunnus tai salasana', 'error')
     }
