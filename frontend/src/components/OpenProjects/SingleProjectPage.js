@@ -48,13 +48,27 @@ const SingleProjectPage = () => {
 
   }
 
-  const handleChatStart = async () => {
+  const handleChatStartWithProjectOwner = async () => {
     const confirmed = window.confirm(`Luodaanko uusi keskustelu käyttäjän ${projectPost.user.name} kanssa?`)
     if (!confirmed) {
       return // If the user clicks "Cancel," do nothing
     }
     try {
       dispatch(addChat({targetUser: projectPost.user.id}))
+      notifyWith('Uusi keskustelu luotu onnistuneesti', 'success')
+    } catch (error) {
+      notifyWith('Luonti epäonnistui', 'error')
+    }
+
+  }
+
+  const handleChatStartWithOfferor = async (offer) => {
+    const confirmed = window.confirm(`Luodaanko uusi keskustelu käyttäjän ${offer.offeror} kanssa?`)
+    if (!confirmed) {
+      return // If the user clicks "Cancel," do nothing
+    }
+    try {
+      dispatch(addChat({targetUser: offer.user}))
       notifyWith('Uusi keskustelu luotu onnistuneesti', 'success')
     } catch (error) {
       notifyWith('Luonti epäonnistui', 'error')
@@ -90,7 +104,7 @@ const SingleProjectPage = () => {
         </Togglable>
       )}
       {user && user.id !== projectPost.user.id && (
-              <Button onClick={handleChatStart}>Aloita uusi keskustelu käyttäjän {projectPost.user.name} kanssa</Button>
+              <Button onClick={handleChatStartWithProjectOwner}>Aloita uusi keskustelu käyttäjän {projectPost.user.name} kanssa</Button>
 
       )}
       <Box sx={{ marginTop: '2rem' }}>
@@ -107,7 +121,7 @@ const SingleProjectPage = () => {
               <Button onClick={() => handleAcceptOffer(offer.id)}>Hyväksy tarjous</Button>
             ): null}
             {user && user.id === projectPost.user.id ? (
-              <Button onClick={() => handleChatStart(offer)}>Aloita keskustelu tarjoajan {offer.offeror} kanssa</Button>
+              <Button onClick={() => handleChatStartWithOfferor(offer)}>Aloita keskustelu tarjoajan {offer.offeror} kanssa</Button>
             ): null}
             {user && (user.id === projectPost.user.id || user.id === offer.user) && (
               <Button sx={{ color: 'red' }} onClick={() => handleDeleteOffer(offer.id)}>Poista tarjous</Button>
