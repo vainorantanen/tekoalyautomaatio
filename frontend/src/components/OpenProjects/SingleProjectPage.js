@@ -93,16 +93,21 @@ const SingleProjectPage = () => {
               <Button onClick={handleChatStart}>Aloita uusi keskustelu käyttäjän {projectPost.user.name} kanssa</Button>
 
       )}
-      <Box>
+      <Box sx={{ marginTop: '2rem' }}>
+        <Typography sx={{ marginBottom: '2rem' }}>Tarjoukset</Typography>
         {projectPost.offers.map(offer => (
           <Box key={offer.id} sx={{ color: 'black', backgroundColor: 'white', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
             {offer.isApproved && (
               <Typography>Tarjous hyväksytty <CheckCircleOutline /></Typography>
             )}
+            <Typography>{offer.offeror}</Typography>
             <Typography>{offer.timeStamp.split('T')[0]}</Typography>
             <Typography sx={{ whiteSpace: 'break-spaces' }}>{offer.description}</Typography>
             {user && user.id === projectPost.user.id && !offer.isApproved ? (
               <Button onClick={() => handleAcceptOffer(offer.id)}>Hyväksy tarjous</Button>
+            ): null}
+            {user && user.id === projectPost.user.id ? (
+              <Button onClick={() => handleChatStart(offer)}>Aloita keskustelu tarjoajan {offer.offeror} kanssa</Button>
             ): null}
             {user && (user.id === projectPost.user.id || user.id === offer.user) && (
               <Button sx={{ color: 'red' }} onClick={() => handleDeleteOffer(offer.id)}>Poista tarjous</Button>

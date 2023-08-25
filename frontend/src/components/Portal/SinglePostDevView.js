@@ -8,6 +8,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { useNotification } from '../../hooks'
 import { useDispatch } from 'react-redux'
 import { removeOfferFromPortalPost } from '../../reducers/portalPosts'
+import { addChat } from '../../reducers/chats'
 
 const SinglePostDevView = () => {
 
@@ -28,6 +29,20 @@ const SinglePostDevView = () => {
       notifyWith('Poistettu onnistuneesti', 'success')
     } catch (error) {
       notifyWith('Tarjouksen poisto epäonnistui', 'error')
+    }
+
+  }
+
+  const handleChatStart = async () => {
+    const confirmed = window.confirm(`Luodaanko uusi keskustelu käyttäjän ${post.user.name} kanssa?`)
+    if (!confirmed) {
+      return // If the user clicks "Cancel," do nothing
+    }
+    try {
+      dispatch(addChat({targetUser: post.user.id}))
+      notifyWith('Uusi keskustelu luotu onnistuneesti', 'success')
+    } catch (error) {
+      notifyWith('Luonti epäonnistui', 'error')
     }
 
   }
@@ -83,6 +98,10 @@ const SinglePostDevView = () => {
         <Togglable buttonLabel='Tee tarjous'>
           <MakeOfferForm portalPost={post}/>
         </Togglable>
+      )}
+      {user && user.id !== post.user.id && (
+              <Button onClick={handleChatStart}>Aloita uusi keskustelu käyttäjän {post.user.name} kanssa</Button>
+
       )}
       <Typography sx={{ textAlign: 'center', marginBottom: '1rem' }}>Omat tarjouksesi tähän projektiin</Typography>
       <Box>

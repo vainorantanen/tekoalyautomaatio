@@ -77,7 +77,6 @@ router.post('/:id/messages', userExtractor, async (request, response) => {
   const user = request.user
 
   const chat = await Chat.findById(request.params.id)
-  console.log(user._id.toString() === chat.user1.toString())
 
   if (!user || !chat || (user._id.toString() !== chat.user1.toString() && user._id.toString() !== chat.user2.toString() )) {
     return response.status(401).json({ error: 'operation not permitted' })

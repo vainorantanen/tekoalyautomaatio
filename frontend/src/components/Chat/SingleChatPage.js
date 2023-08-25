@@ -33,13 +33,14 @@ const SingleChatPage = () => {
     }
 
     return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '100vh', 
+        <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '70vh', 
         marginTop: '5rem' }}>
             <Box>
                 {chat.messages.length > 0 ? (
                     chat.messages.map(mes => (
                         <Box key={mes.id} sx={{ display: 'flex', justifyContent: user.id === mes.user ? 'flex-end' : 'flex-start', marginBottom: '1rem' }}>
                             <Box sx={{ padding: '0.5rem', backgroundColor: user.id === mes.user ? '#B0D0FF' : 'white', color: 'black', borderRadius: '0.5rem', maxWidth: '80vw' }}>
+                                <Typography sx={{ fontSize: '0.8rem' }}>{mes.user.name}</Typography>
                                 <Typography>{mes.content}</Typography>
                             </Box>
                         </Box>
