@@ -23,7 +23,8 @@ const ChatsList = () => {
                 <Box key={chat.id} sx={{ padding: '1rem', margin: '1rem', backgroundColor: 'white', color: 'black',
                 borderRadius: '0.5rem' }}>
                     <Typography>{chat.user1.name} ja {chat.user2.name}</Typography>
-                    <Button component={Link} to={`/omatkeskustelut/${chat.id}`}>Avaa keskustelu</Button>
+                    <Button component={Link} to={`/omatkeskustelut/${chat.id}`}
+                    >Avaa keskustelu</Button>
                 </Box>
             ))
         ): (

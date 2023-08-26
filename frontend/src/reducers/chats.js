@@ -50,6 +50,12 @@ export const addMessageToChat = (id, content) => {
   }
 }
 
+export const updateChatState= (data) => {
+  return async dispatch => {
+    dispatch(alter(data))
+  }
+}
+
 export const removeChat = (object) => {
   return async dispatch => {
     await chatsService.remove(object.id)
