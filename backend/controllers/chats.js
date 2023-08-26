@@ -18,9 +18,10 @@ router.get('/', async (request, response) => {
 
 router.post('/', userExtractor, async (request, response) => {
 
-  const { targetUser } = request.body
+  const { targetUser, title } = request.body
 
   const chat = new Chat({
+    title,
     messages: [],
     user2: targetUser
   })

@@ -1,4 +1,5 @@
-import { Box, Button, Container, Typography } from '@mui/material'
+import { Box, Button, Container, Typography,
+  Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -8,9 +9,12 @@ import Togglable from '../Togglable'
 import { CheckCircleOutline } from '@mui/icons-material'
 import { modifyOfferApprovedState, removOfferFromProjectPost } from '../../reducers/projectPosts'
 import { addChat } from '../../reducers/chats'
+import { useState } from 'react'
 
 
 const SingleProjectPage = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [chatTitle, setChatTitle] = useState('');
 
   const dispatch = useDispatch()
   const notifyWith = useNotification()
@@ -19,6 +23,15 @@ const SingleProjectPage = () => {
 
   const user = useSelector(({ user }) => user)
   const projectPost = useSelector(({ projectPosts }) => projectPosts.find(p => p.id === id))
+
+  const openDialog = () => {
+    setIsDialogOpen(true);
+};
+
+const closeDialog = () => {
+    setIsDialogOpen(false);
+    setChatTitle(''); // Clear the chat title when the dialog is closed
+};
 
   const handleAcceptOffer = async (offerId) => {
     const confirmed = window.confirm('Haluatko varmasti hyväksyä tämän tarjouksen?')
@@ -49,13 +62,20 @@ const SingleProjectPage = () => {
   }
 
   const handleChatStartWithProjectOwner = async () => {
+    if (chatTitle.trim() === '') {
+      notifyWith('Anna chatille otsikko', 'error');
+      return;
+  }
+
+  closeDialog();
+
     const confirmed = window.confirm(`Luodaanko uusi keskustelu käyttäjän ${projectPost.user.name} kanssa?`)
     if (!confirmed) {
       return // If the user clicks "Cancel," do nothing
     }
     try {
-      dispatch(addChat({targetUser: projectPost.user.id}))
-      notifyWith('Uusi keskustelu luotu onnistuneesti', 'success')
+      dispatch(addChat({targetUser: projectPost.user.id, title: chatTitle}))
+      notifyWith('Uusi keskustelu luotu onnistuneesti, löydät omat keskustelusi sivuvalikosta', 'success')
     } catch (error) {
       notifyWith('Luonti epäonnistui', 'error')
     }
@@ -63,13 +83,22 @@ const SingleProjectPage = () => {
   }
 
   const handleChatStartWithOfferor = async (offer) => {
+    
+    if (chatTitle.trim() === '') {
+      notifyWith('Anna chatille otsikko', 'error');
+      return;
+  }
+
+  closeDialog();
+
     const confirmed = window.confirm(`Luodaanko uusi keskustelu käyttäjän ${offer.offeror} kanssa?`)
     if (!confirmed) {
       return // If the user clicks "Cancel," do nothing
     }
+    
     try {
-      dispatch(addChat({targetUser: offer.user}))
-      notifyWith('Uusi keskustelu luotu onnistuneesti', 'success')
+      dispatch(addChat({targetUser: offer.user, title: chatTitle}))
+      notifyWith('Uusi keskustelu luotu onnistuneesti, löydät omat keskustelusi sivuvalikosta', 'success')
     } catch (error) {
       notifyWith('Luonti epäonnistui', 'error')
     }
@@ -104,7 +133,7 @@ const SingleProjectPage = () => {
         </Togglable>
       )}
       {user && user.id !== projectPost.user.id && (
-              <Button onClick={handleChatStartWithProjectOwner}>Aloita uusi keskustelu käyttäjän {projectPost.user.name} kanssa</Button>
+              <Button onClick={openDialog}>Aloita uusi keskustelu käyttäjän {projectPost.user.name} kanssa</Button>
 
       )}
       <Box sx={{ marginTop: '2rem' }}>
@@ -121,8 +150,30 @@ const SingleProjectPage = () => {
               <Button onClick={() => handleAcceptOffer(offer.id)}>Hyväksy tarjous</Button>
             ): null}
             {user && user.id === projectPost.user.id ? (
-              <Button onClick={() => handleChatStartWithOfferor(offer)}>Aloita keskustelu tarjoajan {offer.offeror} kanssa</Button>
+              <Button onClick={openDialog}>Aloita keskustelu tarjoajan {offer.offeror} kanssa</Button>
             ): null}
+
+<Dialog open={isDialogOpen} onClose={closeDialog}>
+            <DialogTitle>Anna chatille otsikko</DialogTitle>
+            <DialogContent>
+                <TextField
+                    label="Chatin otsikko"
+                    variant="outlined"
+                    fullWidth
+                    value={chatTitle}
+                    onChange={(e) => setChatTitle(e.target.value)}
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={closeDialog}>Peruuta</Button>
+                {user && user.id === projectPost.user.id ? (
+                  <Button onClick={() => handleChatStartWithOfferor(offer)}>Luo chat</Button>
+                ): (
+                  <Button onClick={handleChatStartWithProjectOwner}>Luo chat</Button>
+                )}
+            </DialogActions>
+        </Dialog>
+
             {user && (user.id === projectPost.user.id || user.id === offer.user) && (
               <Button sx={{ color: 'red' }} onClick={() => handleDeleteOffer(offer.id)}>Poista tarjous</Button>
             )}

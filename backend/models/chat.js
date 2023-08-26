@@ -15,6 +15,7 @@ const schema = mongoose.Schema({
       ref: 'Message'
     }
   ],
+  title: String
 })
 
 schema.set('toJSON', {

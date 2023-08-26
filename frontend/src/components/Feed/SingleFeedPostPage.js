@@ -1,7 +1,7 @@
 import { Container, Typography, TextField, Button } from '@mui/material'
 import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import CommentSection from './CommentSection'
 import { commentFeedPost, disLikeFeedPost, likeFeedPost } from '../../reducers/feedPosts'
@@ -12,6 +12,7 @@ const SingleFeedPostPage = () => {
   const [comment, setComment] = useState('')
   const dispatch = useDispatch()
   const notifyWith = useNotification()
+  const navigate = useNavigate()
 
   const id = useParams().id
 
@@ -52,6 +53,13 @@ const SingleFeedPostPage = () => {
     }
   };
   
+  const handleNotLoggedUserLike = ()  => {
+    const confirmed = window.confirm(`Kirjaudu sisään tykätäksesti tästä`)
+          if (!confirmed) {
+            return // If the user clicks "Cancel," do nothing
+          }
+    navigate('/login')
+  }
 
   if (!feedPost) {
     return (
@@ -72,7 +80,13 @@ const SingleFeedPostPage = () => {
       <Typography>{feedPost.likes.length} Tykkäystä</Typography>
       {user && !feedPost.likes.includes(user.id) ? (
         <Button onClick={handleLike}>Tykkää <ThumbUpIcon /></Button>
-      ): <Button onClick={handleDisLike}>En tykkääkään <ThumbDownIcon /></Button>}
+      ): null}
+      {user && feedPost.likes.includes(user.id) ? (
+        <Button onClick={handleDisLike}>En tykkääkään <ThumbDownIcon /></Button>
+      ): null}
+      {!user && (
+         <Button onClick={handleNotLoggedUserLike}>Tykkää <ThumbUpIcon /></Button>
+      )}
         {/*Kommenttiosio*/}
         <TextField
           id="comment"
