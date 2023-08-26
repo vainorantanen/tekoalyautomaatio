@@ -1,22 +1,58 @@
 import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useNotification } from '../../hooks';
-import { addMessageToChat } from '../../reducers/chats';
+import { updateChatState } from '../../reducers/chats';
+import { socket } from '../../socket';
+import chatService from '../../services/chats'
 
 const SingleChatPage = () => {
     const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
+
+    const chatId = useParams().id;
+
+    const chat = useSelector(({ chats }) => chats).find(c => c.id === chatId);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            socket.emit('join_room', chatId);
+            
+            try {
+                const chatData = await chatService.getAll();
+                
+                const chatFromDb = chatData.find(c => c.id === chatId);
+                if (chatFromDb) {
+                    setMessages(chatFromDb.messages);
+                }
+            } catch (error) {
+                console.error("Error fetching chat data:", error);
+            }
+        };
+        
+        fetchData();
+    }, []);
+    
+
+    useEffect(() => {
+        socket.on("receive_message", (data) => {
+          setMessages(data.chatReturned.messages)
+        });
+      }, [socket]);
+
     const notify = useNotification();
     const dispatch = useDispatch();
-    const chatId = useParams().id;
-    const chat = useSelector(({ chats }) => chats).find(c => c.id === chatId);
+
 
     const user = useSelector(({ user }) => user);
 
     const handleSendMessage = async () => {
         try {
-            dispatch(addMessageToChat(chatId, { content: message }));
+            const chatReturned = await chatService.addmessage(chatId, { content: message })
+            dispatch(updateChatState(chatReturned))
+            setMessages(chatReturned.messages)
+            socket.emit("send_message", { chatReturned, chatId });
             setMessage('');
             notify('Viesti lähetetty onnistuneesti', 'success');
         } catch (error) {
@@ -36,8 +72,8 @@ const SingleChatPage = () => {
         <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '70vh', 
         marginTop: '5rem' }}>
             <Box>
-                {chat.messages.length > 0 ? (
-                    chat.messages.map(mes => (
+                {messages.length > 0 ? (
+                    messages.map(mes => (
                         <Box key={mes.id} sx={{ display: 'flex', justifyContent: user.id === mes.user ? 'flex-end' : 'flex-start', marginBottom: '1rem' }}>
                             <Box sx={{ padding: '0.5rem', backgroundColor: user.id === mes.user ? '#B0D0FF' : 'white', color: 'black', borderRadius: '0.5rem', maxWidth: '80vw' }}>
                                 <Typography sx={{ fontSize: '0.8rem' }}>{mes.user.name}</Typography>
