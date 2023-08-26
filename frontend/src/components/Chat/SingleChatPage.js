@@ -3,16 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useNotification } from '../../hooks';
-import { addMessageToChat, updateChatState } from '../../reducers/chats';
-import io from 'socket.io-client';
+import { updateChatState } from '../../reducers/chats';
+import { socket } from '../../socket';
 import chatService from '../../services/chats'
 
 const SingleChatPage = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    //const [messageReceived, setMessageReceived] = useState("");
 
-    const socket = io.connect('http://localhost:3001')
     const chatId = useParams().id;
 
     const chat = useSelector(({ chats }) => chats).find(c => c.id === chatId);
@@ -53,6 +51,7 @@ const SingleChatPage = () => {
         try {
             const chatReturned = await chatService.addmessage(chatId, { content: message })
             dispatch(updateChatState(chatReturned))
+            setMessages(chatReturned.messages)
             socket.emit("send_message", { chatReturned, chatId });
             setMessage('');
             notify('Viesti lähetetty onnistuneesti', 'success');
