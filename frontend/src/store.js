@@ -8,6 +8,7 @@ import feedPostsReducer from './reducers/feedPosts'
 import commentsReducer from './reducers/comments'
 import portalPostsReducer from './reducers/portalPosts'
 import chatsReducer from './reducers/chats'
+import ratingsReducer from './reducers/ratings'
 
 const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ const store = configureStore({
     feedPosts: feedPostsReducer,
     comments: commentsReducer,
     portalPosts: portalPostsReducer,
-    chats: chatsReducer
+    chats: chatsReducer,
+    ratings: ratingsReducer
   }
 })
 

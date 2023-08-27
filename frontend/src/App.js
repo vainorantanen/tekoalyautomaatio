@@ -45,6 +45,7 @@ import Portal from './components/Portal/Portal'
 import SinglePostPortalView from './components/Portal/SinglePostPortalView'
 import ChatsList from './components/Chat/ChatsList'
 import SingleChatPage from './components/Chat/SingleChatPage'
+import AddRatingForm from './components/RatingForm/AddRatingForm'
 
 const theme = createTheme({
   typography: {
@@ -108,6 +109,7 @@ const App = () => {
           <Route path='/portaali/ilmoitukset/:id' element={<SinglePostPortalView />} />
           <Route path='/omatkeskustelut' element={<ChatsList />} />
           <Route path='/omatkeskustelut/:id' element={<SingleChatPage />} />
+          <Route path='/anna-arvostelu/:id' element={<AddRatingForm />} />
         </Routes>
         <Footer />
       </Box>

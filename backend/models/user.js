@@ -51,6 +51,18 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Chat'
     }
+  ],
+  givenRatings: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Rating'
+    }
+  ],
+  ratings: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Rating'
+    }
   ]
 })
 

@@ -16,6 +16,7 @@ const feedPostsRouter = require('./controllers/feedPosts')
 const commentsRouter = require('./controllers/comments')
 const portalPostsRouter = require('./controllers/portalPosts')
 const chatsRouter = require('./controllers/chats')
+const ratingsRouter = require('./controllers/ratings')
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
@@ -52,6 +53,7 @@ app.use('/api/feedposts', feedPostsRouter)
 app.use('/api/comments', commentsRouter)
 app.use('/api/portalposts', portalPostsRouter)
 app.use('/api/chats', chatsRouter)
+app.use('/api/ratings', ratingsRouter)
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, './build/index.html'), function(err) {
