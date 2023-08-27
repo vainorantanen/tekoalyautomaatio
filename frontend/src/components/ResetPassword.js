@@ -77,7 +77,8 @@ const ResetPassword = () => {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                {password.length > 5 ? <CheckCircleIcon /> : <CancelIcon />}
+                {password.length > 0 && password.length < 3 ? <CancelIcon /> : null}
+                {password.length >= 3 ? <CheckCircleIcon /> : null}
               </InputAdornment>
             ),
           }}

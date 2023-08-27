@@ -6,12 +6,14 @@ import { TextField, Button, Typography, Box,
   DialogTitle,
   DialogContent,
   DialogActions,
-
+  InputAdornment
 } from '@mui/material'
 import { useNotification } from '../hooks'
 import { useDispatch } from 'react-redux'
 import { addUser } from '../reducers/users'
 import { useNavigate } from 'react-router-dom'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('')
@@ -70,6 +72,8 @@ const RegisterPage = () => {
     setIsDeveloper(e.target.checked)
   }
 
+  const passwordsMatch = password === confirmPassword;
+
   return (
     <Box sx={{ marginTop: '6rem',
       display: 'flex',
@@ -122,13 +126,21 @@ const RegisterPage = () => {
         />
         <TextField
           id="register-password"
-          label="Salasana"
+          label="Salasana (vähintään 3 merkkiä pitkä)"
           type="password"
           required
           fullWidth
           value={password}
           onChange={({ target }) => setPassword(target.value)}
           margin="normal"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {password.length > 0 && password.length < 3 ? <CancelIcon /> : null}
+                {password.length >= 3 ? <CheckCircleIcon /> : null}
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
           id="confirm-password"
@@ -139,6 +151,14 @@ const RegisterPage = () => {
           value={confirmPassword}
           onChange={({ target }) => setConfirmPassword(target.value)}
           margin="normal"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {passwordsMatch && password.length !== 0 && (
+            <CheckCircleIcon />
+        )}
+              </InputAdornment>
+            ),}}
         />
         <TextField
           id="description"
