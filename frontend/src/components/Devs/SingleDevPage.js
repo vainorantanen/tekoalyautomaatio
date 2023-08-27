@@ -39,6 +39,23 @@ const SingleDevPage = () => {
             {user && user.id !== dev.id ? (
               <Typography>Oletko tehnyt yhteistyötä tähän kehittäjän kanssa?<Button component={Link} to={`/anna-arvostelu/${dev.id}`}>Anna arvostelu</Button></Typography>
             ): null}
+            {
+            devRatings.filter(r => r.showOnDevProfile).length > 0 ? (
+              // Calculate the average of devratings scores
+              (() => {
+                const filteredRatings = devRatings.filter(r => r.showOnDevProfile);
+                const totalScore = filteredRatings.reduce((acc, rating) => acc + rating.score, 0);
+                const ratingAverage = totalScore / filteredRatings.length;
+
+                return (
+                  <Box>
+                    <Typography>Kokonaisarvoasana</Typography>
+                    <Rating value={ratingAverage} readOnly precision={0.5} max={5} />
+                  </Box>
+                );
+              })()
+            ) : null
+          }
             {devRatings.filter(r => r.showOnDevProfile).length > 0 ? (
               devRatings.filter(r => r.showOnDevProfile).map(rating => (
                 <Box key={rating.id} sx={{ margin: '1rem', borderRadius: '0.5rem', padding: '1rem', 
