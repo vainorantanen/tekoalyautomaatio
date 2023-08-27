@@ -21,7 +21,7 @@ const slice = createSlice({
   },
 })
 
-const { set, add, remove } = slice.actions
+const { set, add, remove, alter } = slice.actions
 
 export const initializeRatings = () => {
   return async dispatch => {
@@ -37,7 +37,14 @@ export const addRating = (object) => {
   }
 }
 
-export const removePost = (object) => {
+export const updateRating= (object) => {
+  return async dispatch => {
+    const data = await ratingService.update(object)
+    dispatch(alter(data))
+  }
+}
+
+export const removeRating = (object) => {
     return async dispatch => {
       await ratingService.remove(object.id)
       dispatch(remove(object.id))
