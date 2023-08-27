@@ -3,6 +3,7 @@ import { Typography, Box } from '@mui/material'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -84,6 +85,7 @@ const Footer = () => {
         }}>
           Powered by Tekoälyautomaatio.fi
         </Typography>
+        <Link to="/sitemap.xml">Sitemap</Link>
       </Box>
     </footer>
   )

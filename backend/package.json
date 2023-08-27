@@ -26,6 +26,7 @@
     "mongoose-unique-validator": "^3.1.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.4",
+    "sitemap": "^7.1.1",
     "socket.io": "^4.7.2"
   },
   "devDependencies": {
