@@ -19,8 +19,7 @@ const chatsRouter = require('./controllers/chats')
 const ratingsRouter = require('./controllers/ratings')
 const forgotPasswordRouter = require('./controllers/forgotpassword')
 const resetPassWordRouter = require('./controllers/resetpassword')
-
-const { SitemapStream, streamToPromise } = require('sitemap');
+const sitemapRouter = require('./controllers/sitemap')
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
@@ -60,6 +59,7 @@ app.use('/api/chats', chatsRouter)
 app.use('/api/ratings', ratingsRouter)
 app.use('/api/forgot-password', forgotPasswordRouter)
 app.use('/api/reset-password', resetPassWordRouter)
+app.use('/sitemap.xml', sitemapRouter)
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, './build/index.html'), function(err) {
@@ -68,28 +68,6 @@ app.get('/*', function(req, res) {
     }
   })
 })
-
-app.get('/sitemap.xml', async (req, res) => {
-  try {
-    const smStream = new SitemapStream({
-      hostname: 'https://tekoalyautomaatio.fi',
-    });
-
-    // Add your URLs to the sitemap
-    smStream.write({ url: '/' });
-
-    // End the stream
-    smStream.end();
-
-    const sitemapXml = await streamToPromise(smStream).then((data) => data.toString());
-
-    res.header('Content-Type', 'application/xml');
-    res.send(sitemapXml);
-  } catch (error) {
-    console.error(error);
-    res.status(500).end();
-  }
-});
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
