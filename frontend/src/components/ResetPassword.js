@@ -1,12 +1,14 @@
 import React from 'react'
-import { Container, Box, TextField, Button, Typography } from '@mui/material'
+import { Container, Box, TextField, Button, Typography, InputAdornment, } from '@mui/material'
 import { useNotification } from '../hooks';
 import { useState } from "react";
 import resetpasswordService from '../services/resetpassword';
 import { useParams } from 'react-router-dom';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const ResetPassword = () => {
-    const [password, setPassword] = useState()
+    const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
     const {id, token} = useParams()
@@ -34,6 +36,8 @@ const ResetPassword = () => {
           notify('Ilmeni jokin ongelma', 'error')
         }
       }
+
+      const passwordsMatch = password === confirmPassword;
 
   return (
     <Container sx={{ marginTop: '5rem',
@@ -70,6 +74,13 @@ const ResetPassword = () => {
           value={password}
           onChange={({ target }) => setPassword(target.value)}
           sx={{ marginBottom: '1rem' }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {password.length > 5 ? <CheckCircleIcon /> : <CancelIcon />}
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
           id="confirm-password"
@@ -80,6 +91,15 @@ const ResetPassword = () => {
           value={confirmPassword}
           onChange={({ target }) => setConfirmPassword(target.value)}
           sx={{ marginBottom: '1rem' }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {passwordsMatch && password.length !== 0 && (
+            <CheckCircleIcon />
+        )}
+              </InputAdornment>
+            ),
+          }}
         />
         <Button
           type="submit"
