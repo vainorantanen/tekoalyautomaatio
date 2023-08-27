@@ -53,7 +53,6 @@ export const initUser = () => {
 export const updateUser= (object) => {
   return async dispatch => {
     const user = await usersService.update(object)
-    console.log('user after update', user)
     dispatch(set(user))
   }
 }
