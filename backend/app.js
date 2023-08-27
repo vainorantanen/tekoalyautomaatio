@@ -17,6 +17,8 @@ const commentsRouter = require('./controllers/comments')
 const portalPostsRouter = require('./controllers/portalPosts')
 const chatsRouter = require('./controllers/chats')
 const ratingsRouter = require('./controllers/ratings')
+const forgotPasswordRouter = require('./controllers/forgotpassword')
+const resetPassWordRouter = require('./controllers/resetpassword')
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
@@ -54,6 +56,8 @@ app.use('/api/comments', commentsRouter)
 app.use('/api/portalposts', portalPostsRouter)
 app.use('/api/chats', chatsRouter)
 app.use('/api/ratings', ratingsRouter)
+app.use('/api/forgot-password', forgotPasswordRouter)
+app.use('/api/reset-password', resetPassWordRouter)
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, './build/index.html'), function(err) {

@@ -98,6 +98,12 @@ const LoginForm = () => {
         }}>Eikö sinulla ole vielä käyttäjää? <Button component={Link}
           to='/register'
         >Reksiteröidy</Button></Typography>
+        <Typography sx={{
+          fontSize: '1rem',
+          textAlign: 'center',
+        }}><Button component={Link}
+          to='/forgot-password'
+        >Unohdin salasanani</Button></Typography>
       </Box>
     </Container>
   )
