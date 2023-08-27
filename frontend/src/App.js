@@ -46,6 +46,8 @@ import SinglePostPortalView from './components/Portal/SinglePostPortalView'
 import ChatsList from './components/Chat/ChatsList'
 import SingleChatPage from './components/Chat/SingleChatPage'
 import AddRatingForm from './components/RatingForm/AddRatingForm'
+import ForgotPassword from './components/ForgotPassword'
+import ResetPassword from './components/ResetPassword'
 
 const theme = createTheme({
   typography: {
@@ -110,6 +112,8 @@ const App = () => {
           <Route path='/omatkeskustelut' element={<ChatsList />} />
           <Route path='/omatkeskustelut/:id' element={<SingleChatPage />} />
           <Route path='/anna-arvostelu/:id' element={<AddRatingForm />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/reset-password/:id/:token' element={<ResetPassword />} />
         </Routes>
         <Footer />
       </Box>

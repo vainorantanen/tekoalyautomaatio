@@ -39,7 +39,6 @@ export const loginUser = (credentials) => {
       dispatch(notify('Kirjauduttu sisään', 'success'))
     } catch (e) {
       dispatch(notify('Väärä käyttäjätunnus tai salasana', 'error'))
-      console.log("Error", e)
     }
   }
 }
