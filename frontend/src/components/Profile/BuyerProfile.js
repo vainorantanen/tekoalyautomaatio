@@ -1,4 +1,4 @@
-import { Container, Typography, Box, Button } from '@mui/material'
+import { Container, Typography, Button } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import BuyersPosts from './BuyersPosts'
