@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt')
 router.post('/:id/:token', (req, res) => {
   const { id, token } = req.params
   const { password } = req.body
-
   // eslint-disable-next-line no-unused-vars
   jwt.verify(token, process.env.SECRET, (err, decoded) => {
     if(err) {

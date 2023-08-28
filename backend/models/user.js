@@ -13,7 +13,8 @@ const userSchema = mongoose.Schema({
   passwordHash: String,
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   projectPosts: [
     {

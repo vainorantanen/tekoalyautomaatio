@@ -25,3 +25,17 @@ jobs:
       - name: Check style
         run: npm run eslint
         working-directory: backend  # Run npm run eslint in the backend directory
+
+      - name: Build frontend and copy to backend directory
+        run: npm run build:render
+        working-directory: backend
+        
+      - name: e2e tests
+        uses: cypress-io/github-action@v5
+        with:
+          command: cd frontend && npm run test:e2e
+          start: cd backend && npm run start:test
+          wait-on: http://localhost:3001
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_DEV_URI }}
+          SECRET: ${{ secrets.SECRET }}
