@@ -18,9 +18,13 @@ jobs:
         with:
           node-version: '16'
         
-      - name: Install dependencies 
+      - name: Install dependencies to backend
         run: npm install  
         working-directory: backend  # Run npm install in the backend directory
+
+      - name: Install dependencies to frontend
+        run: npm install  
+        working-directory: frontend
         
       - name: Check style
         run: npm run eslint
@@ -36,5 +40,5 @@ jobs:
           start: cd backend && npm run start:test
           wait-on: http://localhost:3001
         env:
-          MONGODB_URI: ${{ secrets.MONGODB_DEV_URI }}
+          MONGODB_URI: ${{ secrets.MONGODB_TEST_URI }}
           SECRET: ${{ secrets.SECRET }}
