@@ -33,6 +33,9 @@ jobs:
       - name: Build frontend and copy to backend directory
         run: cd backend && npm run build:render
 
+      - name: Return to root directory
+        run: cd ..
+
       - name: e2e tests
         uses: cypress-io/github-action@v5
         with:

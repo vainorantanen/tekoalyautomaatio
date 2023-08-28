@@ -17,5 +17,6 @@
 | 25.8.23   | 7        | - Tehty ominaisuus ilmoituksen sulkemiselle<br>- Korjattu state bugi rekisteröinnissä<br>- Tehty API chateille ja luotu chat-näkymä frontendille<br>- Korjattu chatin lisäämisen bugi<br>- Lisätty route `/*` tuntemattomia reittejä varten, joka korjasi refreshauksen bugin |
 | 26.8.23   | 10       | - Tehty websocketilla reaaliaikainen chat-toiminnallisuus<br>- Viety chatin toiminnallisuus tuotantoympäristöön<br>- Tyylitelty chat-näkymää ja lisätty chatille otsikko (title) |
 | 27.8.23  | 10       | -tehty api ja frontend form ratingin lisäykselle<br>- ominaisuus ratingin poistolle ja näyttämiselle <br>- tehty salasanan resetointi ominaisuus <br> -lisätty path ja api sitemapille |
+| 28.8.23  | 4       | -Konfiguroitu CI/CD pipelinea<br> |
 
-Yhteensä: 104h
+Yhteensä: 108h
