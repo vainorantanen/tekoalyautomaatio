@@ -14,14 +14,14 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - name: Navigate to backend directory 
-        run: cd backend
         
       - name: Install dependencies 
         run: npm install  
-  
+        working-directory: backend  # Run npm install in the backend directory
+        
       - name: Check style
         run: npm run eslint
+        working-directory: backend  # Run npm run eslint in the backend directory
