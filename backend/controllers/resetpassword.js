@@ -7,6 +7,7 @@ router.post('/:id/:token', (req, res) => {
   const { id, token } = req.params
   const { password } = req.body
 
+  // eslint-disable-next-line no-unused-vars
   jwt.verify(token, process.env.SECRET, (err, decoded) => {
     if(err) {
       return res.json({ Status: 'Error with token' })
@@ -14,6 +15,7 @@ router.post('/:id/:token', (req, res) => {
       bcrypt.hash(password, 10)
         .then(hash => {
           User.findByIdAndUpdate({ _id: id }, { passwordHash: hash })
+            // eslint-disable-next-line no-unused-vars
             .then(u => res.send({ Status: 'Success' }))
             .catch(err => res.send({ Status: err }))
         })

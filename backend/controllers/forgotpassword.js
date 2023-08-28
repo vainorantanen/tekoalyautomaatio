@@ -29,6 +29,7 @@ router.post('/', (req, res) => {
         text: resetLink
       }
 
+      // eslint-disable-next-line no-unused-vars
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error)
