@@ -85,7 +85,6 @@ const Footer = () => {
         }}>
           Powered by Tekoälyautomaatio.fi
         </Typography>
-        <Link to="/sitemap.xml">Sitemap</Link>
       </Box>
     </footer>
   )

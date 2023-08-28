@@ -91,7 +91,7 @@ const App = () => {
           <Route path='/yrityksille' element={<ForCompanies />} />
           <Route path='/avoimetprojektit' element={<OpenProjectsFeed />} />
           <Route path='/avoimetprojektit/:id' element={<SingleProjectPage />} />
-          <Route path='/hyodyntaminen' element={<AiInfo />} />
+          <Route path='/liiketoiminnassa' element={<AiInfo />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/kehittajienilmoitukset' element={<DevsPosts />} />

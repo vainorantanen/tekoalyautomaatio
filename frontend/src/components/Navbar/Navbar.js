@@ -64,7 +64,7 @@ const Navbar = ({ logout }) => {
                 Lisää ilmoitus
               </StyledButton>
 
-              <StyledButton color="inherit" component={Link} to="/hyodyntaminen">
+              <StyledButton color="inherit" component={Link} to="/liiketoiminnassa">
                 Tekoäly liiketoiminnassa
               </StyledButton>
             {user ? (
@@ -108,7 +108,7 @@ const Navbar = ({ logout }) => {
           <ListItemButton component={Link} to="/lisaailmoitus" onClick={toggleDrawer}>
             <ListItemText primary="Lisää ilmoitus" />
           </ListItemButton>
-          <ListItemButton component={Link} to="/hyodyntaminen" onClick={toggleDrawer}>
+          <ListItemButton component={Link} to="/liiketoiminnassa" onClick={toggleDrawer}>
             <ListItemText primary="Tekoäly liiketoiminnassa" />
           </ListItemButton>
           {user && (
