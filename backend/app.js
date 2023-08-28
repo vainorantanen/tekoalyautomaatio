@@ -21,11 +21,6 @@ const forgotPasswordRouter = require('./controllers/forgotpassword')
 const resetPassWordRouter = require('./controllers/resetpassword')
 const sitemapRouter = require('./controllers/sitemap')
 
-if (process.env.NODE_ENV === 'test') {
-  const testingRouter = require('./controllers/testing')
-  app.use('/api/testing', testingRouter)
-}
-
 const middleware = require('./utils/middleware')
 
 mongoose.set('strictQuery', false)
