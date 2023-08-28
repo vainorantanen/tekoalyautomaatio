@@ -27,8 +27,7 @@ jobs:
         working-directory: backend  # Run npm run eslint in the backend directory
 
       - name: Build frontend and copy to backend directory
-        run: npm run build:render
-        working-directory: backend
+        run: cd backend && npm run build:render
         
       - name: e2e tests
         uses: cypress-io/github-action@v5
