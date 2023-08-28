@@ -14,9 +14,8 @@
 | 16.8.23  | 4       | - Löydetty ja korjattu bugi feedpostin kommentoinnissa ja poistossa<br>- Löydetty ja korjattu bugi tykkäysominaisuudessa <br> - lisätty dislike ominaisuus feedposteihin|
 | 18.8.23  | 4       | -korjattu projectpostin bugi ja kehittäjien ilmoituksen lisäämisen virheekäsittely<br>- Tyylitelty frontendia |
 | 24.8.23  | 5       | -lisätty portaali ilmoitusten api<br>- Tehty portaali ilmoituksen lisäämisen frontend |
-| 25.8.23  | 7       | -tehty ominaisuus ilmoituksen sulkemiselle<br>- korjattu state bugi rekisteröinnissä<br>- tehty api chateille ja fronttiin chat näkymä<br>- korjattu chatin lisäämisen bugi<br>
--lisätty route /* unknown endpointtia varten => tällä korjattu refreshaus bugi|
-| 26.8.23  | 10       | -Tehty websocketilla reaaliaikainen chateista<br>- tehty chat productionissa toimivaksi<br>- tyylitelty chat näkymää ja chatille titlen lisäys |
+| 25.8.23   | 7        | - Tehty ominaisuus ilmoituksen sulkemiselle<br>- Korjattu state bugi rekisteröinnissä<br>- Tehty API chateille ja luotu chat-näkymä frontendille<br>- Korjattu chatin lisäämisen bugi<br>- Lisätty route `/*` tuntemattomia reittejä varten, joka korjasi refreshauksen bugin |
+| 26.8.23   | 10       | - Tehty websocketilla reaaliaikainen chat-toiminnallisuus<br>- Viety chatin toiminnallisuus tuotantoympäristöön<br>- Tyylitelty chat-näkymää ja lisätty chatille otsikko (title) |
 | 27.8.23  | 10       | -tehty api ja frontend form ratingin lisäykselle<br>- ominaisuus ratingin poistolle ja näyttämiselle <br>- tehty salasanan resetointi ominaisuus <br> -lisätty path ja api sitemapille |
 
 Yhteensä: 104h
