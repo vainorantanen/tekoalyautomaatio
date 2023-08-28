@@ -18,7 +18,6 @@ const CommentSection = () => {
     const dispatch = useDispatch()
     const notify = useNotification()
   const user = useSelector(({ user }) => user)
-  const users = useSelector(({ users }) => users)
   const feedPost = useSelector(({ feedPosts }) => feedPosts.find(p => p.id === id))
 
 

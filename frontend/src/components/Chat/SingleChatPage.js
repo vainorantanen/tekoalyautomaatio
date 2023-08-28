@@ -34,6 +34,7 @@ const SingleChatPage = () => {
         };
         
         fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
 
@@ -41,6 +42,7 @@ const SingleChatPage = () => {
         socket.on("receive_message", (data) => {
           setMessages(data.chatReturned.messages)
         });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [socket]);
 
     const notify = useNotification();

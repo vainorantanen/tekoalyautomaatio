@@ -8,7 +8,6 @@ import { ThemeProvider } from '@emotion/react'
 import { createTheme } from '@mui/material/styles'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import './App.css'
 
 import Home from './components/Home/Home'
@@ -59,16 +58,14 @@ const theme = createTheme({
 })
 
 const App = () => {
-
   const stateInitializer = useInitialization()
   const notifyWith = useNotification()
 
   const clearUser = useClearUser()
 
-  const user = useSelector(({ user }) => user)
-
   useEffect(() => {
     stateInitializer()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const logout = async () => {

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { Container, Box, TextField, Button, Typography } from '@mui/material'
 import { useNotification } from '../hooks';
 import forgotpasswordService from '../services/forgotpassword';

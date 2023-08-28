@@ -1,19 +1,12 @@
 import { Container, Typography } from '@mui/material'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate, Link } from 'react-router-dom'
-import { useNotification } from '../../hooks'
+import { useSelector } from 'react-redux'
+import { useParams, Link } from 'react-router-dom'
 
 
 const SingleDevPostPage = () => {
-
-  const dispatch = useDispatch()
-  const notifyWith = useNotification()
-  const navigate = useNavigate()
-
   const id = useParams().id
 
-  const user = useSelector(({ user }) => user)
   const devsPost = useSelector(({ devsPosts }) => devsPosts.find(p => p.id === id))
 
   if (!devsPost) {

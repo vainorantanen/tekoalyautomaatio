@@ -1,8 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { Element } from 'react-scroll';
 import AiWhy from './AiWhy';
-import Sidebar from './Sidebar';
 import AiHeader from './AiHeader';
 import AiHow from './AiHow';
 

@@ -1,7 +1,7 @@
 import { Container, Typography, Button, TextField, Box } from '@mui/material'
 import React from 'react'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNotification } from '../../hooks'
 import { makePortalOffer } from '../../reducers/portalPosts'
 
@@ -9,7 +9,6 @@ import { makePortalOffer } from '../../reducers/portalPosts'
 const MakeOfferForm = ({ portalPost }) => {
   const [description, setDescription] = useState('')
 
-  const user = useSelector(({ user }) => user)
   const notify = useNotification()
   
   const dispatch = useDispatch()
