@@ -33,12 +33,16 @@ jobs:
       - name: Build frontend and copy to backend directory
         run: cd backend && npm run build:render
         
+      - name: Echo current directory
+        run: pwd
+      
       - name: e2e tests
         uses: cypress-io/github-action@v5
         with:
-          command: cd frontend && npm run test:e2e
-          start: cd backend && npm run start:test
+          command: npm run test:e2e
+          start: cd .. && cd backend && npm run start:test
           wait-on: http://localhost:3001
         env:
           MONGODB_URI: ${{ secrets.MONGODB_TEST_URI }}
           SECRET: ${{ secrets.SECRET }}
+        
