@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: '16'
         
+      - name: Install dependencies to root
+        run: npm install
+
       - name: Install dependencies to backend
         run: cd backend && npm install  
         # working-directory: backend  # Run npm install in the backend directory
