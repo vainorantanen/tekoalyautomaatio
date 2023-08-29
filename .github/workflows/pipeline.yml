@@ -19,12 +19,12 @@ jobs:
           node-version: '16'
         
       - name: Install dependencies to backend
-        run: npm install  
-        working-directory: backend  # Run npm install in the backend directory
+        run: cd backend && npm install  
+        # working-directory: backend  # Run npm install in the backend directory
 
       - name: Install dependencies to frontend
-        run: npm install  
-        working-directory: frontend
+        run: cd frontend && npm install  
+        # working-directory: frontend
         
       - name: Check style
         run: npm run eslint
@@ -32,9 +32,6 @@ jobs:
 
       - name: Build frontend and copy to backend directory
         run: cd backend && npm run build:render
-
-      - name: Return to root directory
-        run: cd ..
 
       - name: e2e tests
         uses: cypress-io/github-action@v5
