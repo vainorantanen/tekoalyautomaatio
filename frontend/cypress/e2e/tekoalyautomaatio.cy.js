@@ -1,6 +1,6 @@
 describe('Tekoalyautomaatio app', function() {
   beforeEach(function() {
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:3001')
   })
 
   it('Frontpage can be opened', function() {
@@ -20,7 +20,7 @@ describe('Tekoalyautomaatio app', function() {
 
 describe('Projektin lisäys asiakaskäyttäjällä', function() {
   beforeEach(function() {
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:3001')
     cy.contains('Kirjaudu').click()
 
     cy.get('#login-username').type('testi')
@@ -71,7 +71,7 @@ describe('Projektin lisäys asiakaskäyttäjällä', function() {
 
 describe('Tarjouksen tekeminen devaajakäyttäjällä', function() {
   beforeEach(function() {
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:3001')
     cy.contains('Kirjaudu').click()
 
     cy.get('#login-username').type('firma')
