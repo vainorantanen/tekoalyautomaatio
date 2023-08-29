@@ -28,12 +28,16 @@ mongoose.set('strictQuery', false)
 
 logger.info('connecting to', config.MONGODB_URI)
 
+console.log('connecting to', config.MONGODB_URI)
+
 mongoose
   .connect(config.MONGODB_URI)
   .then(() => {
+    console.log('MongoDB Connected')
     logger.info('connected to MongoDB')
   })
   .catch((error) => {
+    console.log('Error connection to mongo', error)
     logger.error('error connecting to MongoDB:', error.message)
   })
 

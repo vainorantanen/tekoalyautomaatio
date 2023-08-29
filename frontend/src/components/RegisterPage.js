@@ -92,7 +92,8 @@ const RegisterPage = () => {
       </Typography>
       <Box sx={{ maxWidth: '30rem', }} component="form" onSubmit={handleSubmit}>
       <FormControlLabel
-          control={<Checkbox checked={isDeveloper} onChange={handleIsDeveloperCheckboxChange} />}
+          control={<Checkbox checked={isDeveloper} onChange={handleIsDeveloperCheckboxChange}
+          id='isdevcheck' />}
           label="Haluan rekisteröidä käyttäjän palveluja tarjoavana kehittäjänä"
           sx={{ marginBottom: '1rem' }}
         />
@@ -176,6 +177,7 @@ const RegisterPage = () => {
               checked={isTermsAccepted}
               onChange={handleCheckboxChange}
               required
+              id='termscheck'
             />
           }
           label={
@@ -192,6 +194,7 @@ const RegisterPage = () => {
           <Button
             variant="contained"
             type="submit"
+            id='submit-button'
             sx={{
               backgroundColor: 'blue',
               color: 'white',

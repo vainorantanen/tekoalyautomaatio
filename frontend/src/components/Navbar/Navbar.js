@@ -64,8 +64,8 @@ const Navbar = ({ logout }) => {
                 Lisää ilmoitus
               </StyledButton>
 
-              <StyledButton color="inherit" component={Link} to="/liiketoiminnassa">
-                Tekoäly liiketoiminnassa
+              <StyledButton color="inherit" component={Link} to="/avoimetprojektit">
+                Avoimet tekoälyprojektit
               </StyledButton>
             {user ? (
                 <StyledButton color="inherit" onClick={logout}>
@@ -93,7 +93,9 @@ const Navbar = ({ logout }) => {
           <ListItemButton component={Link} to="/yrityksille" onClick={toggleDrawer}>
             <ListItemText primary="Yrityksille" />
           </ListItemButton>
-          <ListItemButton component={Link} to="/avoimetprojektit" onClick={toggleDrawer}>
+          <ListItemButton component={Link} to="/avoimetprojektit" onClick={toggleDrawer}
+          id='openprojects'
+          >
             <ListItemText primary="Avoimet tekoälyprojektit" />
           </ListItemButton>
           <ListItemButton component={Link} to="/kehittajat" onClick={toggleDrawer}>
@@ -112,17 +114,17 @@ const Navbar = ({ logout }) => {
             <ListItemText primary="Tekoäly liiketoiminnassa" />
           </ListItemButton>
           {user && (
-            <ListItemButton component={Link} to={`/profiili`}>
+            <ListItemButton component={Link} to={`/profiili`} onClick={toggleDrawer}>
               <ListItemText primary="Profiili" />
             </ListItemButton>
           )}
           {user && (
-            <ListItemButton component={Link} to={`/omatkeskustelut`}>
+            <ListItemButton component={Link} to={`/omatkeskustelut`} onClick={toggleDrawer}>
               <ListItemText primary="Omat keskustelut" />
             </ListItemButton>
           )}
           {user && (
-            <ListItemButton component={Link} to={`/portaali`}>
+            <ListItemButton component={Link} to={`/portaali`} onClick={toggleDrawer}>
               <ListItemText primary="Portaali" />
             </ListItemButton>
           )}
