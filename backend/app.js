@@ -35,6 +35,7 @@ mongoose
     logger.info('connected to MongoDB')
   })
   .catch((error) => {
+    console.log('Error connection to mongo', error)
     logger.error('error connecting to MongoDB:', error.message)
   })
 
