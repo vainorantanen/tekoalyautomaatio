@@ -36,20 +36,11 @@ jobs:
       - name: Build frontend and copy to backend directory
         run: cd backend && npm run build:render
 
-      - name: Start test server
-        run: |
-          npm run start:test &
-          echo "Test server started"
-        working-directory: backend
-
-      - name: Wait for 10 seconds
-        run: sleep 10
-
       - name: e2e tests
         uses: cypress-io/github-action@v5
         with:
           command: npm run test:e2e
-          start: echo "Test server already started"
+          start: npm run start:test
           wait-on: http://localhost:3001
         env:
           MONGODB_TEST_URI: ${{ secrets.MONGODB_TEST_URI }}
