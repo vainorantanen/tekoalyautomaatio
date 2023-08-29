@@ -108,7 +108,8 @@ const AddPost = () => {
         }}
       >
         <FormControlLabel
-          control={<Checkbox checked={isPortalPost} onChange={handleIsPortalPostChange} />}
+          control={<Checkbox checked={isPortalPost} onChange={handleIsPortalPostChange}
+          id='isportalpostcheck' />}
           label="Valitse tämä, jos haluat julkaista ilmoituksen vain toimittajien nähtäville"
           sx={{ marginBottom: '1rem' }}
         />

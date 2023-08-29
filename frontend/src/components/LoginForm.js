@@ -79,6 +79,7 @@ const LoginForm = () => {
           color="primary"
           className='login-button-input'
           fullWidth
+          id='login-button'
           sx={{ backgroundColor: 'blue', color: 'white',
             transition: 'transform 0.3s',
             marginTop: '1rem',
@@ -97,7 +98,7 @@ const LoginForm = () => {
           textAlign: 'center',
         }}>Eikö sinulla ole vielä käyttäjää? <Button component={Link}
           to='/register'
-        >Reksiteröidy</Button></Typography>
+        >Rekisteröidy</Button></Typography>
         <Typography sx={{
           fontSize: '1rem',
           textAlign: 'center',
