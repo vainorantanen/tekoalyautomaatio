@@ -22,6 +22,13 @@ const update = async (object) => {
   return request.data
 }
 
+const markInappropriate = async (object) => {
+  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+  const headers = token ? { 'Authorization': token } : {}
+  const request = await axios.put(`${baseUrl}/${object.id}/markInappropriate`, object, { headers })
+  return request.data
+}
+
 const remove = async (id) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
@@ -57,4 +64,5 @@ const like = async (id) => {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, update, remove, comment, removeComment, like, dislike }
+export default { getAll, create, update, remove, comment, removeComment, like, dislike,
+markInappropriate }

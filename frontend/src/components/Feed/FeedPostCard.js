@@ -1,11 +1,11 @@
 import React from 'react'
-import { Typography, Box } from '@mui/material'
+import { Typography, Container } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 const FeedPostCard = ({ post }) => {
 
   return (
-    <Box
+    <Container
     component={Link}
     to={`/feed/${post.id}`}
       sx={{
@@ -37,13 +37,13 @@ const FeedPostCard = ({ post }) => {
         whiteSpace: 'break-spaces',
         textOverflow: 'ellipsis',
         display: '-webkit-box',
-        WebkitLineClamp: 3, // Show only one line of description
+        WebkitLineClamp: 5,
         WebkitBoxOrient: 'vertical',
         marginTop: '2rem',
         lineHeight: '1.4', // Increase line height for better readability
        }}>{post.description}</Typography>
        <Typography>{post.likes.length} Tykkäystä</Typography>
-    </Box>
+    </Container>
   )
 }
 

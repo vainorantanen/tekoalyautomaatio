@@ -64,6 +64,17 @@ router.put('/:id', userExtractor, async (request, response) => {
   response.json(updatedFeedPost)
 })
 
+router.put('/:id/markInappropriate', userExtractor, async (request, response) => {
+  // kuka vaan voi ilmoittaa ilmoituksen epäasialliseksi
+  const { inAppropriateClicks } = request.body
+
+  let updatedFeedPost = await FeedPost.findByIdAndUpdate(request.params.id,  { inAppropriateClicks }, { new: true })
+
+  updatedFeedPost = await FeedPost.findById(updatedFeedPost._id).populate('user').populate({ path: 'comments' })
+
+  response.json(updatedFeedPost)
+})
+
 router.delete('/:id', userExtractor, async (request, response) => {
 
   const postId = request.params.id

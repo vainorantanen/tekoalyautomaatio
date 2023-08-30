@@ -24,7 +24,11 @@ const schema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     }
-  ]
+  ],
+  inAppropriateClicks: {
+    type: Number,
+    default: 0
+  }
 })
 
 schema.set('toJSON', {

@@ -45,6 +45,13 @@ export const updateFeedPost= (object) => {
   }
 }
 
+export const markFeedPostInappropriate= (object) => {
+  return async dispatch => {
+    const data = await feedPostService.markInappropriate(object)
+    dispatch(alter(data))
+  }
+}
+
 export const commentFeedPost = (id, comment) => {
   return async dispatch => {
     const data = await feedPostService.comment(id, comment)

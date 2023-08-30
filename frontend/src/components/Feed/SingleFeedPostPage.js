@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import CommentSection from './CommentSection'
-import { commentFeedPost, disLikeFeedPost, likeFeedPost } from '../../reducers/feedPosts'
+import { commentFeedPost, disLikeFeedPost, likeFeedPost, markFeedPostInappropriate, updateFeedPost } from '../../reducers/feedPosts'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
@@ -61,6 +61,20 @@ const SingleFeedPostPage = () => {
     navigate('/login')
   }
 
+  const handleInappropriate = ()  => {
+    const confirmed = window.confirm(`Haluatko varmasti ilmoittaa tämän julkaisun epäasiallisena?`)
+          if (!confirmed) {
+            return // If the user clicks "Cancel," do nothing
+          }
+
+          try {
+            dispatch(markFeedPostInappropriate({...feedPost, inAppropriateClicks: feedPost.inAppropriateClicks+1}));
+            notifyWith('Ilmoitettu onnistuneesti', 'success');
+          } catch (error) {
+            notifyWith('Ilmeni jokin ongelma', 'error');
+          }
+  }
+
   if (!feedPost) {
     return (
       <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
@@ -87,6 +101,8 @@ const SingleFeedPostPage = () => {
       {!user && (
          <Button onClick={handleNotLoggedUserLike}>Tykkää <ThumbUpIcon /></Button>
       )}
+      <br></br>
+      <Button onClick={handleInappropriate}>Ilmoita julkaisu epäasiallisena</Button>
         {/*Kommenttiosio*/}
         <TextField
           id="comment"

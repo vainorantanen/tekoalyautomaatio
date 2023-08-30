@@ -18,5 +18,7 @@
 | 26.8.23   | 10       | - Tehty websocketilla reaaliaikainen chat-toiminnallisuus<br>- Viety chatin toiminnallisuus tuotantoympäristöön<br>- Tyylitelty chat-näkymää ja lisätty chatille otsikko (title) |
 | 27.8.23  | 10       | -tehty api ja frontend form ratingin lisäykselle<br>- ominaisuus ratingin poistolle ja näyttämiselle <br>- tehty salasanan resetointi ominaisuus <br> -lisätty path ja api sitemapille |
 | 28.8.23  | 4       | -Konfiguroitu CI/CD pipelinea<br> |
+| 29.8.23  | 3       | -Korjattu pipeline e2e testien virhe ja konfiguroitu CI/CD pipelinea lisää<br> - Tehty testejä cypressillä |
+| 30.8.23  | 1       | -Korjattu pipeline e2e testien virhe ja konfiguroitu CI/CD pipelinea lisää<br> - Tehty testejä cypressillä |
 
-Yhteensä: 108h
+Yhteensä: 111h
