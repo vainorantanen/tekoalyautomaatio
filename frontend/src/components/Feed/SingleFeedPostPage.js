@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import CommentSection from './CommentSection'
-import { commentFeedPost, disLikeFeedPost, likeFeedPost, markFeedPostInappropriate, updateFeedPost } from '../../reducers/feedPosts'
+import { commentFeedPost, disLikeFeedPost, likeFeedPost, markFeedPostInappropriate } from '../../reducers/feedPosts'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
