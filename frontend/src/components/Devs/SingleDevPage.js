@@ -35,7 +35,7 @@ const SingleDevPage = () => {
           </Box>
           <Typography>Tietoa kehittäjästä</Typography>
           <Typography>Sähköposti: {dev.email}</Typography>
-          <Box sx={{ marginBottom: '1rem', marginTop: '1rem' }}>
+          <Box sx={{ marginBottom: '1rem', marginTop: '1rem', borderTop: '1px solid white' }}>
             <Typography sx={{ fontSize: '1.3rem', marginBottom: '1rem' }}>Kehittäjän blogit</Typography>
             {devBlogs.length > 0 ?
               devBlogs.map(b => (
@@ -43,13 +43,13 @@ const SingleDevPage = () => {
                 borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
                   <Typography sx={{ fontSize: '1.5rem', marginBottom: '2rem' }}>{b.title}</Typography>
                   <Typography>{b.user.name}</Typography>
-                  <Typography>{b.description}</Typography>
+                  <Typography sx={{ whiteSpace: 'break-spaces' }}>{b.description}</Typography>
                 </Box>
               )): (
               <Typography>Käyttäjällä ei ole vielä blogeja</Typography>
             )}
           </Box>
-          <Box sx={{ marginTop: '2rem' }}>
+          <Box sx={{ marginTop: '2rem', borderTop: '1px solid white' }}>
             <Typography sx={{ fontSize: '1.3rem' }}>Arvostelut</Typography>
             {user && user.id !== dev.id ? (
               <Typography>Oletko tehnyt yhteistyötä tähän kehittäjän kanssa?<Button component={Link} to={`/anna-arvostelu/${dev.id}`}>Anna arvostelu</Button></Typography>

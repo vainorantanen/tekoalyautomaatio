@@ -86,8 +86,8 @@ const BuyersPosts = () => {
 
   return (
     <Box>
-        <Typography sx={{ marginBottom: '2rem', fontSize: '1.5rem' }}>Omat ilmoitukset</Typography>
-        <Typography sx={{ fontSize: '1.5rem' }}>Avoimet</Typography>
+        <Typography sx={{ marginBottom: '2rem', fontSize: '1.5rem', borderBottom: '1px solid white' }}>Omat ilmoitukset</Typography>
+        <Typography sx={{ fontSize: '1.5rem', borderBottom: '1px solid white', marginBottom: '1rem' }}>Avoimet</Typography>
         <Box>
         {openProjectPosts.length > 0 ? openProjectPosts.map(p => (
             <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',
@@ -104,7 +104,7 @@ const BuyersPosts = () => {
             <Typography>Ei vielä ilmoituksia</Typography>
         )}
         </Box>
-        <Typography sx={{ marginBottom: '1rem', marginTop: '1rem', fontSize: '1.5rem' }}>Suljetut</Typography>
+        <Typography sx={{ marginBottom: '1rem', marginTop: '1rem', fontSize: '1.5rem', borderBottom: '1px solid white' }}>Suljetut</Typography>
         <Box>
         {closedProjectPosts.length > 0 ? closedProjectPosts.map(p => (
             <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',
@@ -121,8 +121,8 @@ const BuyersPosts = () => {
             <Typography>Ei vielä ilmoituksia</Typography>
         )}
         </Box>
-        <Typography sx={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Omat portaali-ilmoitukset</Typography>
-        <Typography sx={{ fontSize: '1.5rem' }}>Avoimet</Typography>
+        <Typography sx={{ fontSize: '1.5rem', marginBottom: '1rem',borderBottom: '1px solid white' }}>Omat portaali-ilmoitukset</Typography>
+        <Typography sx={{ fontSize: '1.5rem', borderBottom: '1px solid white', marginBottom: '1rem' }}>Avoimet</Typography>
         <Box>
         {openPortalPosts.length > 0 ? openPortalPosts.map(p => (
             <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',
@@ -139,7 +139,7 @@ const BuyersPosts = () => {
             <Typography>Ei vielä ilmoituksia</Typography>
         )}
         </Box>
-        <Typography sx={{ fontSize: '1.5rem', marginTop: '1rem' }}>Suljetut</Typography>
+        <Typography sx={{ fontSize: '1.5rem', marginTop: '1rem', borderBottom: '1px solid white' }}>Suljetut</Typography>
         <Box>
         {closedPortalPosts.length > 0 ? closedPortalPosts.map(p => (
             <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',

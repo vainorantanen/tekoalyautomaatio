@@ -49,6 +49,7 @@ import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword'
 import ModifyShownBlogs from './components/Profile/ModifyShownBlogs'
 import AddBlogForm from './components/Profile/AddBlogForm'
+import ModifyBlogForm from './components/Profile/ModifyBlogForm'
 
 const theme = createTheme({
   typography: {
@@ -99,7 +100,8 @@ const App = () => {
           <Route path='/profiili/kayttaja/muokkaa/ilmoitus/:id' element={<ModifyBuyerPost />} />
           <Route path='/profiili/kehittaja/muokkaa/ilmoitus/:id' element={<ModifyDevPost />} />
           <Route path='/profiili/muokkaa/julkaisu/:id' element={<ModifyFeedPost />} />
-          <Route path='/profiili/muokkaa/blogit' element={<ModifyShownBlogs />} />
+          <Route path='/profiili/blogit/hallinnoi' element={<ModifyShownBlogs />} />
+          <Route path='/profiili/blogit/muokkaa/:id' element={<ModifyBlogForm />} />
           <Route path='/lisaa-blogi' element={<AddBlogForm />} />
           <Route path='/kehittajat' element={<DevsList />} />
           <Route path='/kehittajat/:id' element={<SingleDevPage />} />

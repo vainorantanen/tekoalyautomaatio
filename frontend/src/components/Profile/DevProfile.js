@@ -55,7 +55,7 @@ const DevProfile = () => {
         <Typography sx={{ marginBottom: '1rem' }}>Tietoja minusta:</Typography>
         <ModifyBasicInfo />
         <ModifyDescriptionForm />
-        <Button sx={{ marginTop: '1rem', marginBottom: '1rem' }} component={Link} to='/profiili/muokkaa/blogit'>Hallinnoi profiilisissa näytettäviä blogeja</Button>
+        <Button sx={{ marginTop: '1rem', marginBottom: '1rem' }} component={Link} to='/profiili/blogit/hallinnoi'>Hallinnoi profiilisissa näytettäviä blogeja</Button>
         <DevsOwnPosts />
         <Typography sx={{ marginBottom: '2rem', marginTop: '2rem' }}>Omat julkaisut</Typography>
         <UserFeedPosts />
