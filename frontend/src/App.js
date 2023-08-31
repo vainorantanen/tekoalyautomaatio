@@ -50,6 +50,7 @@ import ResetPassword from './components/ResetPassword'
 import ModifyShownBlogs from './components/Profile/ModifyShownBlogs'
 import AddBlogForm from './components/Profile/AddBlogForm'
 import ModifyBlogForm from './components/Profile/ModifyBlogForm'
+import AdminPanel from './components/AdminPanel/AdminPanel'
 
 const theme = createTheme({
   typography: {
@@ -117,6 +118,7 @@ const App = () => {
           <Route path='/anna-arvostelu/:id' element={<AddRatingForm />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/reset-password/:id/:token' element={<ResetPassword />} />
+          <Route path='/adminpanel' element={<AdminPanel />} />
         </Routes>
         <Footer />
       </Box>

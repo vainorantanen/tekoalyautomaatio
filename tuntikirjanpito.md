@@ -20,5 +20,6 @@
 | 28.8.23  | 4       | -Konfiguroitu CI/CD pipelinea<br> |
 | 29.8.23  | 3       | -Korjattu pipeline e2e testien virhe ja konfiguroitu CI/CD pipelinea lisää<br> - Tehty testejä cypressillä |
 | 30.8.23  | 1       | -Tehty ominaisuus epäasiallisen feedpostin ilmoittamiselle<br> - Tehty route blogien lisäämiselle profiilinäkymään |
+| 31.8.23  | 4       | -Blogin lisäys, muokkaus ja poisto<br> - blogin voi ilmoittaa epäasialliseksi<br>- Tyylitelty frontendiä <br> - Blogien näyttäminen käyttäjän profiilinäkymässä |
 
-Yhteensä: 112h
+Yhteensä: 114h
