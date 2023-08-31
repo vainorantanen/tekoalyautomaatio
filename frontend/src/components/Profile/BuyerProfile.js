@@ -21,6 +21,7 @@ const BuyerProfile = () => {
         <Typography sx={{ marginBottom: '1rem' }}>Tietoja minusta:</Typography>
         <ModifyBasicInfo />
         <ModifyDescriptionForm />
+        <Button sx={{ marginTop: '1rem', marginBottom: '1rem' }} component={Link} to='/profiili/muokkaa/blogit'>Hallinnoi profiilisissa näytettäviä blogeja</Button>
         <BuyersPosts />
         <Typography sx={{ marginBottom: '2rem', marginTop: '2rem' }}>Omat julkaisut</Typography>
         <UserFeedPosts />

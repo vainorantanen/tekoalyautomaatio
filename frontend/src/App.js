@@ -48,6 +48,7 @@ import AddRatingForm from './components/RatingForm/AddRatingForm'
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword'
 import ModifyShownBlogs from './components/Profile/ModifyShownBlogs'
+import AddBlogForm from './components/Profile/AddBlogForm'
 
 const theme = createTheme({
   typography: {
@@ -99,6 +100,7 @@ const App = () => {
           <Route path='/profiili/kehittaja/muokkaa/ilmoitus/:id' element={<ModifyDevPost />} />
           <Route path='/profiili/muokkaa/julkaisu/:id' element={<ModifyFeedPost />} />
           <Route path='/profiili/muokkaa/blogit' element={<ModifyShownBlogs />} />
+          <Route path='/lisaa-blogi' element={<AddBlogForm />} />
           <Route path='/kehittajat' element={<DevsList />} />
           <Route path='/kehittajat/:id' element={<SingleDevPage />} />
           <Route path='/users' element={<AllUsers />} />
