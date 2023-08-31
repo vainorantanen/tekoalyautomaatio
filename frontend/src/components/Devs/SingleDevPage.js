@@ -1,10 +1,13 @@
 import { Box, Button, Container, Typography, Rating } from '@mui/material'
 import React from 'react'
-import {  useSelector } from 'react-redux'
+import {  useSelector, useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-
+import { markBlogInappropriate } from '../../reducers/blogs'
+import { useNotification } from '../../hooks'
 
 const SingleDevPage = () => {
+  const dispatch = useDispatch()
+  const notifyWith = useNotification()
 
   const id = useParams().id
 
@@ -12,6 +15,20 @@ const SingleDevPage = () => {
   const dev = useSelector(({ users }) => users.find(p => p.id === id))
   const devRatings = useSelector(({ratings}) => ratings).filter(r => r.targetUser.id === dev.id)
   const devBlogs = useSelector(({blogs})=> blogs).filter(b => b.user.id === dev.id)
+
+  const handleInappropriate = (blogId)  => {
+    const confirmed = window.confirm(`Haluatko varmasti ilmoittaa tämän julkaisun epäasiallisena?`)
+          if (!confirmed) {
+            return // If the user clicks "Cancel," do nothing
+          }
+
+          try {
+            dispatch(markBlogInappropriate(blogId));
+            notifyWith('Ilmoitettu onnistuneesti', 'success');
+          } catch (error) {
+            notifyWith('Ilmeni jokin ongelma', 'error');
+          }
+  }
 
   if (!dev) {
     return (
@@ -44,6 +61,7 @@ const SingleDevPage = () => {
                   <Typography sx={{ fontSize: '1.5rem', marginBottom: '2rem' }}>{b.title}</Typography>
                   <Typography>{b.user.name}</Typography>
                   <Typography sx={{ whiteSpace: 'break-spaces' }}>{b.description}</Typography>
+                  <Button onClick={() => handleInappropriate(b.id)}>Ilmoita blogi epäasiallisena</Button>
                 </Box>
               )): (
               <Typography>Käyttäjällä ei ole vielä blogeja</Typography>

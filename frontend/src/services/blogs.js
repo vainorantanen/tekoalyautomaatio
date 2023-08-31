@@ -28,5 +28,10 @@ const remove = async (id) => {
   await axios.delete(`${baseUrl}/${id}`, { headers })
 }
 
+const markInappropriate = async (id) => {
+    const request = await axios.put(`${baseUrl}/${id}/markInappropriate`)
+    return request.data
+  }
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, update, remove }
+export default { getAll, create, update, remove, markInappropriate }

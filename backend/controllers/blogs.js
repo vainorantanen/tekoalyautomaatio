@@ -54,6 +54,16 @@ router.put('/:id', userExtractor, async (request, response) => {
   response.json(updatedblog)
 })
 
+router.put('/:id/markInappropriate', async (request, response) => {
+  const blog = await Blog.findById(request.params.id)
+
+  let updatedblog = await Blog.findByIdAndUpdate(request.params.id,  { inAppropriateClicks: blog.inAppropriateClicks+1 }, { new: true })
+
+  updatedblog = await Blog.findById(updatedblog._id).populate('user')
+
+  response.json(updatedblog)
+})
+
 router.delete('/:id', userExtractor, async (request, response) => {
   const post = await Blog.findById(request.params.id)
 

@@ -44,6 +44,13 @@ export const updateBlog= (object) => {
   }
 }
 
+export const markBlogInappropriate= (blogId) => {
+    return async dispatch => {
+      const data = await blogsService.markInappropriate(blogId)
+      dispatch(alter(data))
+    }
+  }
+
 export const removeBlog = (object) => {
   return async dispatch => {
     await blogsService.remove(object.id)
