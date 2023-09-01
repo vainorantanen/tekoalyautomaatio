@@ -128,6 +128,11 @@ const Navbar = ({ logout }) => {
               <ListItemText primary="Portaali" />
             </ListItemButton>
           )}
+          {user && user.username === 'admin' && (
+            <ListItemButton component={Link} to={`/adminpanel`} onClick={toggleDrawer}>
+              <ListItemText primary="Admin paneeli" />
+            </ListItemButton>
+          )}
           {user ? (
             <ListItemButton component={Link} onClick={logout}>
             <ListItemText primary="Kirjaudu ulos" />

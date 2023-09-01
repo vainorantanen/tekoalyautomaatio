@@ -1,37 +1,56 @@
-import { Box, Typography, Button, TextField } from '@mui/material'
+import { Box, Typography, Button, TextField, Container } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNotification } from '../../hooks'
-import { updateUser } from '../../reducers/user'
+import { updateBlog } from '../../reducers/blogs'
+import { useParams } from 'react-router-dom'
 
-const ModifyDescriptionForm = () => {
+const ModifyBlogForm = () => {
 
-    const localUser = useSelector(({user}) => user)
-    const user = useSelector(({users}) => users).find(u => u.id === localUser.id)
+    const { id } = useParams()
 
-    const [description, setDescription] = useState(user.description)
+    const blog = useSelector(({blogs}) => blogs).find(b => b.id === id)
+
+    const [ title, setTitle ] = useState(blog ? blog.title : '')
+    const [description, setDescription] = useState(blog ? blog.description : '')
 
     const notify = useNotification()
     const dispatch = useDispatch()
 
     const handleSubmit = async () => {
         try {
-            dispatch(updateUser({...user, description }))
+            dispatch(updateBlog({ ...blog, title, description }))
             notify('Päivitys tehty onnistuneesti', 'success')
         } catch (error) {
             notify('Ilmeni jokin ongelma päivityksessä, yritä myöhemmin uudelleen', 'error')
         }
     }
 
+    if (!blog) {
+        return (
+            <Container sx={{ marginTop: '5rem', minHeight: '100vh' }}>
+                <Typography>Ladataan...</Typography>
+            </Container>
+        )
+    }
+
   return (
     <Box sx={{  display: 'flex', flexDirection: 'column', textAlign: 'center', justifyContent: 'center', alignItems: 'center',
-    marginTop: '3rem', borderTop: '1px solid white' }}>
-        <Typography sx={{ marginBottom: '1rem', marginTop: '1rem' }}>Muokkaa esittelyäsi</Typography>
+    marginTop: '5rem' }}>
+        <Typography sx={{ marginBottom: '1rem', fontSize: '1.3rem' }}>Muokkaa blogia</Typography>
         <TextField
+        id="title"
+        label="Muokkaa otsikkoa"
+        fullWidth
+        value={title}
+        onChange={({ target }) => setTitle(target.value)}
+        sx={{ marginBottom: '1rem', maxWidth: '40rem' }}
+      />
+      <TextField
         id="description"
-        label="Muokkaa esittelyä"
+        label="Muokkaa blogitekstiä"
         multiline
         fullWidth
         rows={12}
@@ -58,4 +77,4 @@ const ModifyDescriptionForm = () => {
   )
 }
 
-export default ModifyDescriptionForm
+export default ModifyBlogForm

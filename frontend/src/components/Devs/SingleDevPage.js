@@ -1,16 +1,34 @@
 import { Box, Button, Container, Typography, Rating } from '@mui/material'
 import React from 'react'
-import {  useSelector } from 'react-redux'
+import {  useSelector, useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-
+import { markBlogInappropriate } from '../../reducers/blogs'
+import { useNotification } from '../../hooks'
 
 const SingleDevPage = () => {
+  const dispatch = useDispatch()
+  const notifyWith = useNotification()
 
   const id = useParams().id
 
   const user = useSelector(({user}) => user)
   const dev = useSelector(({ users }) => users.find(p => p.id === id))
   const devRatings = useSelector(({ratings}) => ratings).filter(r => r.targetUser.id === dev.id)
+  const devBlogs = useSelector(({blogs})=> blogs).filter(b => b.user.id === dev.id)
+
+  const handleInappropriate = (blogId)  => {
+    const confirmed = window.confirm(`Haluatko varmasti ilmoittaa tämän julkaisun epäasiallisena?`)
+          if (!confirmed) {
+            return // If the user clicks "Cancel," do nothing
+          }
+
+          try {
+            dispatch(markBlogInappropriate(blogId));
+            notifyWith('Ilmoitettu onnistuneesti', 'success');
+          } catch (error) {
+            notifyWith('Ilmeni jokin ongelma', 'error');
+          }
+  }
 
   if (!dev) {
     return (
@@ -34,7 +52,22 @@ const SingleDevPage = () => {
           </Box>
           <Typography>Tietoa kehittäjästä</Typography>
           <Typography>Sähköposti: {dev.email}</Typography>
-          <Box sx={{ marginTop: '2rem' }}>
+          <Box sx={{ marginBottom: '1rem', marginTop: '1rem', borderTop: '1px solid white' }}>
+            <Typography sx={{ fontSize: '1.3rem', marginBottom: '1rem' }}>Kehittäjän blogit</Typography>
+            {devBlogs.length > 0 ?
+              devBlogs.map(b => (
+                <Box key={b.id} sx={{ backgroundColor: 'white', color: 'black',
+                borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
+                  <Typography sx={{ fontSize: '1.5rem', marginBottom: '2rem' }}>{b.title}</Typography>
+                  <Typography>{b.user.name}</Typography>
+                  <Typography sx={{ whiteSpace: 'break-spaces' }}>{b.description}</Typography>
+                  <Button onClick={() => handleInappropriate(b.id)}>Ilmoita blogi epäasiallisena</Button>
+                </Box>
+              )): (
+              <Typography>Käyttäjällä ei ole vielä blogeja</Typography>
+            )}
+          </Box>
+          <Box sx={{ marginTop: '2rem', borderTop: '1px solid white' }}>
             <Typography sx={{ fontSize: '1.3rem' }}>Arvostelut</Typography>
             {user && user.id !== dev.id ? (
               <Typography>Oletko tehnyt yhteistyötä tähän kehittäjän kanssa?<Button component={Link} to={`/anna-arvostelu/${dev.id}`}>Anna arvostelu</Button></Typography>

@@ -18,9 +18,10 @@ const BuyerProfile = () => {
   return (
     <Container sx={{ marginTop: '1rem' }}>
         <Typography sx={{ marginBottom: '1rem' }}>Käyttäjän {user.name} profiili</Typography>
-        <Typography sx={{ marginBottom: '1rem' }}>Tietoja minusta:</Typography>
+        <Typography sx={{ marginBottom: '1rem', borderTop: '1px solid white' }}>Tietoja minusta:</Typography>
         <ModifyBasicInfo />
         <ModifyDescriptionForm />
+        <Button sx={{ marginTop: '1rem', marginBottom: '1rem', borderBottom: '1px solid white' }} component={Link} to='/profiili/blogit/hallinnoi'>Hallinnoi profiilisissa näytettäviä blogeja</Button>
         <BuyersPosts />
         <Typography sx={{ marginBottom: '2rem', marginTop: '2rem' }}>Omat julkaisut</Typography>
         <UserFeedPosts />

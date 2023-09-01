@@ -48,6 +48,9 @@ import AddRatingForm from './components/RatingForm/AddRatingForm'
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword'
 import ModifyShownBlogs from './components/Profile/ModifyShownBlogs'
+import AddBlogForm from './components/Profile/AddBlogForm'
+import ModifyBlogForm from './components/Profile/ModifyBlogForm'
+import AdminPanel from './components/AdminPanel/AdminPanel'
 
 const theme = createTheme({
   typography: {
@@ -98,7 +101,9 @@ const App = () => {
           <Route path='/profiili/kayttaja/muokkaa/ilmoitus/:id' element={<ModifyBuyerPost />} />
           <Route path='/profiili/kehittaja/muokkaa/ilmoitus/:id' element={<ModifyDevPost />} />
           <Route path='/profiili/muokkaa/julkaisu/:id' element={<ModifyFeedPost />} />
-          <Route path='/profiili/muokkaa/blogit' element={<ModifyShownBlogs />} />
+          <Route path='/profiili/blogit/hallinnoi' element={<ModifyShownBlogs />} />
+          <Route path='/profiili/blogit/muokkaa/:id' element={<ModifyBlogForm />} />
+          <Route path='/lisaa-blogi' element={<AddBlogForm />} />
           <Route path='/kehittajat' element={<DevsList />} />
           <Route path='/kehittajat/:id' element={<SingleDevPage />} />
           <Route path='/users' element={<AllUsers />} />
@@ -113,6 +118,7 @@ const App = () => {
           <Route path='/anna-arvostelu/:id' element={<AddRatingForm />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/reset-password/:id/:token' element={<ResetPassword />} />
+          <Route path='/adminpanel' element={<AdminPanel />} />
         </Routes>
         <Footer />
       </Box>

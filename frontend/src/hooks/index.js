@@ -10,6 +10,7 @@ import { initializeComments } from '../reducers/comments'
 import { initializePortalPosts } from '../reducers/portalPosts'
 import { initializeChats } from '../reducers/chats'
 import { initializeRatings } from '../reducers/ratings'
+import { initializeBlogs } from '../reducers/blogs'
 
 export const useNotification = () => {
   const dispatch = useDispatch()
@@ -32,6 +33,7 @@ export const useInitialization = () => {
     dispatch(initializePortalPosts())
     dispatch(initializeChats())
     dispatch(initializeRatings())
+    dispatch(initializeBlogs())
   }
 }
 

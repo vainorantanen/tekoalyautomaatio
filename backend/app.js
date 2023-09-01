@@ -20,6 +20,7 @@ const ratingsRouter = require('./controllers/ratings')
 const forgotPasswordRouter = require('./controllers/forgotpassword')
 const resetPassWordRouter = require('./controllers/resetpassword')
 const sitemapRouter = require('./controllers/sitemap')
+const blogsRouter = require('./controllers/blogs')
 
 const middleware = require('./utils/middleware')
 
@@ -56,6 +57,7 @@ app.use('/api/ratings', ratingsRouter)
 app.use('/api/forgot-password', forgotPasswordRouter)
 app.use('/api/reset-password', resetPassWordRouter)
 app.use('/sitemap.xml', sitemapRouter)
+app.use('/api/blogs', blogsRouter)
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, './build/index.html'), function(err) {
