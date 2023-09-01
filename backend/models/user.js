@@ -70,7 +70,11 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Blog'
     }
-  ]
+  ],
+  disabled: {
+    type: Boolean,
+    default: false
+  }
 })
 
 userSchema.plugin(uniqueValidator)

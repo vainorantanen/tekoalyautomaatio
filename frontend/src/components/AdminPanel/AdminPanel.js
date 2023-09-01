@@ -43,9 +43,9 @@ const AdminPanel = () => {
                 <Box sx={{ display: 'flex', flexDirection: 'row',
                  flexWrap: 'wrap', gap: '1rem' }}>
                     <Box>
-                        <Typography>username: {u.username}</Typography>
-                        <Typography>email: {u.email}</Typography>
-                        <Typography>Käyttäjätyyppi{u.isDeveloper ? 'Kehittäjä' : 'Normaali'}</Typography>
+                        <Typography>Käyttäjänimi: {u.username}</Typography>
+                        <Typography>Email: {u.email}</Typography>
+                        <Typography>Käyttäjätyyppi: {u.isDeveloper ? 'Kehittäjä' : 'Normaali'}</Typography>
 
                     </Box>
                     <Box>
@@ -87,7 +87,7 @@ const AdminPanel = () => {
               </Button>
             ))}
           </Box>
-        <Typography></Typography>
+          <Typography sx={{ fontSize: '1.2rem', borderBottom: '1px solid white' }}>Yhteydenotot asiakaspalveluun</Typography>
     </Container>
   )
 }
