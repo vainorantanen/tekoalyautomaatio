@@ -11,6 +11,7 @@ import { initializePortalPosts } from '../reducers/portalPosts'
 import { initializeChats } from '../reducers/chats'
 import { initializeRatings } from '../reducers/ratings'
 import { initializeBlogs } from '../reducers/blogs'
+import { initializeCustomerSupportPosts } from '../reducers/customersupport'
 
 export const useNotification = () => {
   const dispatch = useDispatch()
@@ -34,6 +35,7 @@ export const useInitialization = () => {
     dispatch(initializeChats())
     dispatch(initializeRatings())
     dispatch(initializeBlogs())
+    dispatch(initializeCustomerSupportPosts())
   }
 }
 

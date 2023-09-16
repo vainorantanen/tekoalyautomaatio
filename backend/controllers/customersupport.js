@@ -33,18 +33,16 @@ router.post('/', userExtractor, async (request, response) => {
 })
 
 router.put('/:id', userExtractor, async (request, response) => {
-  const { isOpen } = request.body
+  const { isDone, isImportant } = request.body
 
   const user = request.user
 
-  const post = await CustomerSupportPost.findById(request.params.id)
-
   // vain admin tai pyynnön lisännyt käyttäjä voi muokata
-  if (!user || !(post.user.toString() === user.id.toString() || user.username === 'admin')) {
+  if (!user || !user.username === 'admin') {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
-  let updatedcustomerSupportPost = await CustomerSupportPost.findByIdAndUpdate(request.params.id,  { isOpen }, { new: true })
+  let updatedcustomerSupportPost = await CustomerSupportPost.findByIdAndUpdate(request.params.id,  { isDone, isImportant }, { new: true })
 
   updatedcustomerSupportPost = await CustomerSupportPost.findById(updatedcustomerSupportPost._id).populate('user')
 
@@ -56,7 +54,7 @@ router.delete('/:id', userExtractor, async (request, response) => {
 
   const user = request.user
 
-  if (!user || !(post.user.toString() === user.id.toString() || user.username === 'admin')) {
+  if (!user || !user.username === 'admin') {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 

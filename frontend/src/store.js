@@ -10,6 +10,7 @@ import portalPostsReducer from './reducers/portalPosts'
 import chatsReducer from './reducers/chats'
 import ratingsReducer from './reducers/ratings'
 import blogsReducer from './reducers/blogs'
+import customerSupportReducer from './reducers/customersupport'
 
 const store = configureStore({
   reducer: {
@@ -23,7 +24,8 @@ const store = configureStore({
     portalPosts: portalPostsReducer,
     chats: chatsReducer,
     ratings: ratingsReducer,
-    blogs: blogsReducer
+    blogs: blogsReducer,
+    customersupportPosts: customerSupportReducer
   }
 })
 

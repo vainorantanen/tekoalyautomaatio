@@ -18,6 +18,14 @@ const schema = mongoose.Schema({
     type: Date,
     required: true
   },
+  isDone: {
+    type: Boolean,
+    default: false
+  },
+  isImportant: {
+    type: Boolean,
+    default: false
+  }
 })
 
 schema.set('toJSON', {

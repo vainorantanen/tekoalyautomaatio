@@ -21,5 +21,7 @@
 | 29.8.23  | 3       | -Korjattu pipeline e2e testien virhe ja konfiguroitu CI/CD pipelinea lisää<br> - Tehty testejä cypressillä |
 | 30.8.23  | 1       | -Tehty ominaisuus epäasiallisen feedpostin ilmoittamiselle<br> - Tehty route blogien lisäämiselle profiilinäkymään |
 | 31.8.23  | 4       | -Blogin lisäys, muokkaus ja poisto<br> - blogin voi ilmoittaa epäasialliseksi<br>- Tyylitelty frontendiä <br> - Blogien näyttäminen käyttäjän profiilinäkymässä |
+| 1.9.23  | 1       | -Tehty asiakaspalvelu apia ja admin paneelia<br>|
+| 16.9.23  |  2      | -Tehty asiakaspalvelun adminpaneelia<br> -Luotu ominaisuus aspapyynnön merkitsemiselle tärkeäksi ja tehdyksi<br>- Aspapyynnön poisto<br> - Tehty chat-keskustelun aloituksen komponentti|
 
-Yhteensä: 114h
+Yhteensä: 117h

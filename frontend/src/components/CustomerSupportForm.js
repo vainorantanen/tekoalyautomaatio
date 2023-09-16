@@ -7,7 +7,7 @@ import {
   Box,
 } from '@mui/material'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNotification } from '../hooks'
 import { addCustomerSupportPost } from '../reducers/customersupport'
 
@@ -16,7 +16,6 @@ const CustomerSupportForm = () => {
   const [ title, setTitle ] = useState('')
     const [ email, setEmail ] = useState('')
 
-  const user = useSelector(({ user }) => user)
   const notify = useNotification()
   
   const dispatch = useDispatch()
@@ -25,12 +24,12 @@ const CustomerSupportForm = () => {
     event.preventDefault()
     try {
       dispatch(addCustomerSupportPost({ description, title, email }))
-      notify('Postaus lisätty onnistuneesti', 'success')
+      notify('Lähetetty onnistuneesti', 'success')
       setDescription('')
       setTitle('')
       setEmail('')
     } catch (error) {
-      notify('Ilmeni jokin ongelma postauksen teossa, yritä myöhemmin uudelleen', 'error')
+      notify('Ilmeni jokin ongelma lähetyksessä, yritä myöhemmin uudelleen', 'error')
     }
 
   }
