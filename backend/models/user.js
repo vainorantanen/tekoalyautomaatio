@@ -23,6 +23,12 @@ const userSchema = mongoose.Schema({
     }
   ],
   isDeveloper: Boolean,
+  subscriptionModel: {
+    type: String,
+    enum: ['none', 'premium'],
+    required: true,
+    default: 'none'
+  },
   devsPosts: [
     {
       type: mongoose.Schema.Types.ObjectId,

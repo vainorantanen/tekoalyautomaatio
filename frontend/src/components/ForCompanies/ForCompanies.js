@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
-import EmailInput from '../EmailInput'
+import SubsModel from './SubsModel'
+import CompaniesHeader from './CompaniesHeader'
 
 const ForCompanies = () => {
   return (
@@ -14,23 +15,9 @@ const ForCompanies = () => {
             marginBottom: '2rem'
           },
         }}
-      >Tekoälyautomaatio.fi</Typography>
-
-<Typography
-        sx={{
-            marginTop: '6rem',
-          fontSize: '1.6rem',
-          textAlign: 'center',
-          '@media (max-width: 442px)': {
-            fontSize: '1.2rem',
-            marginBottom: '2rem'
-          },
-        }}
-      >Ominaisuus julkaistaan kohta</Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center', marginTop: '4rem' }}>
-            <EmailInput />
-        </Box>
-
+      >Yrityksille</Typography>
+      <CompaniesHeader />
+      <SubsModel />
     </Box>
   )
 }
