@@ -7,7 +7,7 @@ import { removeCustomerSupportPost, updateCustomerSupportPost } from '../../redu
 import { useNotification } from '../../hooks'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-import { updateUserData, updateUserDisabledState } from '../../reducers/users'
+import { updateUserDisabledState } from '../../reducers/users'
 
 const AdminPanel = () => {
 
@@ -126,7 +126,6 @@ const AdminPanel = () => {
                     <Box>
                         <Typography>Hallinnoi</Typography>
                         <Typography><Button component={Link} to={`/users/${u.id}`}>Siirry profiiliin</Button></Typography>
-                        <Typography><Button>Anna varoitus</Button></Typography>
                         {u.disabled ? (
                           <Typography><Button onClick={() => handleDisableUser(u)}>Enabloi käyttäjä</Button></Typography>
                         ) : (
