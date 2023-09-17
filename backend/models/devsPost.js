@@ -17,6 +17,17 @@ const schema = mongoose.Schema({
     type: Date,
     required: true
   },
+  postType: {
+    type: String,
+    enum: ['normal', 'event', 'course'],
+    required: true,
+  },
+  price: {
+    type: String,
+    required: true
+  },
+  time: String,
+  location: String
 })
 
 schema.set('toJSON', {
