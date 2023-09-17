@@ -45,11 +45,28 @@ router.put('/:id', userExtractor, async (request, response) => {
 
   const wantedUser = await User.findById(request.params.id)
 
-  if (!user || wantedUser.id.toString() !== user.id.toString()) {
+  if (!user || !(wantedUser.id.toString() !== user.id.toString() || user.username !== 'admin')) {
     return response.status(401).json({ error: 'operation not permitted' })
   }
 
   let updatedUser = await User.findByIdAndUpdate(request.params.id,  { description, email }, { new: true })
+
+  updatedUser = await User.findById(updatedUser._id)
+
+  response.json(updatedUser)
+})
+
+router.put('/:id/disable', userExtractor, async (request, response) => {
+  const { disabled } = request.body
+
+  const user = request.user
+
+  // vain admin voi muuttaa disabled/enabled tilaa
+  if (!user || user.username !== 'admin') {
+    return response.status(401).json({ error: 'operation not permitted' })
+  }
+
+  let updatedUser = await User.findByIdAndUpdate(request.params.id,  { disabled }, { new: true })
 
   updatedUser = await User.findById(updatedUser._id)
 

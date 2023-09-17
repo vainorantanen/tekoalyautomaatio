@@ -21,6 +21,7 @@ const forgotPasswordRouter = require('./controllers/forgotpassword')
 const resetPassWordRouter = require('./controllers/resetpassword')
 const sitemapRouter = require('./controllers/sitemap')
 const blogsRouter = require('./controllers/blogs')
+const customerSupportRouter = require('./controllers/customersupport')
 
 const middleware = require('./utils/middleware')
 
@@ -31,11 +32,9 @@ logger.info('connecting to', config.MONGODB_URI)
 mongoose
   .connect(config.MONGODB_URI)
   .then(() => {
-    console.log('MongoDB Connected')
     logger.info('connected to MongoDB')
   })
   .catch((error) => {
-    console.log('Error connection to mongo', error)
     logger.error('error connecting to MongoDB:', error.message)
   })
 
@@ -58,6 +57,7 @@ app.use('/api/forgot-password', forgotPasswordRouter)
 app.use('/api/reset-password', resetPassWordRouter)
 app.use('/sitemap.xml', sitemapRouter)
 app.use('/api/blogs', blogsRouter)
+app.use('/api/customersupport', customerSupportRouter)
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, './build/index.html'), function(err) {

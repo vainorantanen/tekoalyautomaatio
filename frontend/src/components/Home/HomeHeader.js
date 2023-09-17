@@ -152,6 +152,22 @@ const HomeHeader = () => {
               }}>
             Selaa projektipyyntöjä
             </Button>
+            <Button
+              component={Link}
+              to="/laheta-asiakaspalvelupyynto"
+              sx={{ backgroundColor: 'blue', color: 'white',
+                transition: 'transform 0.3s',
+                //maxWidth: '9rem',
+                marginTop: '1rem',
+                marginLeft: '1rem',
+                marginBottom: '1rem',
+                borderRadius: '1rem',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                  backgroundImage: 'linear-gradient(to bottom, #003eff, #006eff)' }
+              }}>
+            Asiakaspalvelu
+            </Button>
       </Box>
     </Box>
   )

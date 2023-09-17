@@ -12,10 +12,13 @@ const slice = createSlice({
     add(state, { payload }) {
       return state.concat(payload)
     },
+    alter(state, { payload }) {
+      return state.map(s => s.id !== payload.id ? s : payload)
+    },
   },
 })
 
-const { set, add } = slice.actions
+const { set, add, alter } = slice.actions
 
 export const initializeUsers = () => {
   return async dispatch => {
@@ -28,6 +31,13 @@ export const addUser = (object) => {
   return async dispatch => {
     const data = await usersService.create(object)
     dispatch(add(data))
+  }
+}
+
+export const updateUserDisabledState = (object) => {
+  return async dispatch => {
+    const user = await usersService.modifyDisabledState(object)
+    dispatch(alter(user))
   }
 }
 

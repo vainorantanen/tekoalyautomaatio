@@ -1,17 +1,19 @@
 import axios from 'axios'
 import storageService from './storage'
-const baseUrl = '/api/users'
+const baseUrl = '/api/customersupport'
 
-
-const getAllUsers = async () => {
+const getAll = async () => {
   const request = await axios.get(baseUrl)
   return request.data
 }
 
 const create = async (object) => {
-  const request = await axios.post(baseUrl, object)
+  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+  const headers = token ? { 'Authorization': token } : {}
+  const request = await axios.post(baseUrl, object, { headers })
   return request.data
 }
+
 
 const update = async (object) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
@@ -20,12 +22,11 @@ const update = async (object) => {
   return request.data
 }
 
-const modifyDisabledState = async (object) => {
+const remove = async (id) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
-  const request = await axios.put(`${baseUrl}/${object.id}/disable`, object, { headers })
-  return request.data
+  await axios.delete(`${baseUrl}/${id}`, { headers })
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAllUsers, create, update, modifyDisabledState }
+export default { getAll, create, update, remove }
