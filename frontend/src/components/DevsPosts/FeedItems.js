@@ -55,7 +55,7 @@ const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <Box>
-      <Box sx={{ marginBottom: '1rem' }}>
+      <Box sx={{ marginBottom: '1rem', textAlign: 'center' }}>
             <TextField
               label="Hae..."
               variant="outlined"
@@ -65,7 +65,7 @@ const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
               onChange={(e) => setSearchQuery(e.target.value)}
             />
         </Box>
-        <Box
+        <Container
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -76,37 +76,42 @@ const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
           },
         }}
       >
+        {/* left column - filtering options */}
+        <Box sx={{ marginBottom: '1rem', flex: 1 }}>
+          <InputLabel id="typeFilterLabel">Rajaa tyypin perusteella</InputLabel>
+          <Select
+            labelId="typeFilterLabel"
+            id="typeFilter"
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+          >
+            <MenuItem value="all">Kaikki</MenuItem>
+            <MenuItem value="normal">Tavalliset ilmoitukset</MenuItem>
+            <MenuItem value="event">Tapahtuma</MenuItem>
+            <MenuItem value="course">Koulutus tai kurssi</MenuItem>
+          </Select>
+        </Box>
         {/* Right Column - Filtered posts */}
-        <Box sx={{ flex: 2 }}>
-          {/* Dropdown menu for filtering */}
-<Box sx={{ marginBottom: '1rem' }}>
-  <InputLabel id="typeFilterLabel">Rajaa tyypin perusteella</InputLabel>
-  <Select
-    labelId="typeFilterLabel"
-    id="typeFilter"
-    value={selectedType}
-    onChange={(e) => setSelectedType(e.target.value)}
-  >
-    <MenuItem value="all">Kaikki</MenuItem>
-    <MenuItem value="normal">Tavalliset ilmoitukset</MenuItem>
-    <MenuItem value="event">Tapahtuma</MenuItem>
-    <MenuItem value="course">Koulutus tai kurssi</MenuItem>
-  </Select>
-</Box>
+        <Box sx={{ flex: 2, justifyContent: 'center' }}>
           <Box
             sx={{
               display: 'flex',
-              flexDirection: 'row',
+              flexDirection: 'column',
               flexWrap: 'wrap',
               justifyContent: 'center',
               gap: '1rem',
               marginBottom: '1rem',
+              minHeight: '50vh'
             }}
           >
             {/* Rendering the current page of filtered posts */}
-            {currentPosts.map((post) => (
+            {currentPosts.length > 0 ? (
+              currentPosts.map((post) => (
               <FeedPostCard key={post.id} post={post} />
-            ))}
+            )))
+          : (
+            <Typography sx={{ textAlign: 'center' }}>Ei ilmoituksia</Typography>
+          )}
           </Box>
           {/* Pagination */}
           <Box className="pagination" sx={{ textAlign: 'center', marginBottom: '1rem' }}>
@@ -125,7 +130,7 @@ const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
             ))}
           </Box>
         </Box>
-      </Box>
+      </Container>
     </Box>
   )
 }

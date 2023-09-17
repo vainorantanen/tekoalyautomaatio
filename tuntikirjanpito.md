@@ -23,6 +23,6 @@
 | 31.8.23  | 4       | -Blogin lisäys, muokkaus ja poisto<br> - blogin voi ilmoittaa epäasialliseksi<br>- Tyylitelty frontendiä <br> - Blogien näyttäminen käyttäjän profiilinäkymässä |
 | 1.9.23  | 1       | -Tehty asiakaspalvelu apia ja admin paneelia<br>|
 | 16.9.23  |  2      | -Tehty asiakaspalvelun adminpaneelia<br> -Luotu ominaisuus aspapyynnön merkitsemiselle tärkeäksi ja tehdyksi<br>- Aspapyynnön poisto<br> - Tehty chat-keskustelun aloituksen komponentti|
-| 17.9.23  |  X      | -Tehty asiakaspalvelun adminpaneelia<br>|
+| 17.9.23  |  4      | -tehty frontendia devaajien postauksien osalta<br>- lisätty ominaisuuksia kuten hinta, aika ja paikka devaajien postauksille<br>-Muokattu tietokantaskeemaa ja backendiä tähän sopivaksi|
 
-Yhteensä: 117h
+Yhteensä: 121h
