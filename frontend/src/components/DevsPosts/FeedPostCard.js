@@ -27,7 +27,7 @@ const FeedPostCard = ({ post }) => {
         },
         transition: 'transform 0.2s', // Add transition property for smooth effect
         '&:hover': {
-          transform: 'scale(1.03)', // Apply scaling effect on hover
+          transform: 'scale(1.01)', // Apply scaling effect on hover
         },
       }}
     >

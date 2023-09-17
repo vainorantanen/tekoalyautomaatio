@@ -70,7 +70,7 @@ const SingleDevPage = () => {
           <Box sx={{ marginTop: '2rem', borderTop: '1px solid white' }}>
             <Typography sx={{ fontSize: '1.3rem' }}>Arvostelut</Typography>
             {user && user.id !== dev.id ? (
-              <Typography>Oletko tehnyt yhteistyötä tähän kehittäjän kanssa?<Button component={Link} to={`/anna-arvostelu/${dev.id}`}>Anna arvostelu</Button></Typography>
+              <Typography>Oletko tehnyt yhteistyötä tämän kehittäjän kanssa?<Button component={Link} to={`/anna-arvostelu/${dev.id}`}>Anna arvostelu</Button></Typography>
             ): null}
             {
             devRatings.filter(r => r.showOnDevProfile).length > 0 ? (

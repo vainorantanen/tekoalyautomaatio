@@ -7,6 +7,7 @@ import { removeCustomerSupportPost, updateCustomerSupportPost } from '../../redu
 import { useNotification } from '../../hooks'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+import { updateUserData, updateUserDisabledState } from '../../reducers/users'
 
 const AdminPanel = () => {
 
@@ -81,6 +82,20 @@ const AdminPanel = () => {
       }
     }
 
+    const handleDisableUser = (user) => {
+      const state = user.disabled ? 'enabled' : 'disabled'
+      const confirmed = window.confirm(`Haluatko varmasti asettaa käyttäjän tilaan: ${state}?`)
+      if (!confirmed) {
+        return // If the user clicks "Cancel," do nothing
+      }
+        try {
+          dispatch(updateUserDisabledState({...user, disabled : !user.disabled  }))
+          notifyWith('Päivitetty onnistuneesti', 'success')
+        } catch (error) {
+          notifyWith('Epäonnistui', 'error')
+        }
+    }
+
   return (
     <Container sx={{ marginTop: '5rem', minHeight: '80vh' }}>
         <Typography sx={{ fontSize: '1.5rem', textAlign: 'center', marginBottom: '2rem' }}>Admin paneeli</Typography>
@@ -112,7 +127,11 @@ const AdminPanel = () => {
                         <Typography>Hallinnoi</Typography>
                         <Typography><Button component={Link} to={`/users/${u.id}`}>Siirry profiiliin</Button></Typography>
                         <Typography><Button>Anna varoitus</Button></Typography>
-                        <Typography><Button>Disabloi käyttäjä</Button></Typography>
+                        {u.disabled ? (
+                          <Typography><Button onClick={() => handleDisableUser(u)}>Enabloi käyttäjä</Button></Typography>
+                        ) : (
+                          <Typography><Button onClick={() => handleDisableUser(u)}>Disabloi käyttäjä</Button></Typography>
+                        )}
                         <Typography><Button sx={{ color: 'red' }}>Poista käyttäjä</Button></Typography>
                     </Box>
                 </Box>
