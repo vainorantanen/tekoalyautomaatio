@@ -80,7 +80,13 @@ const userSchema = mongoose.Schema({
   disabled: {
     type: Boolean,
     default: false
-  }
+  },
+  orders: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order'
+    }
+  ]
 })
 
 userSchema.plugin(uniqueValidator)

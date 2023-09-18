@@ -24,5 +24,6 @@
 | 1.9.23  | 1       | -Tehty asiakaspalvelu apia ja admin paneelia<br>|
 | 16.9.23  |  2      | -Tehty asiakaspalvelun adminpaneelia<br> -Luotu ominaisuus aspapyynnön merkitsemiselle tärkeäksi ja tehdyksi<br>- Aspapyynnön poisto<br> - Tehty chat-keskustelun aloituksen komponentti|
 | 17.9.23  |  5      | -tehty frontendia devaajien postauksien osalta<br>- lisätty ominaisuuksia kuten hinta, aika ja paikka devaajien postauksille<br>-Muokattu tietokantaskeemaa ja backendiä tähän sopivaksi|
+| 18.9.23  |  1      | -tehty subscription ominaisuutta frontendiin ja backendiin<br>|
 
-Yhteensä: 122h
+Yhteensä: 123h

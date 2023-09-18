@@ -2,6 +2,7 @@ import { Box, Container, Typography, Button } from '@mui/material'
 import React from 'react'
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import { Link } from 'react-router-dom'
 
 const SubsModel = () => {
   return (
@@ -37,6 +38,8 @@ const SubsModel = () => {
             <Typography><CheckIcon />Analytiikka</Typography>
             <Typography><CheckIcon />Kuukauden ilmainen kokeilu</Typography>
             <Button
+                component={Link}
+                to='/tilaa'
                 variant="contained"
                 color="primary"
                 sx={{
