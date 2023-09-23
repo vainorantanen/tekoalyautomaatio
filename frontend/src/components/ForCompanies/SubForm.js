@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useNotification } from '../../hooks'
+import { addOrder } from '../../reducers/orders'
+import { updateUser } from '../../reducers/user'
 
 const SubForm = () => {
 
@@ -13,12 +15,18 @@ const SubForm = () => {
   const dispatch = useDispatch()
 
   const handleOrder = () => {
+    if (user.subscriptionModel !== 'none') {
+      notifyWith('Sinulla on jo tilaus voimassa', 'error')
+      return
+    }
+
     const confirmed = window.confirm('Vahvistetaanko tilaus?')
     if (!confirmed) {
       return // If the user clicks "Cancel," do nothing
     }
       try {
-        //dispatch(removeCustomerSupportPost(obj))
+        dispatch(addOrder())
+        dispatch(updateUser({...user, subscriptionModel: 'premium'}))
         notifyWith('Tilattu onnistuneesti, onneksi olkoon!', 'success')
       } catch (error) {
         notifyWith('Ilmeni jokin ongelma, ota yhteyttä asiakaspalveluun', 'error')

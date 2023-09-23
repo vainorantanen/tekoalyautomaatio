@@ -22,6 +22,8 @@ const resetPassWordRouter = require('./controllers/resetpassword')
 const sitemapRouter = require('./controllers/sitemap')
 const blogsRouter = require('./controllers/blogs')
 const customerSupportRouter = require('./controllers/customersupport')
+const ordersRouter = require('./controllers/orders')
+
 
 const middleware = require('./utils/middleware')
 
@@ -58,6 +60,7 @@ app.use('/api/reset-password', resetPassWordRouter)
 app.use('/sitemap.xml', sitemapRouter)
 app.use('/api/blogs', blogsRouter)
 app.use('/api/customersupport', customerSupportRouter)
+app.use('/api/orders', ordersRouter)
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, './build/index.html'), function(err) {

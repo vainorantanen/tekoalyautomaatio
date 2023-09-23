@@ -11,6 +11,7 @@ import chatsReducer from './reducers/chats'
 import ratingsReducer from './reducers/ratings'
 import blogsReducer from './reducers/blogs'
 import customerSupportReducer from './reducers/customersupport'
+import ordersReducer from './reducers/orders'
 
 const store = configureStore({
   reducer: {
@@ -25,7 +26,8 @@ const store = configureStore({
     chats: chatsReducer,
     ratings: ratingsReducer,
     blogs: blogsReducer,
-    customersupportPosts: customerSupportReducer
+    customersupportPosts: customerSupportReducer,
+    orders: ordersReducer
   }
 })
 

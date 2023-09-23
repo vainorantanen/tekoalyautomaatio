@@ -5,20 +5,18 @@ const schema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  timeStamp: {
+  orderDate: {
     type: Date,
     required: true
-  },
-  orderType: {
-    type: String,
-    enum: ['none', 'premium'],
-    required: true,
-    default: 'none'
   },
   isActive: {
     type: Boolean,
     default: true
-  }
+  },
+  endDate: {
+    type: Date,
+    default: null
+  },
 })
 
 schema.set('toJSON', {
