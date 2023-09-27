@@ -49,7 +49,7 @@ router.put('/:id/end', userExtractor, async (request, response) => {
   user.subscriptionModel = 'none'
   await user.save()
 
-  let updatedorder = await Order.findByIdAndUpdate(request.params.id,  { isActive: false }, { new: true })
+  let updatedorder = await Order.findByIdAndUpdate(request.params.id,  { isActive: false, endDate: new Date() }, { new: true })
 
   updatedorder = await Order.findById(updatedorder._id).populate('user')
 

@@ -27,5 +27,7 @@
 | 18.9.23  |  1      | -tehty subscription ominaisuutta frontendiin ja backendiin<br>|
 | 23.9.23  |  2      | -subscription ominaisuuden tekoa frontendiin ja backendiin<br>- 
 tehty tilauksen aktivointia ja lopettamist<br>- toteutettu api tilauksille|
+| 27.9.23  |  1      | - korjailtu subscription ominaisuutta<br>- toteutettu ominaisuus
+tilauksen perumiselle|
 
-Yhteensä: 125h
+Yhteensä: 126h

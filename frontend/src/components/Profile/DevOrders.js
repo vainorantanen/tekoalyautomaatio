@@ -3,6 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNotification } from '../../hooks'
 import { endOrder } from '../../reducers/orders'
+import { updateUser } from '../../reducers/user'
 
 const DevOrders = () => {
 
@@ -18,14 +19,15 @@ const DevOrders = () => {
         return null
     }
 
-    const handleCancelOrder = () => {
+    const handleCancelOrder = (order) => {
         const confirmed = window.confirm('Haluatko varmasti perua tilauksen?')
     if (!confirmed) {
       return // If the user clicks "Cancel," do nothing
     } 
 
     try {
-      dispatch(endOrder())
+      dispatch(endOrder(order))
+      dispatch(updateUser({...user, subscriptionModel: 'none'}))
       notify('Poistettu onnistuneesti', 'success')
     } catch (error) {
       notify('Ilmeni jokin ongelma', 'error')
@@ -41,20 +43,20 @@ const DevOrders = () => {
         {devOrders.length > 0 && devOrders.filter(o => o.isActive).map(o => (
             <Box key={o.id} sx={{ padding: '0.5rem', border: '1px solid white',
             borderRadius: '0.5rem', marginBottom: '1rem' }}>
-                <Typography>Permium tilaus, kuukausiveloitus 20€/kk</Typography>
+                <Typography>Premium tilaus, kuukausiveloitus 20€/kk</Typography>
                 <Typography>Tila: {o.isActive ? 'Aktiivinen' : 'Ei-aktiivinen'}</Typography>
                 <Typography>Tilattu: {o.orderDate.split('T')[0]}</Typography>
-                <Button sx={{ color: 'red' }}>Lopeta tilaus</Button>
+                <Button sx={{ color: 'red' }} onClick={() => handleCancelOrder(o)}>Lopeta tilaus</Button>
             </Box>
         ))}
         <Typography>Tilaushistoria</Typography>
         {devOrders.length > 0 && devOrders.filter(o => !o.isActive).map(o => (
             <Box key={o.id} sx={{ padding: '0.5rem', border: '1px solid white',
             borderRadius: '0.5rem', marginBottom: '1rem' }}>
-                <Typography>Permium tilaus, kuukausiveloitus 20€/kk</Typography>
+                <Typography>Premium tilaus, kuukausiveloitus 20€/kk</Typography>
                 <Typography>Tila: {o.isActive ? 'Aktiivinen' : 'Ei-aktiivinen'}</Typography>
                 <Typography>Tilattu: {o.orderDate.split('T')[0]}</Typography>
-                <Typography>Lopetettu: {o.endDate.split('T')[0]}</Typography>
+                <Typography>Lopetettu: {o.endDate ? o.endDate.split('T')[0] : 'Virhe tiedon hakemisessa' }</Typography>
             </Box>
         ))}
     </Container>
