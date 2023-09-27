@@ -5,29 +5,18 @@ const schema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  title: {
-    type: String,
-    required: true
-  },
-  description : {
-    type: String,
-    required: true
-  },
-  timeStamp: {
+  orderDate: {
     type: Date,
     required: true
   },
-  postType: {
-    type: String,
-    enum: ['normal', 'event', 'course'],
-    required: true,
+  isActive: {
+    type: Boolean,
+    default: true
   },
-  price: {
-    type: String,
-    required: true
+  endDate: {
+    type: Date,
+    default: null
   },
-  time: String,
-  location: String
 })
 
 schema.set('toJSON', {
@@ -38,4 +27,4 @@ schema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('DevsPost', schema)
+module.exports = mongoose.model('Order', schema)

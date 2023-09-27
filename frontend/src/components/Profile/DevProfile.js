@@ -8,6 +8,7 @@ import ModifyBasicInfo from './ModifyBasicInfo'
 import { Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import { removeRating, updateRating } from '../../reducers/ratings'
+import DevOrders from './DevOrders'
 
 const DevProfile = () => {
     const localUser = useSelector(({user}) => user)
@@ -54,6 +55,7 @@ const DevProfile = () => {
         <Typography sx={{ marginBottom: '2rem' }}>Kehittäjän {user.name} profiili</Typography>
         <Typography sx={{ marginBottom: '1rem' }}>Tietoja minusta:</Typography>
         <ModifyBasicInfo />
+        <DevOrders />
         <ModifyDescriptionForm />
         <Button sx={{ marginTop: '1rem', marginBottom: '1rem' }} component={Link} to='/profiili/blogit/hallinnoi'>Hallinnoi profiilisissa näytettäviä blogeja</Button>
         <DevsOwnPosts />

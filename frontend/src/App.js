@@ -52,6 +52,7 @@ import AddBlogForm from './components/Profile/AddBlogForm'
 import ModifyBlogForm from './components/Profile/ModifyBlogForm'
 import AdminPanel from './components/AdminPanel/AdminPanel'
 import CustomerSupportForm from './components/CustomerSupportForm'
+import SubForm from './components/ForCompanies/SubForm'
 
 const theme = createTheme({
   typography: {
@@ -121,6 +122,7 @@ const App = () => {
           <Route path='/reset-password/:id/:token' element={<ResetPassword />} />
           <Route path='/adminpanel' element={<AdminPanel />} />
           <Route path='/laheta-asiakaspalvelupyynto' element={<CustomerSupportForm />} />
+          <Route path='/tilaa' element={<SubForm />} />
         </Routes>
         <Footer />
       </Box>

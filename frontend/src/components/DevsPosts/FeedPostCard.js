@@ -1,6 +1,9 @@
 import React from 'react'
 import { Typography, Box, } from '@mui/material'
 import { Link } from 'react-router-dom'
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import EuroIcon from '@mui/icons-material/Euro';
 
 const FeedPostCard = ({ post }) => {
 
@@ -10,20 +13,17 @@ const FeedPostCard = ({ post }) => {
       to={`/kehittajienilmoitukset/${post.id}`}
       sx={{
         backgroundColor: 'white',
-        color: 'black',
-        padding: '1rem',
+        padding: '2rem',
         borderRadius: '0.5rem',
-        //marginLeft: '5rem',
-        //marginRight: '5rem',
-        width: '20vw',
+        marginLeft: '2rem',
+        marginRight: '2rem',
+        color: 'black',
         display: 'flex',
-        height: '10rem',
-        flexDirection: 'column',
         textDecoration: 'none',
-        '@media (max-width: 1020px)': {
+        flexDirection: 'column',
+        '@media (max-width: 820px)': {
           marginLeft: '0.1rem',
           marginRight: '0.1rem',
-          width: '70vw'
         },
         transition: 'transform 0.2s', // Add transition property for smooth effect
         '&:hover': {
@@ -31,9 +31,9 @@ const FeedPostCard = ({ post }) => {
         },
       }}
     >
-      <Typography sx={{ fontSize: '1.5rem' }}>{post.title}</Typography>
-      <Typography>{post.user.name}</Typography>
-      <Typography>Julkaistu {post.timeStamp.split('T')[0]}</Typography>
+        <Typography sx={{ fontSize: '1.5rem' }}>{post.title}</Typography>
+        <Typography>{post.user.name}</Typography>
+        <Typography>Julkaistu {post.timeStamp.split('T')[0]}</Typography>
       <Typography sx={{ color: '#555',
         overflow: 'hidden',
         whiteSpace: 'break-spaces',
@@ -43,6 +43,13 @@ const FeedPostCard = ({ post }) => {
         WebkitBoxOrient: 'vertical',
         lineHeight: '1.4', // Increase line height for better readability
        }}>{post.description}</Typography>
+       <Typography sx={{ marginTop: '1rem' }}><EuroIcon />{post.price}</Typography>
+       {post.location && post.location.length > 0 && (
+        <Typography><LocationOnIcon />{post.location}</Typography>
+       )}
+       {post.time && post.time.length > 0 && (
+        <Typography><AccessTimeIcon />{post.time}</Typography>
+       )}
     </Box>
   )
 }

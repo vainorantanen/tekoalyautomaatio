@@ -23,6 +23,12 @@ const userSchema = mongoose.Schema({
     }
   ],
   isDeveloper: Boolean,
+  subscriptionModel: {
+    type: String,
+    enum: ['none', 'premium'],
+    required: true,
+    default: 'none'
+  },
   devsPosts: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -74,7 +80,13 @@ const userSchema = mongoose.Schema({
   disabled: {
     type: Boolean,
     default: false
-  }
+  },
+  orders: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order'
+    }
+  ]
 })
 
 userSchema.plugin(uniqueValidator)
