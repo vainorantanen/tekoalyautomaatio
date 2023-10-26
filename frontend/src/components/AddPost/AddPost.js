@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { useNotification } from '../../hooks'
 import { addPost } from '../../reducers/projectPosts'
-import { addPortalPost } from '../../reducers/portalPosts'
+import { addPortalpost } from '../../reducers/portalPosts'
 
 const AddPost = () => {
   const [description, setDescription] = useState('')
@@ -32,25 +32,38 @@ const AddPost = () => {
     event.preventDefault()
     try {
       if (isPortalPost) {
-        dispatch(addPortalPost({
+        const result = await dispatch(addPortalpost({
           title, description
         }))
+        if (result && result.error) {
+          notify('Tapahtui virhe palvelimella', 'error')
+          return
+        } else {
+          notify('Postaus lisätty onnistuneesti', 'success')
+          setDescription('')
+          setTitle('')
+        }
       } else {
-        dispatch(addPost({
+        const result = await dispatch(addPost({
           title,
           description,
         }))
+        if (result && result.error) {
+          notify('Tapahtui virhe backendissa', 'error')
+          return
+        } else {
+          notify('Postaus lisätty onnistuneesti', 'success')
+          setDescription('')
+          setTitle('')
+        }
       }
-      notify('Postaus lisätty onnistuneesti', 'success')
-      setDescription('')
-      setTitle('')
     } catch (error) {
       notify('Ilmeni jokin ongelma postauksen teossa, yritä myöhemmin uudelleen', 'error')
     }
 
   }
 
-  if (!user) {
+  if (!user || user.isDeveloper) {
     return (
       <Container sx={{ marginTop: '8rem', minHeight: '100vh' }}>
         <Typography

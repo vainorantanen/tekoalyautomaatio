@@ -1,9 +1,9 @@
-import portalPostsService from '../services/portalPosts'
+import portalbidsService from '../services/portalbids'
 
 import { createSlice } from '@reduxjs/toolkit'
 
 const slice = createSlice({
-  name: 'portalPosts',
+  name: 'portalBids',
   initialState: [],
   reducers: {
     set(state, { payload }) {
@@ -23,40 +23,40 @@ const slice = createSlice({
 
 const { set, add, remove, alter } = slice.actions
 
-export const initializePortalPosts = () => {
+export const initializePortalBids = () => {
   return async dispatch => {
-    const data = await portalPostsService.getAll()
+    const data = await portalbidsService.getAll()
     dispatch(set(data))
   }
 }
 
-export const addPortalpost = (object) => {
+export const addPortalBid = (object) => {
   return async dispatch => {
     try {
-      const data = await portalPostsService.create(object)
-      dispatch(add(data))
+    const data = await portalbidsService.create(object)
+    dispatch(add(data))
     } catch (error) {
       return { error: error };
     }
   }
 }
 
-export const updatePortalpost= (object) => {
+export const removePortalBid = (bidId) => {
   return async dispatch => {
     try {
-      const data = await portalPostsService.update(object)
-      dispatch(alter(data))
+    await portalbidsService.remove(bidId)
+    dispatch(remove(bidId))
     } catch (error) {
       return { error: error };
     }
   }
 }
 
-export const removePortalpost = (object) => {
+export const updatePortalBid = (objectId) => {
   return async dispatch => {
     try {
-      await portalPostsService.remove(object.id)
-      dispatch(remove(object.id))
+    const data = await portalbidsService.update(objectId)
+    dispatch(alter(data))
     } catch (error) {
       return { error: error };
     }

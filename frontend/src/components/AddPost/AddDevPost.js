@@ -53,7 +53,7 @@ const AddDevPost = () => {
 
   }
 
-  if (!user) {
+  if (!user || !user.isDeveloper) {
     return (
       <Container sx={{ marginTop: '8rem', minHeight: '100vh' }}>
         <Typography

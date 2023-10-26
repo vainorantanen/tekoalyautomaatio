@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import { removePost, updatePost } from '../../reducers/projectPosts'
-import { removePortalPost, updatePortalPost } from '../../reducers/portalPosts'
+import { removePortalpost, updatePortalpost } from '../../reducers/portalPosts'
 
 const BuyersPosts = () => {
     const notify = useNotification()
@@ -27,15 +27,20 @@ const BuyersPosts = () => {
     }
   }
 
-  const handleDeletePortalPost = async (postId) => {
+  const handleDeletePortalPost = async (post) => {
     const confirmed = window.confirm('Haluatko varmasti poistaa tämän ilmoituksen?')
     if (!confirmed) {
       return // If the user clicks "Cancel," do nothing
     }
 
     try {
-      dispatch(removePortalPost({ id: postId }))
-      notify('Poistettu onnistuneesti', 'success')
+      const result = await dispatch(removePortalpost(post))
+      if (result && result.error) {
+        notify('Tapahtui virhe palvelimella', 'error')
+        return
+      } else {
+        notify('Poistettu onnistuneesti', 'success')
+      }
     } catch (error) {
       notify('Ilmeni jokin ongelma poistossa', 'erro')
     }
@@ -49,8 +54,13 @@ const BuyersPosts = () => {
     }
 
     try {
-      dispatch(updatePost({ ...post, isOpen: !post.isOpen }))
-      notify('Tila muokattu onnistuneesti', 'success')
+      const result = await dispatch(updatePost({ ...post, isOpen: !post.isOpen }))
+      if (result && result.error) {
+        notify('Tapahtui virhe palvelimella', 'error')
+        return
+      } else {
+        notify('Tila muokattu onnistuneesti', 'success')
+      }
     } catch (error) {
       notify('Ilmeni jokin ongelma', 'erro')
     }
@@ -64,8 +74,14 @@ const BuyersPosts = () => {
     }
 
     try {
-      dispatch(updatePortalPost({ ...post, isOpen: !post.isOpen }))
-      notify('Tila muokattu onnistuneesti', 'success')
+      const result = await dispatch(updatePortalpost({ ...post, isOpen: !post.isOpen }))
+      if (result && result.error) {
+        notify('Tapahtui virhe palvelimella', 'error')
+        return
+      } else {
+        notify('Tila muokattu onnistuneesti', 'success')
+      }
+      
     } catch (error) {
       notify('Ilmeni jokin ongelma', 'erro')
     }
@@ -133,7 +149,7 @@ const BuyersPosts = () => {
                 <Button component={Link} to={`/portaali/ilmoitukset/${p.id}`}>Siirry ilmoitukseen</Button>
                 <Button sx={{ color: 'red' }} onClick={() => handleCloseOrOpenPortalPost(p)}>{p.isOpen ? 'Aseta ilmoitus suljetuksi'
                 : 'Aseta ilmoitus avoimeksi'}</Button>
-                <Button sx={{ color: 'red' }} onClick={() => handleDeletePortalPost(p.id)}>Poista ilmoitus</Button>
+                <Button sx={{ color: 'red' }} onClick={() => handleDeletePortalPost(p)}>Poista ilmoitus</Button>
             </Box>  
         )) : (
             <Typography>Ei vielä ilmoituksia</Typography>
@@ -150,7 +166,7 @@ const BuyersPosts = () => {
                 <Button component={Link} to={`/portaali/ilmoitukset/${p.id}`}>Siirry ilmoitukseen</Button>
                 <Button sx={{ color: 'red' }} onClick={() => handleCloseOrOpenPortalPost(p)}>{p.isOpen ? 'Aseta ilmoitus suljetuksi'
                 : 'Aseta ilmoitus avoimeksi'}</Button>
-                <Button sx={{ color: 'red' }} onClick={() => handleDeletePortalPost(p.id)}>Poista ilmoitus</Button>
+                <Button sx={{ color: 'red' }} onClick={() => handleDeletePortalPost(p)}>Poista ilmoitus</Button>
             </Box>  
         )) : (
             <Typography>Ei vielä ilmoituksia</Typography>

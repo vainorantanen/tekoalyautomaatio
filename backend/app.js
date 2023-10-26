@@ -23,7 +23,7 @@ const sitemapRouter = require('./controllers/sitemap')
 const blogsRouter = require('./controllers/blogs')
 const customerSupportRouter = require('./controllers/customersupport')
 const ordersRouter = require('./controllers/orders')
-
+const portalBidsRouter = require('./controllers/portalbids')
 
 const middleware = require('./utils/middleware')
 
@@ -53,6 +53,7 @@ app.use('/api/devsposts', devsPostsRouter)
 app.use('/api/feedposts', feedPostsRouter)
 app.use('/api/comments', commentsRouter)
 app.use('/api/portalposts', portalPostsRouter)
+app.use('/api/portalbids', portalBidsRouter)
 app.use('/api/chats', chatsRouter)
 app.use('/api/ratings', ratingsRouter)
 app.use('/api/forgot-password', forgotPasswordRouter)

@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNotification } from '../../hooks'
-import { makePortalOffer } from '../../reducers/portalPosts'
+import { addPortalBid } from '../../reducers/portalBids'
 
 
 const MakeOfferForm = ({ portalPost }) => {
@@ -16,9 +16,14 @@ const MakeOfferForm = ({ portalPost }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      dispatch(makePortalOffer(portalPost.id, { description }))
-      setDescription('')
-      notify('Tarjous lisätty onnistuneesti', 'success')
+      const result = await dispatch(addPortalBid({ description, target: portalPost }))
+      if (result && result.error) {
+        notify('Tapahtui virhe palvelimella', 'error')
+        return
+      } else {
+        notify('Tarjous lisätty onnistuneesti', 'success')
+        setDescription('')
+      }
     } catch (error) {
       notify('Ilmeni jokin ongelma tarjouksen teossa, yritä myöhemmin uudelleen', 'error')
     }

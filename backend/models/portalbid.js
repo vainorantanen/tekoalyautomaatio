@@ -5,10 +5,6 @@ const schema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  title: {
-    type: String,
-    required: true
-  },
   description : {
     type: String,
     required: true
@@ -17,13 +13,22 @@ const schema = mongoose.Schema({
     type: Date,
     required: true
   },
-  portalBids: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'PortalBid'
-    }
-  ],
-  isOpen: Boolean
+  isApproved: {
+    type: Boolean,
+    default: false
+  },
+  targetPost: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'PortalPost'
+  },
+  offeror: {
+    type: String,
+    required: true
+  },
+  isPortalBid: {
+    type: Boolean,
+    default: true
+  }
 })
 
 schema.set('toJSON', {
@@ -34,4 +39,4 @@ schema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('PortalPost', schema)
+module.exports = mongoose.model('PortalBid', schema)

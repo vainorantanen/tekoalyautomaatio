@@ -8,9 +8,9 @@ import { useSelector } from 'react-redux'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { useNotification } from '../../hooks'
 import { useDispatch } from 'react-redux'
-import { removeOfferFromPortalPost } from '../../reducers/portalPosts'
 import { addChat } from '../../reducers/chats'
 import { useState } from 'react'
+import { removePortalBid } from '../../reducers/portalBids'
 
 const SinglePostDevView = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -22,6 +22,7 @@ const SinglePostDevView = () => {
   const user = useSelector(({ user }) => user)
   const id = useParams().id
   const post = useSelector(({ portalPosts }) => portalPosts).find(p => p.id === id)
+  const portalBidsToShow = useSelector(({portalBids}) => portalBids).filter(bid => bid.targetPost === id)
 
   const handleDeletebid = async (bidId) => {
     const confirmed = window.confirm('Haluatko varmasti poistaa tämän tarjouksen?')
@@ -29,8 +30,13 @@ const SinglePostDevView = () => {
       return // If the user clicks "Cancel," do nothing
     }
     try {
-      dispatch(removeOfferFromPortalPost(bidId, post.id))
-      notifyWith('Poistettu onnistuneesti', 'success')
+      const result = await dispatch(removePortalBid(bidId))
+      if (result && result.error) {
+        notifyWith('Tapahtui virhe palvelimella', 'error')
+        return
+      } else {
+        notifyWith('Poistettu onnistuneesti', 'success')
+      }
     } catch (error) {
       notifyWith('Tarjouksen poisto epäonnistui', 'error')
     }
@@ -74,10 +80,6 @@ const closeDialog = () => {
         </Container>
     )
   }
-
-  const userBidsOnPost = post.offers.filter(bid =>
-    bid.user === user.id
-  );
 
   return (
     <Container  sx={{ marginTop: '7rem', minHeight: '100vh' }}>
@@ -143,7 +145,7 @@ const closeDialog = () => {
 
       <Typography sx={{ textAlign: 'center', marginBottom: '1rem' }}>Omat tarjouksesi tähän projektiin</Typography>
       <Box>
-        {user && userBidsOnPost.length > 0 ? userBidsOnPost.map(offer => (
+        {user && portalBidsToShow.length > 0 ? portalBidsToShow.map(offer => (
           <Box key={offer.id} sx={{ color: 'black', backgroundColor: 'white', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
             {offer.isApproved && (
               <Typography>Tarjous hyväksytty <CheckCircleIcon/></Typography>
@@ -151,7 +153,7 @@ const closeDialog = () => {
             <Typography>{offer.offeror}</Typography>
             <Typography>{offer.timeStamp.split('T')[0]}</Typography>
             <Typography sx={{ whiteSpace: 'break-spaces', marginBottom: '1rem', marginTop: '1rem' }}>{offer.description}</Typography>
-            {user && (user.id === post.user.id || user.id === offer.user) && (
+            {user && (user.id === post.user.id || user.id === offer.user.id) && (
               <Button sx={{ color: 'red' }} onClick={() => handleDeletebid(offer.id)}>Poista tarjous</Button>
             )}
           </Box>

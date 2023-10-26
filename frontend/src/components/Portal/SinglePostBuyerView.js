@@ -8,9 +8,9 @@ import { useSelector } from 'react-redux'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { useNotification } from '../../hooks'
 import { useDispatch } from 'react-redux'
-import { modifyPortalOfferApprovedState, removeOfferFromPortalPost } from '../../reducers/portalPosts'
 import { addChat } from '../../reducers/chats'
 import { useState } from 'react'
+import { removePortalBid, updatePortalBid } from '../../reducers/portalBids'
 
 const SinglePostBuyerView = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -29,8 +29,14 @@ const SinglePostBuyerView = () => {
       return // If the user clicks "Cancel," do nothing
     }
     try {
-      dispatch(modifyPortalOfferApprovedState(bidId, post.id))
-      notifyWith('Tarjous hyväksytty', 'success')
+      const result = await dispatch(updatePortalBid(bidId))
+      if (result && result.error) {
+        notifyWith('Tapahtui virhe palvelimella', 'error')
+        return
+      } else {
+        notifyWith('Tarjous hyväksytty', 'success')
+      }
+      
     } catch (error) {
       notifyWith('Tarjouksen hyväksyntä epäonnistui', 'error')
     }
@@ -43,8 +49,13 @@ const SinglePostBuyerView = () => {
       return // If the user clicks "Cancel," do nothing
     }
     try {
-      dispatch(removeOfferFromPortalPost(bidId, post.id))
-      notifyWith('Poistettu onnistuneesti', 'success')
+      const result = await dispatch(removePortalBid(bidId))
+      if (result && result.error) {
+        notifyWith('Tapahtui virhe palvelimella', 'error')
+        return
+      } else {
+        notifyWith('Poistettu onnistuneesti', 'success')
+      }
     } catch (error) {
       notifyWith('Tarjouksen poisto epäonnistui', 'error')
     }
@@ -132,7 +143,7 @@ const closeDialog = () => {
       )}
       <Typography>Tarjoukset</Typography>
       <Box>
-        {post.offers.length > 0 ? (post.offers.map(offer => (
+        {post.portalBids.length > 0 ? (post.portalBids.map(offer => (
           <Box key={offer.id} sx={{ color: 'black', backgroundColor: 'white', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
             {offer.isApproved && (
               <Typography>Tarjous hyväksytty <CheckCircleIcon/></Typography>
