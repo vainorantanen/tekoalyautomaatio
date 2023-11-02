@@ -30,5 +30,6 @@
 | 23.10.23  |  8      | - Korjattu portaalin apia piilottamalla se muilta<br>- muokattu portaalin state managementtia laajasti<br>- lisätty oma api portaalitarjouksille|
 | 26.10.23  |  8      | - Jatkettu portaalin apin korjausta<br>- Lisätty käyttäjän disabloinnin tarkitus backendiin<br>- korjattu sovelluksen virheenhallintaa|
 | 1.11.23  |  5      | - Korjattu kommenttien, blogien, feedpostien ja chattien apeja ja niiden operaatioiden virheenhallintaa <br>- korjattu myös näiden frontendin reducereideita palauttamaan virhetilanteessa error-viesti|
+| 2.11.23  |  6      | - Suoritettu ohjelmiston testausta ja korjattu ilmeneviä virheitä. <br> - Virheitä löytyi backendin CRUD-operaatioista ja frontendin opearaatioita suorittavista funktioista <br>- Muokattu käyttäjien hakemista tietokannasta siten, että se riippuu kirjautuneen käyttäjän tyypistä|
 
-Yhteensä: 147h
+Yhteensä: 153h

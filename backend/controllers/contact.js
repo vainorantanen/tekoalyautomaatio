@@ -1,20 +1,5 @@
 const router = require('express').Router()
 const Contact = require('../models/contact')
-//const multer = require('multer')
-
-//const { userExtractor } = require('../utils/middleware')
-/*
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    return cb(null, './uploads')
-  },
-  filename: function(req, file, cb) {
-    return cb(null, new Date().toISOString() + file.originalname)
-  }
-})
-
-const upload = multer({ storage: storage })
-*/
 
 router.get('/', async (request, response) => {
   const contacts = await Contact
