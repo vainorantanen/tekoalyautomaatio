@@ -23,10 +23,15 @@ const AddBlogForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      dispatch(addBlog({ title, description }))
-      notify('Blogi lisätty onnistuneesti', 'success')
-      setDescription('')
-      setTitle('')
+      const result = await dispatch(addBlog({ title, description }))
+      if (result && result.error) {
+        notify(result.error.response.data.error, 'error')
+        return
+      } else {
+        notify('Blogi lisätty onnistuneesti', 'success')
+        setDescription('')
+        setTitle('')
+      }
     } catch (error) {
       notify('Ilmeni jokin ongelma', 'error')
     }

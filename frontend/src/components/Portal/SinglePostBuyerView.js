@@ -85,8 +85,13 @@ const closeDialog = () => {
       return // If the user clicks "Cancel," do nothing
     }
     try {
-      dispatch(addChat({targetUser: offer.user, title: chatTitle}))
-      notifyWith('Uusi keskustelu luotu onnistuneesti, löydät omat keskustelusi sivuvalikosta', 'success')
+      const result = await dispatch(addChat({targetUser: offer.user, title: chatTitle}))
+      if (result && result.error) {
+        notifyWith(result.error.response.data.error, 'error')
+        return
+      } else {
+        notifyWith('Uusi keskustelu luotu onnistuneesti, löydät omat keskustelusi sivuvalikosta', 'success')
+      }
     } catch (error) {
       notifyWith('Luonti epäonnistui', 'error')
     }

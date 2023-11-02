@@ -29,5 +29,6 @@
 | 27.9.23  |  1      | - korjailtu subscription ominaisuutta<br>- toteutettu ominaisuus tilauksen perumiselle|
 | 23.10.23  |  8      | - Korjattu portaalin apia piilottamalla se muilta<br>- muokattu portaalin state managementtia laajasti<br>- lisätty oma api portaalitarjouksille|
 | 26.10.23  |  8      | - Jatkettu portaalin apin korjausta<br>- Lisätty käyttäjän disabloinnin tarkitus backendiin<br>- korjattu sovelluksen virheenhallintaa|
+| 1.11.23  |  5      | - Korjattu kommenttien, blogien, feedpostien ja chattien apeja ja niiden operaatioiden virheenhallintaa <br>- korjattu myös näiden frontendin reducereideita palauttamaan virhetilanteessa error-viesti|
 
-Yhteensä: 142h
+Yhteensä: 147h

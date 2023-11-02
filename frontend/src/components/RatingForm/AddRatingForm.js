@@ -27,11 +27,15 @@ const AddRatingForm = () => {
 
         try {
             //targetuser
-            dispatch(addRating({ targetUserId: id, score, description }))
-            console.log(score, description)
-            setScore(0)
-            setDescription('')
-            notify('Arvostelu lisätty onnistuneesti', 'success')
+            const result = await dispatch(addRating({ targetUserId: id, score, description }))
+            if (result && result.error) {
+              notify(result.error.response.data.error, 'error')
+              return
+            } else {
+              setScore(0)
+              setDescription('')
+              notify('Arvostelu lisätty onnistuneesti', 'success')
+            }
         } catch (error) {
             notify('Arvostelun lisäys epäonnistui', 'error')
         }

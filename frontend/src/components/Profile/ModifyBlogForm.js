@@ -21,8 +21,13 @@ const ModifyBlogForm = () => {
 
     const handleSubmit = async () => {
         try {
-            dispatch(updateBlog({ ...blog, title, description }))
-            notify('Päivitys tehty onnistuneesti', 'success')
+            const result = await dispatch(updateBlog({ ...blog, title, description }))
+            if (result && result.error) {
+              notify(result.error.response.data.error, 'error')
+              return
+            } else {
+              notify('Päivitys tehty onnistuneesti', 'success')
+            }
         } catch (error) {
             notify('Ilmeni jokin ongelma päivityksessä, yritä myöhemmin uudelleen', 'error')
         }
