@@ -1,20 +1,43 @@
 import { Box, Button, Container, Typography, Rating } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {  useSelector, useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { markBlogInappropriate } from '../../reducers/blogs'
 import { useNotification } from '../../hooks'
+import ratingsService from '../../services/ratings'
+import blogsService from '../../services/blogs'
 
 const SingleDevPage = () => {
   const dispatch = useDispatch()
   const notifyWith = useNotification()
 
+  const [ devRatings, setDevRatings ] = useState([])
+  const [ devBlogs, setDevBlogs ] = useState([])
+
   const id = useParams().id
 
   const user = useSelector(({user}) => user)
-  const dev = useSelector(({ users }) => users.find(p => p.id === id))
-  const devRatings = useSelector(({ratings}) => ratings).filter(r => r.targetUser.id === dev.id)
-  const devBlogs = useSelector(({blogs})=> blogs).filter(b => b.user.id === dev.id)
+  const dev = useSelector(({ users }) => users).find(p => p.id === id)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (dev) {
+        try {
+          const ratings = await ratingsService.getAll();
+          const filteredRatings = ratings.filter((r) => r.targetUser.id === dev.id);
+          setDevRatings(filteredRatings);
+
+          const blogs = await blogsService.getAll();
+          const filteredBlogs = blogs.filter((b) => b.user.id === dev.id);
+          setDevBlogs(filteredBlogs);
+        } catch (error) {
+          // Handle error, e.g., set an error state
+        }
+      }
+    };
+
+    fetchData();
+  }, [dev]);
 
   const handleInappropriate = (blogId)  => {
     const confirmed = window.confirm(`Haluatko varmasti ilmoittaa tämän julkaisun epäasiallisena?`)

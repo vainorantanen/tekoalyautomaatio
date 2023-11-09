@@ -13,7 +13,6 @@ import './App.css'
 import Home from './components/Home/Home'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar/Navbar'
-import AddPost from './components/AddPost/AddPost'
 
 import ScrollToTop from './components/ScrollToTop'
 import ForCompanies from './components/ForCompanies/ForCompanies'
@@ -26,8 +25,6 @@ import Notification from './components/Notification'
 import RegisterPage from './components/RegisterPage'
 import SingleProjectPage from './components/OpenProjects/SingleProjectPage'
 import DevsPosts from './components/DevsPosts/DevsPosts'
-import AddPostInfo from './components/AddPost/AddPostInfo'
-import AddDevPost from './components/AddPost/AddDevPost'
 import SingleDevPostPage from './components/DevsPosts/SingleDevPostPage'
 import Profile from './components/Profile/Profile'
 import DevsList from './components/Devs/DevsList'
@@ -53,6 +50,7 @@ import ModifyBlogForm from './components/Profile/ModifyBlogForm'
 import AdminPanel from './components/AdminPanel/AdminPanel'
 import CustomerSupportForm from './components/CustomerSupportForm'
 import SubForm from './components/ForCompanies/SubForm'
+import AddProjectPostForm from './components/OpenProjects/AddProjectPostForm'
 
 const theme = createTheme({
   typography: {
@@ -88,9 +86,7 @@ const App = () => {
         <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/lisaailmoitus' element={<AddPostInfo />} />
-          <Route path='/lisaailmoitus/etsitekijaa' element={<AddPost />} />
-          <Route path='/lisaailmoitus/kehittajanilmoitus' element={<AddDevPost />} />
+          <Route path='/lisaailmoitus' element={<AddProjectPostForm />} />
           <Route path='/yrityksille' element={<ForCompanies />} />
           <Route path='/avoimetprojektit' element={<OpenProjectsFeed />} />
           <Route path='/avoimetprojektit/:id' element={<SingleProjectPage />} />

@@ -12,8 +12,10 @@ import {
 } from '@mui/material'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { useNotification } from '../../hooks'
-import { addDevPost } from '../../reducers/devsPosts'
+import { useNotification } from '../../../hooks'
+import { addDevPost } from '../../../reducers/devsPosts'
+import LoginSuggestion from '../../LoginSuggestion'
+import UserDisabledText from '../../UserDisabledText'
 
 
 const AddDevPost = () => {
@@ -32,8 +34,9 @@ const AddDevPost = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+
     try {
-      dispatch(addDevPost({
+      const result = await dispatch(addDevPost({
         title,
         description,
         postType,
@@ -41,33 +44,33 @@ const AddDevPost = () => {
         time,
         location
       }))
-      notify('Postaus lisätty onnistuneesti', 'success')
-      setDescription('')
-      setTitle('')
-      setPrice('')
-      setTime('')
-      setLocation('')
+        if (result && result.error) {
+          notify('Tapahtui virhe backendissa', 'error')
+          return
+        } else {
+          notify('Postaus lisätty onnistuneesti', 'success')
+          setDescription('')
+          setTitle('')
+          setPrice('')
+          setTime('')
+          setLocation('')
+          }
     } catch (error) {
-      notify('Ilmeni jokin ongelma postauksen teossa, yritä myöhemmin uudelleen', 'error')
+      notify('Ilmeni jokin ongelma, yritä myöhemmin uudelleen', 'error')
     }
 
   }
 
-  if (!user || !user.isDeveloper) {
+  if (!user) {
     return (
-      <Container sx={{ marginTop: '8rem', minHeight: '100vh' }}>
-        <Typography
-          sx={{
-            fontSize: '1.3rem',
-            textAlign: 'center',
-            marginTop: '2rem',
-            '@media (max-width: 442px)': {
-              fontSize: '1rem',
-            },
-          }}
-        >
-          Kirjaudu kehittäjätilillä sisään lisätäksesi ilmoitus.
-        </Typography>
+      <LoginSuggestion />
+    )
+  }
+
+  if (user && user.disabled) {
+    return (
+      <Container sx={{ marginTop: '6rem' }}>
+        <UserDisabledText />
       </Container>
     )
   }
@@ -81,7 +84,6 @@ const AddDevPost = () => {
         justifyContent: 'center',
         minHeight: '90vh',
         borderRadius: '0.5rem',
-        backgroundColor: '#222222',
         marginTop: '5rem'
       }}
     >
@@ -118,7 +120,7 @@ const AddDevPost = () => {
             value={postType}
             onChange={(event) => setPostType(event.target.value)}
           >
-            <MenuItem value="normal">Tavallinen ilmoitus</MenuItem>
+            <MenuItem value="normal">Myynti-ilmoitus</MenuItem>
             <MenuItem value="event">Tapahtuma</MenuItem>
             <MenuItem value="course">Koulutus tai kurssi</MenuItem>
           </Select>
@@ -133,7 +135,7 @@ const AddDevPost = () => {
         />
         <TextField
           id="description"
-          label="Kuvaile tarjoamaasi tekoälyprojektia..."
+          label="Ilmoituksen kuvaus"
           required
           multiline
           rows={15}
@@ -175,25 +177,13 @@ const AddDevPost = () => {
         />
         </Box>
         )}
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{
-            backgroundColor: 'blue',
-            color: 'white',
-            transition: 'transform 0.3s',
-            marginTop: '1rem',
-            marginBottom: '1rem',
-            '&:hover': {
-              transform: 'scale(1.05)',
-              backgroundImage: 'linear-gradient(to bottom, #003eff, #006eff)',
-            },
-          }}
-        >
-          Julkaise
-        </Button>
+        <Button className="bn632-hover bn26"
+            type='submit'
+            fullWidth
+            sx={{color: 'white',
+            }}>
+            Julkaise
+            </Button>
       </Box>
     </Container>
   )

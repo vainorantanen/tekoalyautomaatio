@@ -15,15 +15,44 @@ router.get('/', async (request, response) => {
 router.post('/', userExtractor, async (request, response) => {
 
   try {
-    const { description, title } = request.body
+    const { description, other, question1, question1Other, question2,
+      question2Other, question3, question4, date, minPrice, maxPrice } = request.body
+
+    const today = new Date()
+
+    if (date < today) {
+      return response.status(400).json({ error: 'date wrong' })
+    }
 
     const projectPost = new ProjectPost({
       description,
-      title,
-      isOpen: true,
-      timeStamp: new Date(),
-      offers: []
+      timeStamp: today,
+      question1,
+      question2,
+      question3,
+      question4,
+      dueDate: date,
+      other,
+      minPrice,
+      maxPrice
     })
+
+    if (question1 === 'other') {
+      projectPost.question1 = question1Other
+    }
+
+    if (question2 === 'other') {
+      projectPost.question2 = question2Other
+    }
+
+    if (question1 === 'other') {
+      projectPost.question1 = question1Other
+    }
+
+    if (question2 === 'other') {
+      projectPost.question2 = question2Other
+    }
+
 
     const user = request.user
     const checkIfUserDisabled = isUserDisabled(user)

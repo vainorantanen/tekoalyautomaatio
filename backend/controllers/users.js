@@ -62,7 +62,7 @@ router.get('/', userExtractor, async (request, response) => {
   } else if (user.isDeveloper) {
     // Show only users with isDeveloper === true
     console.log('devaaja')
-    users = await User.find({ isDeveloper: { $ne: true } })
+    users = await User.find({ isDeveloper: true })
       .populate({ path: 'projectPosts' })
       .populate({ path: 'feedPosts' })
       .populate({ path: 'offers' })
@@ -71,6 +71,7 @@ router.get('/', userExtractor, async (request, response) => {
     users = []
   }
 
+  console.log('users', users)
   response.json(users)
 })
 

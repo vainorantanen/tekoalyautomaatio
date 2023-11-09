@@ -5,39 +5,34 @@ import { Typography, Box,
   TableCell,
   TableContainer,
   TableRow,
-  Paper,
-  Divider, } from '@mui/material'
-import { Link } from 'react-router-dom'
+  Paper, } from '@mui/material'
 import EuroIcon from '@mui/icons-material/Euro';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { formatDate } from '../../Functions/formatDate';
 
-const FeedPostCard = ({ post }) => {
+const SingleProjectInfo = ({post}) => {
+
+  if (!post) {
+    return null
+  }
 
   return (
-    <Paper
-    elevation={3}
-    component={Link}
-        to={`/avoimetprojektit/${post.id}`}
+    <Box
       sx={{
         padding: '1rem',
+        backgroundColor: '#f0f0f0',
         borderRadius: '0.5rem',
         textDecoration: 'none',
         color: 'black',
-        backgroundColor: 'white',
-        margin: '1rem',
+        marginLeft: '3rem',
+        marginRight: '3rem',
         display: 'flex',
+        transition: '0.3s ease',
         flexDirection: 'column',
-        transition: 'all 0.1s linear',
-        boxShadow: '0rem 0.1rem 0.2rem 0.1rem gray',
         '@media (max-width: 820px)': {
           marginLeft: '0.1rem',
           marginRight: '0.1rem',
         },
-        '&:hover': {
-          backgroundColor: '#ebebeb',
-          boxShadow: '0rem 0.1rem 0.2rem 0.2rem gray',
-      },
       }}
     >
         <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap',
@@ -45,15 +40,15 @@ const FeedPostCard = ({ post }) => {
       backgroundColor: 'white', boxShadow: '0rem 0.1rem 0.3rem gray' }}>
           <Box>
           {post.isOpen ? (
-            <Typography variant='h6'>Avoinna oleva ilmoitus</Typography>
+            <Typography>Avoinna oleva ilmoitus</Typography>
           ) : (
-            <Typography variant='h6'>Ilmoitus suljettu</Typography>
+            <Typography>Ilmoitus suljettu</Typography>
           )}
           <Typography>{post.user.name}</Typography>
           {post.timeStamp ? (
             <Typography>Julkaistu {formatDate(post.timeStamp)}</Typography>
           ) : (
-            <Typography>Julkaistu: Ei tietoa</Typography>
+            <Typography>Ei tietoa</Typography>
           )}
           </Box>
           <Box>
@@ -64,19 +59,14 @@ const FeedPostCard = ({ post }) => {
 
       {/* Displaying answers */}
       <Box sx={{ marginTop: '1rem', marginBottom: '1rem' }}>
-        <Typography variant='h6'>Tarkoitus</Typography>
-        <Divider sx={{ my: 1 }}/>
+        <Typography sx={{ borderBottom: '1px solid black', fontSize: '1.2rem'
+       }}>Tarkoitus</Typography>
         <Typography style={{ 
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
           whiteSpace: 'break-spaces',
-          display: '-webkit-box',
-          WebkitLineClamp: 5,
-          WebkitBoxOrient: 'vertical',
-          lineHeight: '1.4',
          }}>{post.description}</Typography>
-        <Typography variant='h6'>Tietoa</Typography>
-        <Divider sx={{ my: 1 }}/>
+        <Typography sx={{ borderBottom: '1px solid black', fontSize: '1.2rem',
+        marginBottom: '0.5rem', marginTop: '1rem'}}
+        >Tietoa</Typography>
         <TableContainer component={Paper}>
         <Table>
           <TableBody>
@@ -94,23 +84,24 @@ const FeedPostCard = ({ post }) => {
             </TableRow>
             <TableRow>
               <TableCell>Toiminnallisuudet:</TableCell>
-              <TableCell
-              sx={{
-                overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          whiteSpace: 'break-spaces',
-          display: '-webkit-box',
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical',
-              }}
-              >{post.question4}</TableCell>
+              <TableCell>{post.question4}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
+      {post.other.length > 0 && (
+        <Box>
+            <Typography sx={{ borderBottom: '1px solid black', fontSize: '1.2rem',
+        marginBottom: '0.5rem', marginTop: '1rem'}}
+        >Muuta</Typography>
+            <Typography style={{ 
+                whiteSpace: 'break-spaces',
+               }}>{post.other}</Typography>
+            </Box>
+      )}
       </Box>
-    </Paper>
+    </Box>
   )
 }
 
-export default FeedPostCard
+export default SingleProjectInfo

@@ -31,5 +31,6 @@
 | 26.10.23  |  8      | - Jatkettu portaalin apin korjausta<br>- Lisätty käyttäjän disabloinnin tarkitus backendiin<br>- korjattu sovelluksen virheenhallintaa|
 | 1.11.23  |  5      | - Korjattu kommenttien, blogien, feedpostien ja chattien apeja ja niiden operaatioiden virheenhallintaa <br>- korjattu myös näiden frontendin reducereideita palauttamaan virhetilanteessa error-viesti|
 | 2.11.23  |  6      | - Suoritettu ohjelmiston testausta ja korjattu ilmeneviä virheitä. <br> - Virheitä löytyi backendin CRUD-operaatioista ja frontendin opearaatioita suorittavista funktioista <br>- Muokattu käyttäjien hakemista tietokannasta siten, että se riippuu kirjautuneen käyttäjän tyypistä|
+| 9.11.23  |  5      | - Monipuolistettu avoimien projektien apia ja tietokantaskeemaa. <br> - Päivitetty frontendin avoimen projektin lisäyksen sivua.<br> - Korjattu users api devaajan ollessa kirjautuneena <br> - lisätty komponent disabloituneelle käyttäjälle ja kirjautumiskehotukselle <br> - Muutettu tapaa, jolla avoimet projektit näytetään <br> - Muutettu yksittäisen projektin näkymää |
 
-Yhteensä: 153h
+Yhteensä: 158h

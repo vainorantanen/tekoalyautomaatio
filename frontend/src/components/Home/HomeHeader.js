@@ -23,7 +23,7 @@ const HomeHeader = () => {
             marginBottom: '2rem'
           },
         }}
-      >Tekoälyautomaatio.fi</Typography>
+      >Tekoalyautomaatio.fi</Typography>
 
       <Box sx={{
         display: 'flex',
