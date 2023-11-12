@@ -47,17 +47,17 @@ router.post('/', userExtractor, async (request, response) => {
 
 router.put('/:id', userExtractor, async (request, response) => {
   try {
-    const { description, isOpen } = request.body
+    const { description, title, price, location, time, isOpen } = request.body
 
     const user = request.user
 
     const devPost = await DevsPost.findById(request.params.id)
 
     if (!user || devPost.user.toString() !== user.id.toString()) {
-      return response.status(401).json({ error: 'operation not permitted' })
+      return response.status(401).json({ error: 'Operaatio ei sallittu' })
     }
 
-    let updatedDevsPost = await DevsPost.findByIdAndUpdate(request.params.id,  { description, isOpen }, { new: true })
+    let updatedDevsPost = await DevsPost.findByIdAndUpdate(request.params.id,  { description, isOpen, title, price, location, time, }, { new: true })
 
     updatedDevsPost = await DevsPost.findById(updatedDevsPost._id).populate('user')
 
