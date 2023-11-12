@@ -24,6 +24,7 @@ const blogsRouter = require('./controllers/blogs')
 const customerSupportRouter = require('./controllers/customersupport')
 const ordersRouter = require('./controllers/orders')
 const portalBidsRouter = require('./controllers/portalbids')
+const projectOffersRouter = require('./controllers/projectOffers')
 
 const middleware = require('./utils/middleware')
 
@@ -62,6 +63,7 @@ app.use('/sitemap.xml', sitemapRouter)
 app.use('/api/blogs', blogsRouter)
 app.use('/api/customersupport', customerSupportRouter)
 app.use('/api/orders', ordersRouter)
+app.use('/api/projectOffers', projectOffersRouter)
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, './build/index.html'), function(err) {

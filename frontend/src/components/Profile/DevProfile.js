@@ -1,4 +1,4 @@
-import { Container, Typography, Button, Box, Rating } from '@mui/material'
+import { Container, Typography, Button, Box, Rating, Grid, Paper, Divider } from '@mui/material'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ModifyDescriptionForm from './ModifyDescriptionForm'
@@ -9,11 +9,12 @@ import { Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import { removeRating, updateRating } from '../../reducers/ratings'
 import DevOrders from './DevOrders'
+import LoginSuggestion from '../LoginSuggestion'
 
 const DevProfile = () => {
-    const localUser = useSelector(({user}) => user)
-    const user = useSelector(({users}) => users).find(u => u.id === localUser.id)
-    const devRatings = useSelector(({ratings}) => ratings).filter(r => r.targetUser.id === localUser.id)
+    const user = useSelector(({user}) => user)
+
+    const devRatings = useSelector(({ratings}) => ratings).filter(r => r.targetUser.id === user.id)
 
     const notify = useNotification()
     const dispatch = useDispatch()
@@ -47,22 +48,50 @@ const DevProfile = () => {
   }
 
     if (!user) {
-        return null
+        return <LoginSuggestion />
     }
 
   return (
-    <Container sx={{ marginTop: '1rem'}}>
-        <Typography sx={{ marginBottom: '2rem' }}>Kehittäjän {user.name} profiili</Typography>
-        <Typography sx={{ marginBottom: '1rem' }}>Tietoja minusta:</Typography>
-        <ModifyBasicInfo />
-        <DevOrders />
-        <ModifyDescriptionForm />
-        <Button sx={{ marginTop: '1rem', marginBottom: '1rem' }} component={Link} to='/profiili/blogit/hallinnoi'>Hallinnoi profiilisissa näytettäviä blogeja</Button>
-        <DevsOwnPosts />
-        <Typography sx={{ marginBottom: '2rem', marginTop: '2rem' }}>Omat julkaisut</Typography>
-        <UserFeedPosts />
-        <Typography>Omat keskustelusi</Typography>
-        <Button component={Link} to={'/omatkeskustelut'}>Näytä</Button>
+        <Container sx={{ marginTop: '5rem', minHeight: '100vh', borderRadius: '1rem', marginBottom: '1rem' }}>
+      <Paper elevation={3} style={{ padding: '16px', backgroundColor: '#1976D2', color: '#fff', marginBottom: '2rem' }}>
+        <Typography variant="body1">
+          Tervetuloa Profiiliin, {user.name}!
+        </Typography>
+      </Paper>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <Typography variant="h4" sx={{ marginBottom: '1rem' }}>Profiili</Typography>
+          <Typography>Sähköposti: {user.email}</Typography>
+          <ModifyBasicInfo />
+          <ModifyDescriptionForm />
+        </Grid>
+      <Grid item xs={12} md={6}>
+      <Typography variant="h4" sx={{ marginBottom: '1rem' }}>Navigoi</Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Button variant="outlined" component={Link} to='/lisaa-blogi'>
+        Lisää blogi
+      </Button>
+      <Button variant="outlined" component={Link} to='/omatkeskustelut'>
+        Omat keskustelut
+      </Button>
+      <Button variant="outlined" component={Link} to='/profiili/blogit/hallinnoi'>
+        Hallinoi blogeja
+      </Button>
+      <Typography variant="h4" sx={{ marginBottom: '1rem' }}>Seuraa tekemiesi tarjousten tilannetta</Typography>
+      <Button variant="outlined" component={Link} to='/profiili/kehittaja/tarjouksesi'>
+        Katso kaikki antamasi tarjoukset
+      </Button>
+      </Box>
+      </Grid>
+      </Grid>
+      <Divider sx={{ my: 4 }} />
+      <DevOrders />
+      <Divider sx={{ my: 4 }} />
+      <DevsOwnPosts />
+      <Divider sx={{ my: 4 }} />
+      <Typography>Omat julkaisut</Typography>
+      <UserFeedPosts />
+        <Divider sx={{ my: 4 }} />
         <Typography>Saamasi arvostelut</Typography>
         <Box>
         {devRatings.length > 0 ? (

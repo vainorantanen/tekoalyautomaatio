@@ -32,6 +32,6 @@
 | 1.11.23  |  5      | - Korjattu kommenttien, blogien, feedpostien ja chattien apeja ja niiden operaatioiden virheenhallintaa <br>- korjattu myös näiden frontendin reducereideita palauttamaan virhetilanteessa error-viesti|
 | 2.11.23  |  6      | - Suoritettu ohjelmiston testausta ja korjattu ilmeneviä virheitä. <br> - Virheitä löytyi backendin CRUD-operaatioista ja frontendin opearaatioita suorittavista funktioista <br>- Muokattu käyttäjien hakemista tietokannasta siten, että se riippuu kirjautuneen käyttäjän tyypistä|
 | 9.11.23  |  5      | - Monipuolistettu avoimien projektien apia ja tietokantaskeemaa. <br> - Päivitetty frontendin avoimen projektin lisäyksen sivua.<br> - Korjattu users api devaajan ollessa kirjautuneena <br> - lisätty komponent disabloituneelle käyttäjälle ja kirjautumiskehotukselle <br> - Muutettu tapaa, jolla avoimet projektit näytetään <br> - Muutettu yksittäisen projektin näkymää |
-| 12.11.23  |  3      | - Tehty profiilinäkymää ja tehty ilmoitusten muokkaamisen paneeli |
+| 12.11.23  |  3      | - Tehty kehittäjän profiilinäkymää ja tehty kehittäjän ilmoitusten muokkaamisen paneeli <br>- konfiguroitu uusi api projectOffers backendiin ja sille redux frontendiin <br>- tehty kehittäjän profiiliin omien tarjousten näkymä |
 
 Yhteensä: 161h
