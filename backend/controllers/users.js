@@ -70,8 +70,6 @@ router.get('/', userExtractor, async (request, response) => {
     console.log('muutoin')
     users = []
   }
-
-  console.log('users', users)
   response.json(users)
 })
 

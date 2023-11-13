@@ -1,7 +1,6 @@
 import React from 'react'
-import { Typography, Box, Button } from '@mui/material'
+import { Typography, Box } from '@mui/material'
 import EuroIcon from '@mui/icons-material/Euro';
-import BusinessIcon from '@mui/icons-material/Business';
 import StartIcon from '@mui/icons-material/Start';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'

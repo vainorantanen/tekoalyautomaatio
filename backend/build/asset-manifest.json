@@ -1,12 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.c05ec4d1.css",
-    "main.js": "/static/js/main.f03f8bbd.js",
+    "main.js": "/static/js/main.8e5948a7.js",
     "static/media/analytics.png": "/static/media/analytics.ae7d788d01f582ffbb1d.png",
     "static/media/network.png": "/static/media/network.e4d4f28aeef11785de0e.png",
     "static/media/iconsweb.png": "/static/media/iconsweb.d7fd76e8922867d0d598.png",
     "static/media/mobileapp.png": "/static/media/mobileapp.fae08328ced8a519dfed.png",
     "static/media/seo.png": "/static/media/seo.2eb8f64f7b86dcfcaac0.png",
+    "static/media/remote-work.png": "/static/media/remote-work.25af841eb15d4ddcf28c.png",
     "static/media/money.png": "/static/media/money.ed828bcd09b5dbad4119.png",
     "static/media/locations.png": "/static/media/locations.f4a1aac72d1a0141b3d6.png",
     "static/media/ok.png": "/static/media/ok.68eea311af55716a9589.png",
@@ -15,10 +16,10 @@
     "static/media/devices.png": "/static/media/devices.5eeb2dcbe90eff0be274.png",
     "index.html": "/index.html",
     "main.c05ec4d1.css.map": "/static/css/main.c05ec4d1.css.map",
-    "main.f03f8bbd.js.map": "/static/js/main.f03f8bbd.js.map"
+    "main.8e5948a7.js.map": "/static/js/main.8e5948a7.js.map"
   },
   "entrypoints": [
     "static/css/main.c05ec4d1.css",
-    "static/js/main.f03f8bbd.js"
+    "static/js/main.8e5948a7.js"
   ]
 }

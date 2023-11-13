@@ -134,6 +134,7 @@ const TermsForm = forwardRef((props, ref) => {
         <RadioGroup
             aria-label="isOpenFeedPost"
             name="isOpenFeedPost"
+            id='portalSelect'
             required
             value={isOpenFeedPost}
             sx={{ marginBottom: '2rem' }}

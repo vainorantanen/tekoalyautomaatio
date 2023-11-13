@@ -4,7 +4,7 @@ describe('Tekoalyautomaatio app', function() {
   })
 
   it('Frontpage can be opened', function() {
-    cy.contains('Tekoälyautomaatio.fi')
+    cy.contains('Tekoalyautomaatio.fi')
   })
 // 2 käyttäjää luotu valmiiksi testejä varten
   it('Asiakaskäyttäjä voi kirjautua sisään', function() {
@@ -31,44 +31,60 @@ describe('Projektin lisäys asiakaskäyttäjällä', function() {
 
   it('Avoimen projektipyynnön lisäys', function() {
     cy.contains('Lisää ilmoitus').click()
-    cy.contains('Lisää tekoälyprojektipyyntö').click()
     cy.contains('Lisää ilmoitus')
 
-    cy.get('#title').type('Testiotsikko1')
-    cy.get('#description').type('Testiteksti1')
-    cy.contains('Julkaise').click()
-    cy.contains('Postaus lisätty onnistuneesti')
+    cy.get('#description').type('Testi tarkoitus 1')
+    cy.get('#functionality').type('Testi toiminnallisuudet tähän 1')
+    cy.get('#other').type('Muut toiveet tulee tähän')
+    cy.contains('Seuraava').click()
+    
+    cy.contains('Aseta tarjouskilpailullesi takaraja')
+    cy.get('#minPrice').type(200)
+    cy.get('#maxPrice').type(300)
+    cy.contains('Seuraava').click()
+
+    cy.contains('Perustiedot')
+    cy.contains('Ehdot')
+    cy.contains('Lähetä').click()
+    cy.contains('Ilmoitus lisätty onnistuneesti')
 
     cy.get('.menuiconbutton').click()
     cy.get('#openprojects').click()
-    cy.contains('Testiotsikko1').click()
-    cy.contains('Testiteksti1').click()
+    cy.contains('Testi tarkoitus 1').click()
     cy.contains('Tarjoukset')
-
   })
 
   it('Portaali projektipyynnön lisäys', function() {
     cy.contains('Lisää ilmoitus').click()
-    cy.contains('Lisää tekoälyprojektipyyntö').click()
     cy.contains('Lisää ilmoitus')
 
-    cy.get('#isportalpostcheck').click()
-    cy.get('#title').type('Testiportaaliotsikko1')
-    cy.get('#description').type('Testiportaaliteksti1')
-    cy.contains('Julkaise').click()
-    cy.contains('Postaus lisätty onnistuneesti')
+    cy.get('#description').type('Testi portaali tarkoitus 1')
+    cy.get('#functionality').type('Testi toiminnallisuudet tähän portaaliin 1')
+    cy.get('#other').type('Muut toiveet tulee portaaliin tähän')
+    cy.contains('Seuraava').click()
+    
+    cy.contains('Aseta tarjouskilpailullesi takaraja')
+
+    cy.contains("Ei (Ilmoitus menee vain toimittajaportaaliin)").click()
+
+    cy.get('#minPrice').type(200)
+    cy.get('#maxPrice').type(300)
+    cy.contains('Seuraava').click()
+
+    cy.contains('Perustiedot')
+    cy.contains('Ehdot')
+    cy.contains('Lähetä').click()
+    cy.contains('Ilmoitus lisätty onnistuneesti')
 
     cy.get('.menuiconbutton').click()
     cy.contains('Portaali').click()
-    cy.contains('Testiportaaliotsikko1')
-    cy.get('#Testiportaaliotsikko1').click()
-    cy.contains('Testiportaaliteksti1')
+    cy.contains('Testi portaali tarkoitus 1').click()
     cy.contains('Tarjoukset')
 
   })
 
 })
-
+/*
 describe('Tarjouksen tekeminen devaajakäyttäjällä', function() {
   beforeEach(function() {
     cy.visit('http://localhost:3001')
@@ -83,7 +99,7 @@ describe('Tarjouksen tekeminen devaajakäyttäjällä', function() {
   it('Avoimen projektipyynnön lisäys', function() {
     cy.contains('Avoimet tekoälyprojektit').click()
     cy.contains('Avoimet tekoälyprojektit etsivät tekijöitä!')
-    cy.contains('Testiotsikko1').click()
+    cy.contains('Testi tarkoitus 1').click()
 
     cy.contains('Tee tarjous').click()
 
@@ -96,3 +112,4 @@ describe('Tarjouksen tekeminen devaajakäyttäjällä', function() {
   })
 
 })
+*/

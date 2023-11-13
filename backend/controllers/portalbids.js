@@ -63,11 +63,7 @@ router.post('/', userExtractor, async (request, response) => {
       return response.status(401).json({ error: 'Operaatio ei sallittu' })
     }
 
-    console.log(target)
-
     const targetPost = await PortalPost.findById(target.id)
-
-    console.log(targetPost)
 
     // virheilmoitus jos postaus on suljettu
     if (!targetPost || !targetPost.isOpen) {
@@ -76,8 +72,6 @@ router.post('/', userExtractor, async (request, response) => {
 
     portalbid.user = user._id
     portalbid.targetPost = target.id
-
-    console.log(portalbid)
 
     let createdportalbid = await portalbid.save()
 

@@ -1,16 +1,13 @@
 import {
   Box,
-  Button,
-  Checkbox,
   Container,
   FormControlLabel,
-  FormGroup,
   Radio,
   RadioGroup,
   TextField,
   Typography,
 } from '@mui/material'
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
+import React, { forwardRef, useImperativeHandle, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useNotification } from '../../../hooks'
