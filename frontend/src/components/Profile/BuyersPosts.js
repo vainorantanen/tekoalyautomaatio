@@ -1,10 +1,11 @@
-import { Box, Typography, Container, Button } from '@mui/material'
+import { Box, Typography, Container, Button, Divider } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import { removePost, updatePost } from '../../reducers/projectPosts'
 import { removePortalpost, updatePortalpost } from '../../reducers/portalPosts'
+import FeedPostCard from '../OpenProjects/FeedPostCard'
 
 const BuyersPosts = () => {
     const notify = useNotification()
@@ -20,8 +21,13 @@ const BuyersPosts = () => {
     }
 
     try {
-      dispatch(removePost({ id: postId }))
-      notify('Poistettu onnistuneesti', 'success')
+      const result = await dispatch(removePost({ id: postId }))
+      if (result && result.error) {
+        notify(result.error.response.data.error, 'error')
+        return
+      } else {
+        notify('Poistettu onnistuneesti', 'success')
+      }
     } catch (error) {
       notify('Ilmeni jokin ongelma poistossa', 'erro')
     }
@@ -102,36 +108,41 @@ const BuyersPosts = () => {
 
   return (
     <Box>
-        <Typography sx={{ marginBottom: '2rem', fontSize: '1.5rem', borderBottom: '1px solid white' }}>Omat ilmoitukset</Typography>
-        <Typography sx={{ fontSize: '1.5rem', borderBottom: '1px solid white', marginBottom: '1rem' }}>Avoimet</Typography>
+        <Typography sx={{ fontSize: '1.5rem' }}
+        id='openPosts'
+        >Omat avoimet ilmoitukset ({openProjectPosts.length})</Typography>
+        <Divider sx={{ my: 4 }} />
         <Box>
         {openProjectPosts.length > 0 ? openProjectPosts.map(p => (
-            <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',
-            borderRadius: '0.5rem', marginBottom: '1rem'}}>
-                <Typography sx={{ fontSize: '1.3rem' }}>{p.title}</Typography>
-                <Typography sx={{ whiteSpace: 'break-spaces' }}>{p.description}</Typography>
+            <Box key={p.id}>
+                <FeedPostCard post={p} />
+                <Box sx={{ textAlign: 'center' }}>
                 <Button component={Link} to={`/profiili/kayttaja/muokkaa/ilmoitus/${p.id}`} >Muokkaa ilmoituksen sisältöä</Button>
                 <Button component={Link} to={`/avoimetprojektit/${p.id}`}>Siirry ilmoitukseen</Button>
                 <Button sx={{ color: 'red' }} onClick={() => handleCloseOrOpenProjectPost(p)}>{p.isOpen ? 'Aseta ilmoitus suljetuksi'
                 : 'Aseta ilmoitus avoimeksi'}</Button>
                 <Button sx={{ color: 'red' }} onClick={() => handleDeleteProjectPost(p.id)}>Poista ilmoitus</Button>
+                </Box>
             </Box>  
         )) : (
             <Typography>Ei vielä ilmoituksia</Typography>
         )}
         </Box>
-        <Typography sx={{ marginBottom: '1rem', marginTop: '1rem', fontSize: '1.5rem', borderBottom: '1px solid white' }}>Suljetut</Typography>
+        <Typography
+        id='closedPosts'
+        sx={{ marginBottom: '1rem', fontSize: '1.3rem' }}>Omat suljetut ilmoitukset ({closedProjectPosts.length})</Typography>
+        <Divider sx={{ my: 4 }} />
         <Box>
         {closedProjectPosts.length > 0 ? closedProjectPosts.map(p => (
-            <Box key={p.id} sx={{ backgroundColor: 'white', color: 'black', padding: '0.5rem',
-            borderRadius: '0.5rem', marginBottom: '1rem'}}>
-                <Typography sx={{ fontSize: '1.3rem' }}>{p.title}</Typography>
-                <Typography sx={{ whiteSpace: 'break-spaces' }}>{p.description}</Typography>
+            <Box key={p.id}>
+                <FeedPostCard post={p}/>
+                <Box sx={{ textAlign: 'center' }}>
                 <Button component={Link} to={`/profiili/kayttaja/muokkaa/ilmoitus/${p.id}`} >Muokkaa ilmoituksen sisältöä</Button>
                 <Button component={Link} to={`/avoimetprojektit/${p.id}`}>Siirry ilmoitukseen</Button>
                 <Button sx={{ color: 'red' }} onClick={() => handleCloseOrOpenProjectPost(p)}>{p.isOpen ? 'Aseta ilmoitus suljetuksi'
                 : 'Aseta ilmoitus avoimeksi'}</Button>
                 <Button sx={{ color: 'red' }} onClick={() => handleDeleteProjectPost(p.id)}>Poista ilmoitus</Button>
+                </Box>
             </Box>  
         )) : (
             <Typography>Ei vielä ilmoituksia</Typography>

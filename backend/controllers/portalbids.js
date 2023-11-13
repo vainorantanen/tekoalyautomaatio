@@ -39,13 +39,21 @@ router.get('/', userExtractor, async (request, response) => {
 
 router.post('/', userExtractor, async (request, response) => {
   try {
-    const { description, target } = request.body
+    const { description, minPrice, maxPrice, target, dueDate } = request.body
     const user = request.user
+
+    const today = new Date()
+    if (dueDate < today) {
+      return response.status(400).json({ error: 'Tarkista päiväys' })
+    }
 
     const portalbid = new PortalBid({
       description,
-      timeStamp: new Date(),
+      timeStamp: today,
       offeror: user.name,
+      minPrice,
+      maxPrice,
+      dueDate
     })
 
     const checkIfUserDisabled = await isUserDisabled(user)
@@ -55,7 +63,11 @@ router.post('/', userExtractor, async (request, response) => {
       return response.status(401).json({ error: 'Operaatio ei sallittu' })
     }
 
+    console.log(target)
+
     const targetPost = await PortalPost.findById(target.id)
+
+    console.log(targetPost)
 
     // virheilmoitus jos postaus on suljettu
     if (!targetPost || !targetPost.isOpen) {

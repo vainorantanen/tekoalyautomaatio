@@ -15,8 +15,8 @@
 | 18.8.23  | 4       | -korjattu projectpostin bugi ja kehittäjien ilmoituksen lisäämisen virheekäsittely<br>- Tyylitelty frontendia |
 | 24.8.23  | 5       | -lisätty portaali ilmoitusten api<br>- Tehty portaali ilmoituksen lisäämisen frontend |
 | 25.8.23   | 7        | - Tehty ominaisuus ilmoituksen sulkemiselle<br>- Korjattu state bugi rekisteröinnissä<br>- Tehty API chateille ja luotu chat-näkymä frontendille<br>- Korjattu chatin lisäämisen bugi<br>- Lisätty route `/*` tuntemattomia reittejä varten, joka korjasi refreshauksen bugin |
-| 26.8.23   | 10       | - Tehty websocketilla reaaliaikainen chat-toiminnallisuus<br>- Viety chatin toiminnallisuus tuotantoympäristöön<br>- Tyylitelty chat-näkymää ja lisätty chatille otsikko (title) |
-| 27.8.23  | 10       | -tehty api ja frontend form ratingin lisäykselle<br>- ominaisuus ratingin poistolle ja näyttämiselle <br>- tehty salasanan resetointi ominaisuus <br> -lisätty path ja api sitemapille |
+| 26.8.23   | 9       | - Tehty websocketilla reaaliaikainen chat-toiminnallisuus<br>- Viety chatin toiminnallisuus tuotantoympäristöön<br>- Tyylitelty chat-näkymää ja lisätty chatille otsikko (title) |
+| 27.8.23  | 9       | -tehty api ja frontend form ratingin lisäykselle<br>- ominaisuus ratingin poistolle ja näyttämiselle <br>- tehty salasanan resetointi ominaisuus <br> -lisätty path ja api sitemapille |
 | 28.8.23  | 4       | -Konfiguroitu CI/CD pipelinea<br> |
 | 29.8.23  | 3       | -Korjattu pipeline e2e testien virhe ja konfiguroitu CI/CD pipelinea lisää<br> - Tehty testejä cypressillä |
 | 30.8.23  | 1       | -Tehty ominaisuus epäasiallisen feedpostin ilmoittamiselle<br> - Tehty route blogien lisäämiselle profiilinäkymään |
@@ -32,6 +32,7 @@
 | 1.11.23  |  5      | - Korjattu kommenttien, blogien, feedpostien ja chattien apeja ja niiden operaatioiden virheenhallintaa <br>- korjattu myös näiden frontendin reducereideita palauttamaan virhetilanteessa error-viesti|
 | 2.11.23  |  6      | - Suoritettu ohjelmiston testausta ja korjattu ilmeneviä virheitä. <br> - Virheitä löytyi backendin CRUD-operaatioista ja frontendin opearaatioita suorittavista funktioista <br>- Muokattu käyttäjien hakemista tietokannasta siten, että se riippuu kirjautuneen käyttäjän tyypistä|
 | 9.11.23  |  5      | - Monipuolistettu avoimien projektien apia ja tietokantaskeemaa. <br> - Päivitetty frontendin avoimen projektin lisäyksen sivua.<br> - Korjattu users api devaajan ollessa kirjautuneena <br> - lisätty komponent disabloituneelle käyttäjälle ja kirjautumiskehotukselle <br> - Muutettu tapaa, jolla avoimet projektit näytetään <br> - Muutettu yksittäisen projektin näkymää |
-| 12.11.23  |  3      | - Tehty kehittäjän profiilinäkymää ja tehty kehittäjän ilmoitusten muokkaamisen paneeli <br>- konfiguroitu uusi api projectOffers backendiin ja sille redux frontendiin <br>- tehty kehittäjän profiiliin omien tarjousten näkymä |
+| 12.11.23  |  4      | - Tehty kehittäjän profiilinäkymää ja tehty kehittäjän ilmoitusten muokkaamisen paneeli <br>- konfiguroitu uusi api projectOffers backendiin ja sille redux frontendiin <br>- tehty kehittäjän profiiliin omien tarjousten näkymä |
+| 13.11.23  |  4      | - Tehty asiakkaan profiilinäkymää <br> - Tehty projectpostin muokkauksen sivu ja yhteensovitettu se apiin <br> - Modifoitu portaalia sekä asiakkaan että kehittäjän näkökulmasta <br> - Siirretty portaali-ilmoitukset profiilista portaaliin <br>- Muokattu portaali-ilmoitukset ja tarjoukset backendiin vastaamaan aiemmin asetettuja lisäkymyksiä (muutettu myös näiden tietokantaskeemaa)|
 
-Yhteensä: 161h
+Yhteensä: 164h

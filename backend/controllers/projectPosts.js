@@ -78,7 +78,7 @@ router.post('/', userExtractor, async (request, response) => {
 
 router.put('/:id', userExtractor, async (request, response) => {
   try {
-    const { description, isOpen } = request.body
+    const { description, isOpen, question4, other, minPrice, maxPrice } = request.body
 
     const user = request.user
 
@@ -90,7 +90,9 @@ router.put('/:id', userExtractor, async (request, response) => {
       return response.status(401).json({ error: 'Operaatio ei sallittu' })
     }
 
-    let updatedprojectPost = await ProjectPost.findByIdAndUpdate(request.params.id,  { description, isOpen }, { new: true })
+    let updatedprojectPost = await ProjectPost.findByIdAndUpdate(request.params.id,  {
+      description, isOpen, question4, other, minPrice, maxPrice
+    }, { new: true })
 
     updatedprojectPost = await ProjectPost.findById(updatedprojectPost._id).populate('user').populate({ path: 'offers' })
 

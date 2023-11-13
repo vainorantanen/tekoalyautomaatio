@@ -52,6 +52,7 @@ import CustomerSupportForm from './components/CustomerSupportForm'
 import SubForm from './components/ForCompanies/SubForm'
 import AddProjectPostForm from './components/OpenProjects/AddProjectPostForm'
 import DevBids from './components/Profile/DevBids'
+import ModifyPortalPost from './components/Profile/ModifyPortalPost'
 
 const theme = createTheme({
   typography: {
@@ -99,6 +100,7 @@ const App = () => {
           <Route path='/profiili' element={<Profile />} />
           <Route path='/profiili/kayttaja/muokkaa/ilmoitus/:id' element={<ModifyBuyerPost />} />
           <Route path='/profiili/kehittaja/muokkaa/ilmoitus/:id' element={<ModifyDevPost />} />
+          <Route path='/profiili/kayttaja/muokkaa/portaaliilmoitus/:id' element={<ModifyPortalPost />} />
           <Route path='/profiili/muokkaa/julkaisu/:id' element={<ModifyFeedPost />} />
           <Route path='/profiili/blogit/hallinnoi' element={<ModifyShownBlogs />} />
           <Route path='/profiili/blogit/muokkaa/:id' element={<ModifyBlogForm />} />

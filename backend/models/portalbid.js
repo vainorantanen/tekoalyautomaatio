@@ -17,12 +17,24 @@ const schema = mongoose.Schema({
     type: Boolean,
     default: false
   },
+  minPrice: {
+    type: Number,
+    required: true
+  },
+  maxPrice: {
+    type: Number,
+    required: true
+  },
   targetPost: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'PortalPost'
   },
   offeror: {
     type: String,
+    required: true
+  },
+  dueDate: {
+    type: Date,
     required: true
   },
   isPortalBid: {

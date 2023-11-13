@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { useNotification } from '../../hooks'
-import { updatePost } from '../../reducers/projectPosts'
+import { updatePortalpost } from '../../reducers/portalPosts'
 
 const ModifyBuyerPost = () => {
   
@@ -14,28 +14,28 @@ const ModifyBuyerPost = () => {
     const postId = useParams().id
     const user = useSelector(({user}) => user)
 
-    const userPost = useSelector(({ projectPosts }) => projectPosts).find(p => p.id === postId)
-    
-    const [description, setDescription] = useState('');
+    const userPortalPost = useSelector(({ portalPosts }) => portalPosts).find(p => p.id === postId)
+    const [description, setDescription] = useState(userPortalPost.description);
     const [question4, setQuestion4] = useState('');
     const [other, setOther] = useState('');
     const [ minPrice, setMinPrice ] = useState(0)
     const [ maxPrice, setMaxPrice ] = useState(0)
-  
-    // Use useEffect to set initial values when userPost changes
-    useEffect(() => {
-      if (userPost) {
-        setDescription(userPost.description);
-        setQuestion4(userPost.question4);
-        setOther(userPost.other);
-        setMinPrice(userPost.minPrice)
-        setMaxPrice(userPost.maxPrice)
-      }
-    }, [userPost]);
 
-    const handleSubmit = async () => {
+    useEffect(() => {
+      if (userPortalPost) {
+        setDescription(userPortalPost.description);
+        setQuestion4(userPortalPost.question4);
+        setOther(userPortalPost.other);
+        setMinPrice(userPortalPost.minPrice)
+        setMaxPrice(userPortalPost.maxPrice)
+      }
+    }, [userPortalPost]);
+
+    const handleSubmit = async (event) => {
+      event.preventDefault()
+
       try {
-        const result = await dispatch(updatePost({...userPost, description, question4, other,
+        const result = await dispatch(updatePortalpost({...userPortalPost, description, question4, other,
           minPrice, maxPrice }))
           if (result && result.error) {
             notify('Tapahtui virhe palvelimella', 'error')
@@ -48,7 +48,7 @@ const ModifyBuyerPost = () => {
       }
   }
 
-    if (!userPost || user.id !== userPost.user.id) {
+    if (!userPortalPost || user.id !== userPortalPost.user.id) {
         <Container>
             <Typography>Error loading data</Typography>
         </Container>

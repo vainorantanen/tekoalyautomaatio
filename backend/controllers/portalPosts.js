@@ -27,20 +27,42 @@ router.get('/', userExtractor, async (request, response) => {
 
 router.post('/', userExtractor, async (request, response) => {
   try {
-    const { description, title } = request.body
+    const { description, other, question1, question1Other, question2, question2Other, question3, question4, date, minPrice, maxPrice } = request.body
 
     const portalPost = new PortalPost({
       description,
-      title,
-      isOpen: true,
       timeStamp: new Date(),
-      offers: []
+      isOpen: true,
+      question1,
+      question2,
+      question3,
+      question4,
+      dueDate: date,
+      other,
+      minPrice,
+      maxPrice
     })
+
+    if (question1 === 'other') {
+      portalPost.question1 = question1Other
+    }
+
+    if (question2 === 'other') {
+      portalPost.question2 = question2Other
+    }
+
+    if (question1 === 'other') {
+      portalPost.question1 = question1Other
+    }
+
+    if (question2 === 'other') {
+      portalPost.question2 = question2Other
+    }
 
     const user = request.user
 
     if (!user || user.isDeveloper === true) {
-      return response.status(401).json({ error: 'operation not permitted' })
+      return response.status(401).json({ error: 'Operaatio ei sallittu' })
     }
 
     portalPost.user = user._id
