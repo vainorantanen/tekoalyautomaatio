@@ -13,6 +13,8 @@ import { initializeRatings } from '../reducers/ratings'
 import { initializeBlogs } from '../reducers/blogs'
 import { initializeCustomerSupportPosts } from '../reducers/customersupport'
 import { initializeOrders } from '../reducers/orders'
+import { initializePortalBids } from '../reducers/portalBids'
+import { initializeProjectOffers } from '../reducers/projectOffers'
 
 export const useNotification = () => {
   const dispatch = useDispatch()
@@ -38,6 +40,8 @@ export const useInitialization = () => {
     dispatch(initializeBlogs())
     dispatch(initializeCustomerSupportPosts())
     dispatch(initializeOrders())
+    dispatch(initializePortalBids())
+    dispatch(initializeProjectOffers())
   }
 }
 

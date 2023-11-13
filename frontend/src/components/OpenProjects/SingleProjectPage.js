@@ -10,6 +10,7 @@ import { CheckCircleOutline } from '@mui/icons-material'
 import { modifyOfferApprovedState, removOfferFromProjectPost } from '../../reducers/projectPosts'
 import { addChat } from '../../reducers/chats'
 import { useState } from 'react'
+import SingleProjectInfo from './SingleProjectInfo'
 
 
 const SingleProjectPage = () => {
@@ -122,11 +123,9 @@ const closeDialog = () => {
 
   return (
     <Container sx={{ minHeight: '90vh', marginTop: '5rem', backgroundColor: '#393939', borderRadius: '0.5rem' }}>
-        <Typography sx={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{projectPost.title}</Typography>
-        <Typography sx={{ marginBottom: '1rem' }}>{projectPost.user.name}</Typography>
-        <Typography sx={{
-          whiteSpace: 'break-spaces'
-        }}>{projectPost.description}</Typography>
+        <Box>
+          <SingleProjectInfo post={projectPost} />
+        </Box>
         {user && user.isDeveloper === true && (
         <Togglable buttonLabel='Tee tarjous'>
           <MakeOfferForm projectPost={projectPost}/>

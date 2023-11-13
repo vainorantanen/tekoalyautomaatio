@@ -12,6 +12,9 @@ import ratingsReducer from './reducers/ratings'
 import blogsReducer from './reducers/blogs'
 import customerSupportReducer from './reducers/customersupport'
 import ordersReducer from './reducers/orders'
+import portalBidsReducer from './reducers/portalBids'
+import formDataReducer from './reducers/formData'
+import projectOffersReducer from './reducers/projectOffers'
 
 const store = configureStore({
   reducer: {
@@ -27,7 +30,10 @@ const store = configureStore({
     ratings: ratingsReducer,
     blogs: blogsReducer,
     customersupportPosts: customerSupportReducer,
-    orders: ordersReducer
+    orders: ordersReducer,
+    portalBids: portalBidsReducer,
+    formData: formDataReducer,
+    projectOffers: projectOffersReducer
   }
 })
 

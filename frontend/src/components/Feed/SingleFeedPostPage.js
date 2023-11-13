@@ -21,10 +21,14 @@ const SingleFeedPostPage = () => {
 
   const handleComment = async () => {
     try {
-      dispatch(commentFeedPost(feedPost.id, comment))
-      notifyWith('Kommentti lisätty onnistuneesti', 'success')
-      setComment('')
-      
+      const result = await dispatch(commentFeedPost(feedPost.id, comment))
+      if (result && result.error) {
+        notifyWith(result.error.response.data.error, 'error')
+        return
+      } else {
+        notifyWith('Kommentti lisätty onnistuneesti', 'success')
+        setComment('')
+      }
     } catch (error) {
       notifyWith('Kommentin lisäys epäonnistui', 'error')
     }
@@ -37,8 +41,13 @@ const SingleFeedPostPage = () => {
     }
 
     try {
-      dispatch(likeFeedPost(feedPost.id));
-      notifyWith('Tykkäys lisätty onnistuneesti', 'success');
+      const result = await dispatch(likeFeedPost(feedPost.id));
+      if (result && result.error) {
+        notifyWith(result.error.response.data.error, 'error')
+        return
+      } else {
+        notifyWith('Tykkäys lisätty onnistuneesti', 'success');
+      }
     } catch (error) {
       notifyWith('Olet jo tykännyt tästä julkaisusta', 'error');
     }
@@ -46,8 +55,13 @@ const SingleFeedPostPage = () => {
 
   const handleDisLike = async () => {
     try {
-      dispatch(disLikeFeedPost(feedPost.id));
-      notifyWith('Tykkäys poistettu onnistuneesti', 'success');
+      const result = await dispatch(disLikeFeedPost(feedPost.id));
+      if (result && result.error) {
+        notifyWith(result.error.response.data.error, 'error')
+        return
+      } else {
+        notifyWith('Tykkäys poistettu onnistuneesti', 'success');
+      }
     } catch (error) {
       notifyWith('VIrhe tykkäyksen poistossa', 'error');
     }
@@ -61,15 +75,20 @@ const SingleFeedPostPage = () => {
     navigate('/login')
   }
 
-  const handleInappropriate = ()  => {
+  const handleInappropriate = async ()  => {
     const confirmed = window.confirm(`Haluatko varmasti ilmoittaa tämän julkaisun epäasiallisena?`)
           if (!confirmed) {
             return // If the user clicks "Cancel," do nothing
           }
 
           try {
-            dispatch(markFeedPostInappropriate({...feedPost, inAppropriateClicks: feedPost.inAppropriateClicks+1}));
-            notifyWith('Ilmoitettu onnistuneesti', 'success');
+            const result = await dispatch(markFeedPostInappropriate({...feedPost, inAppropriateClicks: feedPost.inAppropriateClicks+1}));
+            if (result && result.error) {
+              notifyWith(result.error.response.data.error, 'error')
+              return
+            } else {
+              notifyWith('Ilmoitettu onnistuneesti', 'success');
+            }
           } catch (error) {
             notifyWith('Ilmeni jokin ongelma', 'error');
           }

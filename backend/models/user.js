@@ -86,7 +86,13 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Order'
     }
-  ]
+  ],
+  portalBids: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'PortalBid'
+    }
+  ],
 })
 
 userSchema.plugin(uniqueValidator)

@@ -11,16 +11,13 @@ const slice = createSlice({
     add(state, { payload }) {
       return state.concat(payload)
     },
-    remove(state, { payload }) {
-      return state.filter(s => s.id !== payload)
-    },
     alter(state, { payload }) {
       return state.map(s => s.id !== payload.id ? s : payload)
     },
   },
 })
 
-const { set, add, remove, alter } = slice.actions
+const { set, add, alter } = slice.actions
 
 export const initializeChats = () => {
   return async dispatch => {
@@ -31,35 +28,44 @@ export const initializeChats = () => {
 
 export const addChat = (object) => {
   return async dispatch => {
+    try {
     const data = await chatsService.create(object)
     dispatch(add(data))
+  } catch (error) {
+    return { error: error };
+  }
   }
 }
 
 export const updateChat = (object) => {
   return async dispatch => {
-    const data = await chatsService.update(object)
-    dispatch(alter(data))
+    try {
+      const data = await chatsService.update(object)
+      dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const addMessageToChat = (id, content) => {
   return async dispatch => {
-    const data = await chatsService.addmessage(id, content)
-    dispatch(alter(data))
+    try {
+      const data = await chatsService.addmessage(id, content)
+      dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
-export const updateChatState= (data) => {
+export const updateChatState = (data) => {
   return async dispatch => {
-    dispatch(alter(data))
-  }
-}
-
-export const removeChat = (object) => {
-  return async dispatch => {
-    await chatsService.remove(object.id)
-    dispatch(remove(object.id))
+    try {
+      dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 

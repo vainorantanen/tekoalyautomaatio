@@ -5,17 +5,20 @@ const schema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  title: {
+  description: {
     type: String,
     required: true
   },
-  description : {
-    type: String,
-    required: true
+  other: {
+    type: String
   },
   timeStamp: {
     type: Date,
     required: true
+  },
+  isOpen: {
+    type: Boolean,
+    default: true
   },
   offers: [
     {
@@ -23,7 +26,28 @@ const schema = mongoose.Schema({
       ref: 'Offer'
     }
   ],
-  isOpen: Boolean
+  question1: {
+    type: String
+  },
+  question2: {
+    type: String
+  },
+  question3: {
+    type: String
+  },
+  question4: {
+    type: String
+  },
+  dueDate: {
+    type: Date,
+    required: true
+  },
+  minPrice: {
+    type: Number
+  },
+  maxPrice: {
+    type: Number
+  },
 })
 
 schema.set('toJSON', {

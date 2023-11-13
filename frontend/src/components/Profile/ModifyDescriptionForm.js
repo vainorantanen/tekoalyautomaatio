@@ -8,8 +8,7 @@ import { updateUser } from '../../reducers/user'
 
 const ModifyDescriptionForm = () => {
 
-    const localUser = useSelector(({user}) => user)
-    const user = useSelector(({users}) => users).find(u => u.id === localUser.id)
+    const user = useSelector(({user}) => user)
 
     const [description, setDescription] = useState(user.description)
 

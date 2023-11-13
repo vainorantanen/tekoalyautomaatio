@@ -32,8 +32,12 @@ export const initializeRatings = () => {
 
 export const addRating = (object) => {
   return async dispatch => {
+    try {
     const data = await ratingService.create(object)
     dispatch(add(data))
+    } catch (error) {
+      return { error: error }
+    }
   }
 }
 
