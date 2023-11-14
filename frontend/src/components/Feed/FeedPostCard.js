@@ -1,6 +1,7 @@
 import React from 'react'
 import { Typography, Container } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { formatDate } from '../../Functions/formatDate'
 
 const FeedPostCard = ({ post }) => {
 
@@ -13,8 +14,6 @@ const FeedPostCard = ({ post }) => {
         color: 'black',
         padding: '1rem',
         borderRadius: '0.5rem',
-        //marginLeft: '5rem',
-        //marginRight: '5rem',
         marginBottom: '1rem',
         display: 'flex',
         height: '10rem',
@@ -31,7 +30,7 @@ const FeedPostCard = ({ post }) => {
     >
   
       <Typography>{post.user.name}</Typography>
-      <Typography>Julkaistu {post.timeStamp.split('T')[0]}</Typography>
+      <Typography>Julkaistu {formatDate(post.timeStamp)}</Typography>
       <Typography sx={{ color: '#555',
         overflow: 'hidden',
         whiteSpace: 'break-spaces',

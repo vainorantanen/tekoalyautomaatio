@@ -19,12 +19,28 @@ const schema = mongoose.Schema({
   },
   isApproved: {
     type: Boolean,
-    required: true
+    default: false
   },
   targetPost: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ProjectPost'
-  }
+  },
+  dueDate: {
+    type: Date,
+    required: true
+  },
+  isPortalBid: {
+    type: Boolean,
+    default: false
+  },
+  minPrice: {
+    type: Number,
+    required: true
+  },
+  maxPrice: {
+    type: Number,
+    required: true
+  },
 })
 
 schema.set('toJSON', {

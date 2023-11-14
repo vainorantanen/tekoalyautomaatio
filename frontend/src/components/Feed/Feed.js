@@ -1,6 +1,7 @@
-import { Container, Typography } from '@mui/material'
+import { Container, Typography, Button } from '@mui/material'
 import React from 'react'
 import FeedItems from './FeedItems'
+import { Link } from 'react-router-dom'
 
 const Feed = () => {
   return (
@@ -25,6 +26,9 @@ const Feed = () => {
         }}>
             Selaa tekoälyyn liittyviä julkaisuja
         </Typography>
+        <Button component={Link} to='/lisaajulkaisu'>
+          Lisää julkaisu feediin
+        </Button>
         <FeedItems />
     </Container>
   )

@@ -6,11 +6,11 @@ import { useParams } from 'react-router-dom'
 import { useNotification } from '../../hooks'
 import MakeOfferForm from './MakeOfferForm'
 import Togglable from '../Togglable'
-import { CheckCircleOutline } from '@mui/icons-material'
 import { modifyOfferApprovedState, removOfferFromProjectPost } from '../../reducers/projectPosts'
 import { addChat } from '../../reducers/chats'
 import { useState } from 'react'
 import SingleProjectInfo from './SingleProjectInfo'
+import ProjectOfferCard from './ProjectOfferCard'
 
 
 const SingleProjectPage = () => {
@@ -34,14 +34,19 @@ const closeDialog = () => {
     setChatTitle(''); // Clear the chat title when the dialog is closed
 };
 
-  const handleAcceptOffer = async (offerId) => {
-    const confirmed = window.confirm('Haluatko varmasti hyväksyä tämän tarjouksen?')
-    if (!confirmed) {
-      return // If the user clicks "Cancel," do nothing
-    }
+  const handleModifyOfferState = async (offerId) => {
+    const confirmed = window.confirm('Vahvistetaanko muutos?')
+        if (!confirmed) {
+          return // If the user clicks "Cancel," do nothing
+        }
     try {
-      dispatch(modifyOfferApprovedState(offerId, projectPost.id))
-      notifyWith('Tarjous hyväksytty', 'success')
+      const result = await dispatch(modifyOfferApprovedState(offerId, projectPost.id))
+      if (result && result.error) {
+        notifyWith(result.error.response.data.error, 'error')
+        return
+      } else {
+        notifyWith('Tila muutettu onnistuneesti', 'success')
+      }
     } catch (error) {
       notifyWith('Tarjouksen hyväksyntä epäonnistui', 'error')
     }
@@ -138,15 +143,13 @@ const closeDialog = () => {
       <Box sx={{ marginTop: '2rem' }}>
         <Typography sx={{ marginBottom: '2rem' }}>Tarjoukset</Typography>
         {projectPost.offers.map(offer => (
-          <Box key={offer.id} sx={{ color: 'black', backgroundColor: 'white', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
-            {offer.isApproved && (
-              <Typography>Tarjous hyväksytty <CheckCircleOutline /></Typography>
-            )}
-            <Typography>{offer.offeror}</Typography>
-            <Typography>{offer.timeStamp.split('T')[0]}</Typography>
-            <Typography sx={{ whiteSpace: 'break-spaces' }}>{offer.description}</Typography>
+          <Box key={offer.id}>
+            <ProjectOfferCard offer={offer}/>
             {user && user.id === projectPost.user.id && !offer.isApproved ? (
-              <Button onClick={() => handleAcceptOffer(offer.id)}>Hyväksy tarjous</Button>
+              <Button onClick={() => handleModifyOfferState(offer.id)}>Hyväksy tarjous</Button>
+            ): null}
+            {user && user.id === projectPost.user.id && offer.isApproved ? (
+              <Button onClick={() => handleModifyOfferState(offer.id)}>Epähyväksy tarjous</Button>
             ): null}
             {user && user.id === projectPost.user.id ? (
               <Button onClick={openDialog}>Aloita keskustelu tarjoajan {offer.offeror} kanssa</Button>

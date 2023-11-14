@@ -77,6 +77,9 @@ const DevProfile = () => {
       <Button variant="outlined" component={Link} to='/profiili/blogit/hallinnoi'>
         Hallinoi blogeja
       </Button>
+      <Button variant="outlined" component={Link} to='/lisaajulkaisu'>
+              Lisää julkaisu feediin
+            </Button>
       <Typography variant="h4" sx={{ marginBottom: '1rem' }}>Seuraa tekemiesi tarjousten tilannetta</Typography>
       <Button variant="outlined" component={Link} to='/profiili/kehittaja/tarjouksesi'>
         Katso kaikki antamasi tarjoukset

@@ -57,6 +57,9 @@ const BuyerProfile = () => {
             <Button variant="outlined" component={Link} to='/profiili/blogit/hallinnoi'>
               Hallinnoi blogeja
             </Button>
+            <Button variant="outlined" component={Link} to='/lisaajulkaisu'>
+              Lisää julkaisu feediin
+            </Button>
           </Box>
         </Grid>
       </Grid>
