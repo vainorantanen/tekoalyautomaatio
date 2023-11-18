@@ -2,7 +2,6 @@ import { Box, Container, Typography, Button } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import StartChat from '../StartChat'
 import { removeCustomerSupportPost, updateCustomerSupportPost } from '../../reducers/customersupport'
 import { useNotification } from '../../hooks'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -174,7 +173,6 @@ const AdminPanel = () => {
                 {req.user && (
                   <Box>
                     <Button component={Link} to={`/users/${req.user.id}`} >Siirry profiiliin</Button>
-                    <StartChat targetUser={req.user}/>
                   </Box>
                 )
                 }

@@ -34,5 +34,8 @@
 | 9.11.23  |  5      | - Monipuolistettu avoimien projektien apia ja tietokantaskeemaa. <br> - Päivitetty frontendin avoimen projektin lisäyksen sivua.<br> - Korjattu users api devaajan ollessa kirjautuneena <br> - lisätty komponent disabloituneelle käyttäjälle ja kirjautumiskehotukselle <br> - Muutettu tapaa, jolla avoimet projektit näytetään <br> - Muutettu yksittäisen projektin näkymää |
 | 12.11.23  |  4      | - Tehty kehittäjän profiilinäkymää ja tehty kehittäjän ilmoitusten muokkaamisen paneeli <br>- konfiguroitu uusi api projectOffers backendiin ja sille redux frontendiin <br>- tehty kehittäjän profiiliin omien tarjousten näkymä |
 | 13.11.23  |  4      | - Tehty asiakkaan profiilinäkymää <br> - Tehty projectpostin muokkauksen sivu ja yhteensovitettu se apiin <br> - Modifoitu portaalia sekä asiakkaan että kehittäjän näkökulmasta <br> - Siirretty portaali-ilmoitukset profiilista portaaliin <br>- Muokattu portaali-ilmoitukset ja tarjoukset backendiin vastaamaan aiemmin asetettuja lisäkymyksiä (muutettu myös näiden tietokantaskeemaa)|
+| 14.11.23  |  2      | - Lisätty kenttiä projectPost tarjouksen lisäämiseen <br>- Tehty ominaisuus tarjouksen epähyväksymiselle <br>- Aloitettu muokkaamaan yhteydenottotapaa chatista yhteydenottopyyntö-ratkaisuun <br>- Tehty sivustolle chatbot ja konfiguroitu sen workflowta |
+| 18.11.23  |  4      | - Muokattu yhteydenottotapa loppuun chatista yhteydenottopyyntö-ratkaisuun <br>- Tehty sivustolle chatbot ja konfiguroitu sen workflowta <br>- 
+tehty omionaisuus ottaa yhteyttä kehittäjän ilmoituksesta <br>- tehty yhteydenottojen ja keskustelujen sivu profiiliin|
 
-Yhteensä: 164h
+Yhteensä: 169h

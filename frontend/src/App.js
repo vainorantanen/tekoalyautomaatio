@@ -39,8 +39,7 @@ import AllUsers from './components/AllUsers/AllUsers'
 import SingleUserPage from './components/AllUsers/SingleUserPage'
 import Portal from './components/Portal/Portal'
 import SinglePostPortalView from './components/Portal/SinglePostPortalView'
-import ChatsList from './components/Chat/ChatsList'
-import SingleChatPage from './components/Chat/SingleChatPage'
+import AllContactMessages from './components/Profile/ContactAttempts/AllContactMessages'
 import AddRatingForm from './components/RatingForm/AddRatingForm'
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword'
@@ -53,6 +52,8 @@ import SubForm from './components/ForCompanies/SubForm'
 import AddProjectPostForm from './components/OpenProjects/AddProjectPostForm'
 import DevBids from './components/Profile/DevBids'
 import ModifyPortalPost from './components/Profile/ModifyPortalPost'
+import Chat from './components/Chat/Chat'
+import ChatbotComponent from './components/ChatBot/ChatBot'
 
 const theme = createTheme({
   typography: {
@@ -105,6 +106,8 @@ const App = () => {
           <Route path='/profiili/blogit/hallinnoi' element={<ModifyShownBlogs />} />
           <Route path='/profiili/blogit/muokkaa/:id' element={<ModifyBlogForm />} />
           <Route path='/profiili/kehittaja/tarjouksesi' element={<DevBids />} />
+          <Route path='/profiili/yhteydenotot' element={<AllContactMessages />} />
+          <Route path='/neuvottelu/:id' element={<Chat />} />
           <Route path='/lisaa-blogi' element={<AddBlogForm />} />
           <Route path='/kehittajat' element={<DevsList />} />
           <Route path='/kehittajat/:id' element={<SingleDevPage />} />
@@ -115,8 +118,6 @@ const App = () => {
           <Route path='/lisaajulkaisu' element={<AddFeedPost />} /> 
           <Route path='/portaali' element={<Portal />} />
           <Route path='/portaali/ilmoitukset/:id' element={<SinglePostPortalView />} />
-          <Route path='/omatkeskustelut' element={<ChatsList />} />
-          <Route path='/omatkeskustelut/:id' element={<SingleChatPage />} />
           <Route path='/anna-arvostelu/:id' element={<AddRatingForm />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/reset-password/:id/:token' element={<ResetPassword />} />
@@ -124,6 +125,7 @@ const App = () => {
           <Route path='/laheta-asiakaspalvelupyynto' element={<CustomerSupportForm />} />
           <Route path='/tilaa' element={<SubForm />} />
         </Routes>
+        <ChatbotComponent />
         <Footer />
       </Box>
     </ThemeProvider>

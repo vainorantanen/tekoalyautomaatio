@@ -111,6 +111,7 @@ router.put('/:id/offerAccept/:oid', userExtractor, async (request, response) => 
     const offerId = request.params.oid
 
     const projectPost = await ProjectPost.findById(projectPostId)
+    const projectOffer = await Offer.findById(offerId)
 
     // vain projectPostin lisännyt käyttäjä voi hyväksyä tarjouksen
     if (!user || projectPost.user.toString() !== user.id.toString()) {
@@ -118,7 +119,7 @@ router.put('/:id/offerAccept/:oid', userExtractor, async (request, response) => 
     }
 
     // Update the isApproved field of the specified offer
-    const updatedOffer = await Offer.findByIdAndUpdate(offerId, { isApproved: true }, { new: true })
+    const updatedOffer = await Offer.findByIdAndUpdate(offerId, { isApproved: !projectOffer.isApproved }, { new: true })
     // Find the projectPost and update its offers array with the updated offer
 
     const updatedOffersArray = projectPost.offers.map(offer =>
@@ -163,7 +164,7 @@ router.delete('/:id', userExtractor, async (request, response) => {
 
 router.post('/:id/offers', userExtractor, async (request, response) => {
   try {
-    const { description } = request.body
+    const { description, minPrice, maxPrice, dueDate } = request.body
 
     const user = request.user
     const checkIfUserDisabled = isUserDisabled(user)
@@ -172,14 +173,27 @@ router.post('/:id/offers', userExtractor, async (request, response) => {
       return response.status(401).json({ error: 'operation not permitted' })
     }
 
+    const today = new Date()
+
     const projectPost = await ProjectPost.findById(request.params.id)
+
+    if (!projectPost || !projectPost.isOpen || new Date(projectPost.dueDate) < today) {
+      return response.status(400).json({ error: 'Ilmoitusta ei ole tai se on jo sulkeutunut' })
+    }
+
+    // tarkistetaan tarjouksessa annettu duedate
+    if (dueDate < today) {
+      return response.status(400).json({ error: 'Tarkista tarjouksesi sulkeutumispäivä' })
+    }
 
     const offerToAdd = new Offer({
       description,
-      timeStamp: new Date(),
-      isApproved: false,
+      timeStamp: today,
       offeror: user.name,
-      targetPost: projectPost._id
+      targetPost: projectPost._id,
+      minPrice,
+      maxPrice,
+      dueDate
     })
 
     offerToAdd.user = user._id
@@ -192,7 +206,8 @@ router.post('/:id/offers', userExtractor, async (request, response) => {
     user.offers = user.offers.concat(offerToAdd._id)
     await user.save()
 
-    updatedprojectPost = await ProjectPost.findById(projectPost.id).populate('user').populate({ path: 'offers' })
+    updatedprojectPost = await ProjectPost.findById(projectPost.id)
+      .populate('user').populate({ path: 'offers' })
     response.status(201).json(updatedprojectPost)
   } catch (error) {
     response.status(500).json({ error: 'Palvelinvirhe' })

@@ -8,13 +8,13 @@ import { initializeDevsPosts } from '../reducers/devsPosts'
 import { initializeFeedPosts } from '../reducers/feedPosts'
 import { initializeComments } from '../reducers/comments'
 import { initializePortalPosts } from '../reducers/portalPosts'
-import { initializeChats } from '../reducers/chats'
 import { initializeRatings } from '../reducers/ratings'
 import { initializeBlogs } from '../reducers/blogs'
 import { initializeCustomerSupportPosts } from '../reducers/customersupport'
 import { initializeOrders } from '../reducers/orders'
 import { initializePortalBids } from '../reducers/portalBids'
 import { initializeProjectOffers } from '../reducers/projectOffers'
+import { initializeCustomerInfos } from '../reducers/customerinfo'
 
 export const useNotification = () => {
   const dispatch = useDispatch()
@@ -35,13 +35,13 @@ export const useInitialization = () => {
     dispatch(initializeComments())
     dispatch(initUser())
     dispatch(initializePortalPosts())
-    dispatch(initializeChats())
     dispatch(initializeRatings())
     dispatch(initializeBlogs())
     dispatch(initializeCustomerSupportPosts())
     dispatch(initializeOrders())
     dispatch(initializePortalBids())
     dispatch(initializeProjectOffers())
+    dispatch(initializeCustomerInfos())
   }
 }
 

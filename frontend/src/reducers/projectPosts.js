@@ -32,43 +32,67 @@ export const initializePosts = () => {
 
 export const addPost = (object) => {
   return async dispatch => {
+    try {
     const data = await projectPostService.create(object)
     dispatch(add(data))
+    } catch (error) {
+      return { error: error }
+    }
   }
 }
 
 export const updatePost= (object) => {
   return async dispatch => {
+    try {
     const data = await projectPostService.update(object)
     dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const makeOffer = (id, content) => {
   return async dispatch => {
+    try {
     const data = await projectPostService.makeoffer(id, content)
     dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const modifyOfferApprovedState = (offerId, targetId) => {
   return async dispatch => {
+    try {
     const data = await projectPostService.modifyAccept(targetId, offerId)
     dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const removOfferFromProjectPost = (offerId, targetId) => {
   return async dispatch => {
+    try {
     const data = await projectPostService.removeOffer(targetId, offerId)
     dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const removePost = (object) => {
   return async dispatch => {
+    try {
     await projectPostService.remove(object.id)
     dispatch(remove(object.id))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 

@@ -13,6 +13,16 @@ const schema = mongoose.Schema({
     type: Date,
     required: true
   },
+  isOffer: {
+    type: Boolean,
+    required: true
+  },
+  isApproved: {
+    type: String,
+    enum: ['accepted', 'rejected', 'waiting'],
+    default: 'waiting',
+    required: true
+  }
 })
 
 schema.set('toJSON', {
