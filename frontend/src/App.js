@@ -52,8 +52,8 @@ import SubForm from './components/ForCompanies/SubForm'
 import AddProjectPostForm from './components/OpenProjects/AddProjectPostForm'
 import DevBids from './components/Profile/DevBids'
 import ModifyPortalPost from './components/Profile/ModifyPortalPost'
-import Chatbot from './components/ChatBot/ChatBot'
 import Chat from './components/Chat/Chat'
+import ChatbotComponent from './components/ChatBot/ChatBot'
 
 const theme = createTheme({
   typography: {
@@ -125,7 +125,7 @@ const App = () => {
           <Route path='/laheta-asiakaspalvelupyynto' element={<CustomerSupportForm />} />
           <Route path='/tilaa' element={<SubForm />} />
         </Routes>
-        <Chatbot />
+        <ChatbotComponent />
         <Footer />
       </Box>
     </ThemeProvider>
