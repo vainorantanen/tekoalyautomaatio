@@ -7,7 +7,6 @@ import devsPostReducer from './reducers/devsPosts'
 import feedPostsReducer from './reducers/feedPosts'
 import commentsReducer from './reducers/comments'
 import portalPostsReducer from './reducers/portalPosts'
-import chatsReducer from './reducers/chats'
 import ratingsReducer from './reducers/ratings'
 import blogsReducer from './reducers/blogs'
 import customerSupportReducer from './reducers/customersupport'
@@ -15,6 +14,7 @@ import ordersReducer from './reducers/orders'
 import portalBidsReducer from './reducers/portalBids'
 import formDataReducer from './reducers/formData'
 import projectOffersReducer from './reducers/projectOffers'
+import customerinfoReducer from './reducers/customerinfo'
 
 const store = configureStore({
   reducer: {
@@ -26,14 +26,14 @@ const store = configureStore({
     feedPosts: feedPostsReducer,
     comments: commentsReducer,
     portalPosts: portalPostsReducer,
-    chats: chatsReducer,
     ratings: ratingsReducer,
     blogs: blogsReducer,
     customersupportPosts: customerSupportReducer,
     orders: ordersReducer,
     portalBids: portalBidsReducer,
     formData: formDataReducer,
-    projectOffers: projectOffersReducer
+    projectOffers: projectOffersReducer,
+    customerInfos: customerinfoReducer
   }
 })
 

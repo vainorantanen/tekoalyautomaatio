@@ -51,8 +51,8 @@ const BuyerProfile = () => {
             <Button variant="outlined" onClick={() => scrollToSection('closedPosts')}>
               Omat suljetut ilmoitukset
             </Button>
-            <Button variant="outlined" component={Link} to='/omatkeskustelut'>
-              Omat keskustelut
+            <Button variant="outlined" component={Link} to='/profiili/yhteydenotot'>
+              Yhteydenotot
             </Button>
             <Button variant="outlined" component={Link} to='/profiili/blogit/hallinnoi'>
               Hallinnoi blogeja

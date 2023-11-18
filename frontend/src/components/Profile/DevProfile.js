@@ -71,9 +71,9 @@ const DevProfile = () => {
       <Button variant="outlined" component={Link} to='/lisaa-blogi'>
         Lisää blogi
       </Button>
-      <Button variant="outlined" component={Link} to='/omatkeskustelut'>
-        Omat keskustelut
-      </Button>
+      <Button variant="outlined" component={Link} to='/profiili/yhteydenotot'>
+              Yhteydenotot
+            </Button>
       <Button variant="outlined" component={Link} to='/profiili/blogit/hallinnoi'>
         Hallinoi blogeja
       </Button>

@@ -119,8 +119,8 @@ const Navbar = ({ logout }) => {
             </ListItemButton>
           )}
           {user && (
-            <ListItemButton component={Link} to={`/omatkeskustelut`} onClick={toggleDrawer}>
-              <ListItemText primary="Omat keskustelut" />
+            <ListItemButton component={Link} to={`/profiili/yhteydenotot`} onClick={toggleDrawer}>
+              <ListItemText primary="Yhteydenotot" />
             </ListItemButton>
           )}
           {user && (
