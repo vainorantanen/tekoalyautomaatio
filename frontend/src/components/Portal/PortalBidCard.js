@@ -11,6 +11,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { removePortalBid, updatePortalBid } from '../../reducers/portalBids'
 import { formatDate } from '../../Functions/formatDate'
+import SendCustomerInfoForm from '../SendCustomerInfoForm'
 
 const PortalBidCard = ({offer, post}) => {
 
@@ -115,6 +116,11 @@ const PortalBidCard = ({offer, post}) => {
             {user && (user.id === post.user.id || user.id === offer.user.id) && (
               <Button sx={{ color: 'red' }} onClick={() => handleDeletebid(offer.id)}>Poista tarjous<DeleteIcon /></Button>
             )}
+            {user && user.id === post.user.id ? (
+              <Box>
+                <SendCustomerInfoForm offer={offer}/>
+                </Box>
+            ): null}
             </Box>
             <Box sx={{ width: '65%',
             '@media (max-width: 650px)': {

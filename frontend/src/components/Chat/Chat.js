@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import LoginSuggestion from '../LoginSuggestion'
 import { Box, Container, Grid, IconButton, TextField,
     Button, Typography, useMediaQuery, Checkbox, FormControlLabel } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send';
 import { useNotification } from '../../hooks'
-import { addMessage, updateMessage } from '../../reducers/customerinfo'
 import { socket } from '../../socket'
 import customerinfoService from '../../services/customerinfo'
 
@@ -19,7 +18,6 @@ const Chat = () => {
     const user = useSelector(({user}) => user)
     const customerInfo = useSelector(({customerInfos}) => customerInfos).find(c => c.id === id)
     const notify = useNotification()
-    const dispatch = useDispatch()
 
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
@@ -45,7 +43,6 @@ const Chat = () => {
 
     useEffect(() => {
         socket.on("receive_message", (data) => {
-            console.log('reveice messages', data)
           setMessages(data.updatedCustomerInfo.messages)
         });
       // eslint-disable-next-line react-hooks/exhaustive-deps

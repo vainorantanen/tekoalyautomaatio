@@ -13,11 +13,10 @@ const AllContactMessages = () => {
     const customerInfos = useSelector(({customerInfos}) => customerInfos)
     const userPortalBids = useSelector(({portalBids}) => portalBids)
     const userPortalPosts = useSelector(({portalPosts}) => portalPosts)
-    const userFeedPosts = useSelector(({projectPosts}) => projectPosts)
     const userFeedBids = useSelector(({projectOffers}) => projectOffers).filter(f => f.user.id === user.id)
 
 
-    const contactsToFeedOffers = customerInfos.filter(c => c.relatedFeedBid && !c.relatesToDevPost)
+    const contactsToFeedOffers = customerInfos.filter(c => c.relatedProjectOffer && !c.relatesToDevPost)
     const contactsToPortalOffers = customerInfos.filter(c => c.relatedPortalBid && !c.relatesToDevPost)
     const contactsToDevPosts = customerInfos.filter(c => c.relatesToDevPost)
 
@@ -39,11 +38,10 @@ const AllContactMessages = () => {
             contactsToFeedOffers.map(customerinfo => (
                 <Container key={customerinfo.id}>
                     <MessageCard customerinfo={customerinfo}/>
-                            <Button component={Link} to={`/tarjouskilpailut/${customerinfo.relatedFeedPost}`}>Siirry ilmoitukseen</Button>
+                            <Button component={Link} to={`/avoimetprojektit/${customerinfo.relatedProjectPost}`}>Siirry ilmoitukseen</Button>
                             <Button component={Link} to={`/neuvottelu/${customerinfo.id}`}>Chat</Button>
                             <Typography>Liittyvä tarjous</Typography>
-                            <ProjectOfferCard offer={userFeedBids.find(b => b.id === customerinfo.relatedFeedBid)}
-                        post={userFeedPosts.find(p => p.id === customerinfo.relatedFeedPost)}
+                            <ProjectOfferCard offer={userFeedBids.find(b => b.id === customerinfo.relatedProjectOffer)}
                         />
                         </Container>
             ))

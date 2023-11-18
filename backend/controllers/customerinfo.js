@@ -73,9 +73,9 @@ router.post('/', userExtractor, async (request, response) => {
         if (!feedOfferFromdb) {
           return response.status(400).json({ error: 'Tarjousta ei ole enää olemassa, se on todennäköisesti poistettu' })
         } else {
-          customerinfo.relatedFeedBid = feedOfferFromdb._id
+          customerinfo.relatedProjectOffer = feedOfferFromdb._id
           customerinfo.targetDeveloper = feedOfferFromdb.user
-          customerinfo.relatedFeedPost = feedOfferFromdb.targetPost
+          customerinfo.relatedProjectPost = feedOfferFromdb.targetPost
         }
       } else {
         return response.status(400).json({ error: 'Tarjousta ei ole enää olemassa, se on todennäköisesti poistettu' })
