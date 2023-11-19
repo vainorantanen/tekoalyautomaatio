@@ -5,12 +5,19 @@ import "./options.css";
 const Options = (props) => {
   const options = [
     {
-      text: "Javascript",
-      handler: props.actionProvider.handleJavascriptQuiz,
+      text: "Kirjaudu/Rekisteröidy",
+      handler: props.actionProvider.handleRegister,
       id: 1,
     },
-    { text: "Python", handler: () => {}, id: 2 },
-    { text: "Golang", handler: () => {}, id: 3 },
+    { text: "Kehittäjille",
+    handler: props.actionProvider.handleNewProjectAsDev,
+     id: 2 },
+    { text: "Jätä tarjouspyyntö",
+    handler: props.actionProvider.handleQuoteRequest,
+    id: 3 },
+    { text: "Katso feedia",
+    handler: props.actionProvider.handleSeeFeed,
+    id: 4 }
   ];
 
   const buttonsMarkup = options.map((option) => (

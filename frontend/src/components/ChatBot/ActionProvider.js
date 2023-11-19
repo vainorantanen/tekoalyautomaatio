@@ -8,30 +8,33 @@ class ActionProvider {
       const message = this.createChatBotMessage("Moi, Tervetuloa Tekoalyautomaatioon!");
       this.addMessageToState(message);
     };
-  
-    handleJavascriptQuiz = () => {
-      const message = this.createChatBotMessage(
-        "Fantastic. Here is your quiz. Good luck!",
-        {
-          widget: "javascriptQuiz",
-        }
-      );
-  
-      this.addMessageToState(message);
-    };
+
 
     handleRegister = () => {
-        const message = this.createChatBotMessage("Haluatko rekisteröityä sivustolle ja luoda profiilin? (Kyllä/Ei)");
-        this.addMessageToState(message);
-      };
+      const message = this.createChatBotMessage('Haluatko rekisteröityä sivustolle ja luoda profiilin? Voit tehdä sen ', {
+        widget: "register"
+      });
+      this.addMessageToState(message);
+    };
     
-      handleNewProject = () => {
-        const message = this.createChatBotMessage("Haluatko luoda uuden tekoälyprojektin? (Kyllä/Ei)");
+      handleNewProjectAsDev = () => {
+        const message = this.createChatBotMessage("Haluatko toteuttaa tekoälyprojekteja kehittäjänä? Voit tehdä sen", {
+          widget: 'forDevs'
+        });
         this.addMessageToState(message);
       };
     
       handleQuoteRequest = () => {
-        const message = this.createChatBotMessage("Haluatko jättää tarjouspyynnön tekoälyyrityksille? (Kyllä/Ei)");
+        const message = this.createChatBotMessage("Haluatko jättää tarjouspyynnön tekoäly-yrityksille? Voit tehdä sen", {
+          widget: 'requestQuote'
+        });
+        this.addMessageToState(message);
+      };
+
+      handleSeeFeed = () => {
+        const message = this.createChatBotMessage("Haluatko katsoa feedia? Voit tehdä sen", {
+          widget: "seeFeed"
+        });
         this.addMessageToState(message);
       };
   
