@@ -84,6 +84,10 @@ const DevProfile = () => {
       <Button variant="outlined" component={Link} to='/profiili/kehittaja/tarjouksesi'>
         Katso kaikki antamasi tarjoukset
       </Button>
+      <Typography variant="h4" sx={{ marginBottom: '1rem' }}>Hallinnoi projekteja</Typography>
+      <Button variant="outlined" component={Link} to='/profiili/projektit'>
+        Hallinnoi projekteja
+      </Button>
       </Box>
       </Grid>
       </Grid>

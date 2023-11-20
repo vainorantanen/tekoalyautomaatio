@@ -60,4 +60,15 @@ export const updateTask = (activeProject, taskObject) => {
   }
 }
 
+export const modifyProjectApprovedState = (project) => {
+  return async dispatch => {
+    try {
+    const data = await activeProjectService.updateIsApprovedState(project)
+    dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
+  }
+}
+
 export default slice.reducer

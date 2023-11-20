@@ -60,6 +60,10 @@ const BuyerProfile = () => {
             <Button variant="outlined" component={Link} to='/lisaajulkaisu'>
               Lisää julkaisu feediin
             </Button>
+            <Typography variant="h4" sx={{ marginBottom: '1rem' }}>Hallinnoi projekteja</Typography>
+      <Button variant="outlined" component={Link} to='/profiili/projektit'>
+        Hallinnoi projekteja
+      </Button>
           </Box>
         </Grid>
       </Grid>

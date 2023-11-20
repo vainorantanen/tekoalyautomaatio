@@ -37,7 +37,7 @@ router.get('/', userExtractor, async (request, response) => {
 router.post('/', userExtractor, async (request, response) => {
   try {
     // vain asiakas voi aloittaa projektin
-    const { title, targetPostId, developer } = request.body
+    const { title, developer, description } = request.body
 
     const user = request.user
 
@@ -49,9 +49,11 @@ router.post('/', userExtractor, async (request, response) => {
     const project = new Project({
       title,
       timeStamp: new Date(),
-      developer
+      developer: developer.id,
+      description
     })
 
+    /*
     const projectPost = await ProjectPost.findById(targetPostId)
     const portalPost = await PortalPost.findById(targetPostId)
     const devPost = await DevsPost.findById(targetPostId)
@@ -66,6 +68,7 @@ router.post('/', userExtractor, async (request, response) => {
       // return error
       return response.status(400).json({ error: 'Palvelinvirhe ilmoituksen löytämisessä' })
     }
+    */
 
     project.customer = user._id
 
@@ -112,6 +115,35 @@ router.post('/sendProjectTask/:id', userExtractor, async (request, response) => 
   } catch (error) {
     response.status(500).json({ error: 'Palvelimella tapahtui virhe, yritä myöhemmin uudelleen' })
   }
+})
+
+router.put('/:id/updateIsApprovedState', userExtractor, async (request, response) => {
+  try {
+    const { isApproved } = request.body
+
+    console.log(isApproved)
+
+    const user = request.user
+
+    const project = await Project.findById(request.params.id)
+
+    if (!user || !project || (project.developer.toString() !== user.id.toString())) {
+      return response.status(401).json({ error: 'Operaatio ei sallittu' })
+    }
+
+    let updatedProject = await Project.findByIdAndUpdate(request.params.id,  { isApproved }, { new: true })
+
+    updatedProject = await Project.findById(updatedProject._id)
+      .populate('customer', { name: 1 }).populate('developer', { name: 1 }).populate({ path: 'tasks' })
+
+    console.log(updatedProject)
+
+    response.json(updatedProject)
+  } catch (error) {
+    response.status(500).json({ error: 'Palvelinvirhe' })
+  }
+
+
 })
 
 router.put('/:id/updateProjectTask/:mid', userExtractor, async (request, response) => {

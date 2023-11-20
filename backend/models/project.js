@@ -15,6 +15,7 @@ const schema = mongoose.Schema({
     type: String,
     required: true
   },
+  description: String,
   timeStamp: {
     type: Date,
     required: true
@@ -37,7 +38,16 @@ const schema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'DevsPost'
   },
-
+  isCompleted: {
+    type: Boolean,
+    default: false
+  },
+  isApproved: {
+    type: String,
+    enum: ['accepted', 'rejected', 'waiting'],
+    default: 'waiting',
+    required: true
+  }
 })
 
 schema.set('toJSON', {

@@ -15,6 +15,7 @@ import { initializeOrders } from '../reducers/orders'
 import { initializePortalBids } from '../reducers/portalBids'
 import { initializeProjectOffers } from '../reducers/projectOffers'
 import { initializeCustomerInfos } from '../reducers/customerinfo'
+import { initializeActiveProjects } from '../reducers/activeProjects'
 
 export const useNotification = () => {
   const dispatch = useDispatch()
@@ -42,6 +43,7 @@ export const useInitialization = () => {
     dispatch(initializePortalBids())
     dispatch(initializeProjectOffers())
     dispatch(initializeCustomerInfos())
+    dispatch(initializeActiveProjects())
   }
 }
 

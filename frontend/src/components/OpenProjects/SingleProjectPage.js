@@ -46,8 +46,12 @@ const SingleProjectPage = () => {
       return // If the user clicks "Cancel," do nothing
     }
     try {
-      dispatch(removOfferFromProjectPost(offerId, projectPost.id))
-      notifyWith('Poistettu onnistuneesti', 'success')
+      const result = await dispatch(removOfferFromProjectPost(offerId, projectPost.id))
+      if (result && result.error) {
+        notifyWith('Tarjouksen poisto epäonnistui', 'error')
+      } else {
+        notifyWith('Poistettu onnistuneesti', 'success')
+      }
     } catch (error) {
       notifyWith('Tarjouksen poisto epäonnistui', 'error')
     }
