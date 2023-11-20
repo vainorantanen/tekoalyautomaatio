@@ -55,7 +55,7 @@ router.post('/', userExtractor, async (request, response) => {
 
 
     const user = request.user
-    const checkIfUserDisabled = isUserDisabled(user)
+    const checkIfUserDisabled = await isUserDisabled(user)
 
     if (!user || user.isDeveloper === true || checkIfUserDisabled === true) {
       return response.status(401).json({ error: 'Operaatio ei sallittu' })
@@ -167,8 +167,7 @@ router.post('/:id/offers', userExtractor, async (request, response) => {
     const { description, minPrice, maxPrice, dueDate } = request.body
 
     const user = request.user
-    const checkIfUserDisabled = isUserDisabled(user)
-
+    const checkIfUserDisabled = await isUserDisabled(user)
     if (!user || user.isDeveloper === false || checkIfUserDisabled === true) {
       return response.status(401).json({ error: 'operation not permitted' })
     }

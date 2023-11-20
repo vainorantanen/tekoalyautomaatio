@@ -3,7 +3,9 @@ import storageService from './storage'
 const baseUrl = '/api/customersupport'
 
 const getAll = async () => {
-  const request = await axios.get(baseUrl)
+  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+  const headers = token ? { 'Authorization': token } : {}
+  const request = await axios.get(baseUrl, { headers })
   return request.data
 }
 

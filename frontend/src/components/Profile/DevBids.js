@@ -17,7 +17,7 @@ const DevBids = () => {
   console.log(userFeedBids)
 
   return (
-    <Box sx={{ marginTop: '1rem' }}>
+    <Box sx={{ marginTop: '1rem', minHeight: '80vh' }}>
       <Typography sx={{ fontSize: '1.3rem'}}>Avoimiin ilmoituksiin tehdyt tarjoukset</Typography>
       <Divider sx={{ my: 4 }} />
         {userFeedBids && userFeedBids.length > 0 ? (userFeedBids.map(bid => (

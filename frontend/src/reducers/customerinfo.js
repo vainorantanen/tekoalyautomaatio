@@ -32,7 +32,6 @@ export const addCustomerInfo = (object) => {
       const data = await customerinfoService.create(object)
       dispatch(add(data))
     } catch (error) {
-      // Handle the error and return it for displaying on the frontend.
       return { error: error };
     }
   }
@@ -44,7 +43,6 @@ export const addMessage = (object) => {
       const data = await customerinfoService.sendMessage(object)
       dispatch(alter(data))
     } catch (error) {
-      // Handle the error and return it for displaying on the frontend.
       return { error: error };
     }
   }

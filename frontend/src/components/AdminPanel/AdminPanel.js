@@ -103,6 +103,7 @@ const AdminPanel = () => {
             currentUsers.map(u => (
                 <Box sx={{ margin: '0.5rem', backgroundColor: 'white', color: 'black',
                 padding: '0.5rem', borderRadius: '0.5rem' }} key={u.id}>
+                  {u.disabled && (<Typography>Disabloitu</Typography>)}
                     <Typography sx={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Nimi {u.name}</Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'row',
                  flexWrap: 'wrap', gap: '1rem' }}>
@@ -130,7 +131,6 @@ const AdminPanel = () => {
                         ) : (
                           <Typography><Button onClick={() => handleDisableUser(u)}>Disabloi käyttäjä</Button></Typography>
                         )}
-                        <Typography><Button sx={{ color: 'red' }}>Poista käyttäjä</Button></Typography>
                     </Box>
                 </Box>
                 </Box>

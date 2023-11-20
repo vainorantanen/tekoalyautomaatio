@@ -33,29 +33,45 @@ export const initializeFeedPosts = () => {
 
 export const addFeedPost = (object) => {
   return async dispatch => {
+    try {
     const data = await feedPostService.create(object)
     dispatch(add(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const updateFeedPost= (object) => {
   return async dispatch => {
+    try {
     const data = await feedPostService.update(object)
     dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const markFeedPostInappropriate= (object) => {
   return async dispatch => {
+    try {
     const data = await feedPostService.markInappropriate(object)
     dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const commentFeedPost = (id, comment) => {
   return async dispatch => {
+    try {
     const data = await feedPostService.comment(id, comment)
     dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
@@ -77,22 +93,34 @@ export const likeFeedPost = (id) => {
 
 export const disLikeFeedPost = (id) => {
   return async dispatch => {
+    try {
     const data = await feedPostService.dislike(id)
     dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const removeCommentFromFeedPost = (id, comment) => {
   return async dispatch => {
+    try {
     const data = await feedPostService.removeComment(id, comment)
     dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const removeFeedPost = (object) => {
   return async dispatch => {
+    try {
     await feedPostService.remove(object.id)
     dispatch(remove(object.id))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
