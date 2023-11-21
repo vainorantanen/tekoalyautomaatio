@@ -23,6 +23,13 @@ const updateIsApprovedState = async (object) => {
   return request.data
 }
 
+const updateProjectCompletionState = async (object) => {
+  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+  const headers = token ? { 'Authorization': token } : {}
+  const request = await axios.put(`${baseUrl}/${object.id}/updateProjectCompletionState`, object, { headers })
+  return request.data
+}
+
 const sendTask = async (object) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
@@ -46,4 +53,4 @@ const removeTask = async (taskId, projectId) => {
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, sendTask, updateTask, updateIsApprovedState, removeTask }
+export default { getAll, create, sendTask, updateTask, updateIsApprovedState, removeTask, updateProjectCompletionState }

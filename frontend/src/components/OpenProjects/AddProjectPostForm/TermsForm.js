@@ -39,7 +39,6 @@ const TermsForm = forwardRef((props, ref) => {
   const validateFields = () => {
     let isValid = true
     if (!date) {
-      console.log('date', date)
       notify('Aseta takaraja', 'error')
       setDateError(true)
       isValid = false

@@ -1,9 +1,6 @@
 const router = require('express').Router()
 const Project = require('../models/project')
 const ProjectTask = require('../models/projectTask')
-const DevsPost = require('../models/devsPost')
-const ProjectPost = require('../models/projectPost')
-const PortalPost = require('../models/portalPost')
 
 const { userExtractor } = require('../utils/middleware')
 
@@ -53,23 +50,6 @@ router.post('/', userExtractor, async (request, response) => {
       description
     })
 
-    /*
-    const projectPost = await ProjectPost.findById(targetPostId)
-    const portalPost = await PortalPost.findById(targetPostId)
-    const devPost = await DevsPost.findById(targetPostId)
-
-    if (projectPost) {
-      project.relatedProjectPost = projectPost._id
-    } else if (portalPost) {
-      project.relatedPortalPost = portalPost._id
-    } else if (devPost) {
-      project.relatedDevPost = devPost._id
-    } else {
-      // return error
-      return response.status(400).json({ error: 'Palvelinvirhe ilmoituksen löytämisessä' })
-    }
-    */
-
     project.customer = user._id
 
     let createdProject = await project.save()
@@ -86,7 +66,6 @@ router.post('/', userExtractor, async (request, response) => {
 router.post('/sendProjectTask/:id', userExtractor, async (request, response) => {
   try {
     const { content, state } = request.body
-    console.log(content, state)
 
     const user = request.user
 
@@ -95,8 +74,6 @@ router.post('/sendProjectTask/:id', userExtractor, async (request, response) => 
     if (!user || !project) {
       return response.status(401).json({ error: 'Palvelinvirhe (operaatiota ei sallittu)' })
     }
-
-    console.log(project)
 
     const projectTaskToSend = new ProjectTask({
       content,
@@ -125,8 +102,6 @@ router.put('/:id/updateIsApprovedState', userExtractor, async (request, response
   try {
     const { isApproved } = request.body
 
-    console.log(isApproved)
-
     const user = request.user
 
     const project = await Project.findById(request.params.id)
@@ -140,7 +115,36 @@ router.put('/:id/updateIsApprovedState', userExtractor, async (request, response
     updatedProject = await Project.findById(updatedProject._id)
       .populate('customer', { name: 1 }).populate('developer', { name: 1 }).populate({ path: 'tasks' })
 
-    console.log(updatedProject)
+    response.json(updatedProject)
+  } catch (error) {
+    response.status(500).json({ error: 'Palvelinvirhe' })
+  }
+
+
+})
+
+router.put('/:id/updateProjectCompletionState', userExtractor, async (request, response) => {
+  try {
+
+    const user = request.user
+
+    const project = await Project.findById(request.params.id)
+
+    if (!user || !project || (project.developer.toString() !== user.id.toString() &&
+    project.customer.toString() !== user.id.toString() )) {
+      return response.status(401).json({ error: 'Operaatio ei sallittu' })
+    }
+
+    let updatedProject
+
+    if (project.developer.toString() === user.id.toString()) {
+      updatedProject = await Project.findByIdAndUpdate(request.params.id,  { isCompletedByDev: true }, { new: true })
+    } else if (project.customer.toString() === user.id.toString()) {
+      updatedProject = await Project.findByIdAndUpdate(request.params.id,  { isCompletedByCustomer: true }, { new: true })
+    }
+
+    updatedProject = await Project.findById(updatedProject._id)
+      .populate('customer', { name: 1 }).populate('developer', { name: 1 }).populate({ path: 'tasks' })
 
     response.json(updatedProject)
   } catch (error) {

@@ -40,34 +40,29 @@ router.get('/', userExtractor, async (request, response) => {
 
   if (!user) {
     // Show only users with isDeveloper === true
-    console.log('1')
     users = await User.find({ isDeveloper: { $ne: true } })
       .populate({ path: 'projectPosts' })
       .populate({ path: 'feedPosts' })
       .populate({ path: 'offers' })
   } else if (user.username === 'admin') {
     // Find all users
-    console.log('admin')
     users = await User.find({})
       .populate({ path: 'projectPosts' })
       .populate({ path: 'feedPosts' })
       .populate({ path: 'offers' })
   } else if (!user.isDeveloper) {
     // Find the user himself and all users with isDeveloper === true
-    console.log('ei devaaja')
     users = await User.find({ $or: [{ _id: user._id }, { isDeveloper: true }] })
       .populate({ path: 'projectPosts' })
       .populate({ path: 'feedPosts' })
       .populate({ path: 'offers' })
   } else if (user.isDeveloper) {
     // Show only users with isDeveloper === true
-    console.log('devaaja')
     users = await User.find({ isDeveloper: true })
       .populate({ path: 'projectPosts' })
       .populate({ path: 'feedPosts' })
       .populate({ path: 'offers' })
   } else {
-    console.log('muutoin')
     users = []
   }
   response.json(users)

@@ -4,7 +4,6 @@ class MessageParser {
     }
   
     parse(message) {
-      console.log(message);
       const lowercase = message.toLowerCase();
   
       if (lowercase.includes("moi")) {

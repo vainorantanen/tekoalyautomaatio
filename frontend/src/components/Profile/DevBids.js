@@ -14,8 +14,6 @@ const DevBids = () => {
     return null
   }
 
-  console.log(userFeedBids)
-
   return (
     <Box sx={{ marginTop: '1rem', minHeight: '80vh' }}>
       <Typography sx={{ fontSize: '1.3rem'}}>Avoimiin ilmoituksiin tehdyt tarjoukset</Typography>

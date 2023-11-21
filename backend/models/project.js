@@ -20,25 +20,17 @@ const schema = mongoose.Schema({
     type: Date,
     required: true
   },
-  relatedProjectPost: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'ProjectPost'
-  },
-  relatedPortalPost: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'PortalPost'
-  },
   tasks: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'ProjectTask'
     }
   ],
-  relatedDevPost: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'DevsPost'
+  isCompletedByDev: {
+    type: Boolean,
+    default: false
   },
-  isCompleted: {
+  isCompletedByCustomer: {
     type: Boolean,
     default: false
   },

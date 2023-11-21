@@ -34,7 +34,6 @@ const makeoffer = async (id, content) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
   const request = await axios.post(`${baseUrl}/${id}/portalBids`, content, { headers })
-  console.log('req res', request.data)
   return request.data
 }
 

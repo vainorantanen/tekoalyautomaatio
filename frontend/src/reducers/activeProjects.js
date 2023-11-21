@@ -71,6 +71,17 @@ export const modifyProjectApprovedState = (project) => {
   }
 }
 
+export const modifyProjectCompletionState = (project) => {
+  return async dispatch => {
+    try {
+    const data = await activeProjectService.updateProjectCompletionState(project)
+    dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
+  }
+}
+
 export const removeTask = (taskId, projectId) => {
   return async dispatch => {
     try {

@@ -32,9 +32,9 @@ const ProjectsList = () => {
         }
     }
 
-    const activeProjects = usersProjects.filter(p => p.isApproved === 'accepted' && !p.isReady)
+    const activeProjects = usersProjects.filter(p => p.isApproved === 'accepted' && !(p.isCompletedByDev && p.isCompletedByCustomer))
     const projectRequests = usersProjects.filter(p => p.isApproved === 'waiting')
-    const readyProjects = usersProjects.filter(p => p.isReady)
+    const readyProjects = usersProjects.filter(p => p.isCompletedByDev && p.isCompletedByCustomer)
     const declinedProjects = usersProjects.filter(p => p.isApproved === 'rejected')
 
   return (

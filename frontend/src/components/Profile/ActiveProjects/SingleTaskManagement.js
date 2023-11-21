@@ -31,7 +31,6 @@ const SingleTaskManagement = ({task, project}) => {
       closeDialog();
     
         try {
-            console.log(state)
           const result = await dispatch(updateTask(project, { ...task, content: message, state}))
           if (result && result.error) {
             notifyWith(result.error.response.data.error, 'error')

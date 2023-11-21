@@ -1,11 +1,13 @@
 import React from 'react';
-import { Paper, Typography, Box } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { Paper, Typography, Box, Divider, Button } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginSuggestion from '../../LoginSuggestion';
 import { useParams } from 'react-router-dom';
 import AddTaskForm from './AddTaskForm';
 import { formatDate } from '../../../Functions/formatDate';
 import SingleTaskManagement from './SingleTaskManagement';
+import { useNotification } from '../../../hooks';
+import { modifyProjectCompletionState } from '../../../reducers/activeProjects';
 
 const Task = ({task, project}) => {
     return (
@@ -23,6 +25,9 @@ const ProjectManagementTable = () => {
     const user = useSelector(({ user }) => user);
     const { id } = useParams();
 
+    const dispatch = useDispatch()
+    const notify = useNotification()
+
     const project = useSelector(({ activeProjects }) => activeProjects).find(p => p.id === id);
 
     if (!user) {
@@ -31,6 +36,26 @@ const ProjectManagementTable = () => {
 
     if (!project) {
         return null;
+    }
+
+    const handleMarkProjectDone = async () => {
+        const confirmed = window.confirm(`Vahvistetaanko muutos?`)
+        if (!confirmed) {
+          return // If the user clicks "Cancel," do nothing
+        }
+
+        try {
+            const result = await dispatch(modifyProjectCompletionState(project))
+            if (result && result.error) {
+                notify(result.error.response.data.error, 'error')
+                return
+              } else {
+                notify('Tila muokattu onnistuneesti', 'success')
+              }
+        } catch (error) {
+            notify('Ilmeni jokin ongelma', 'error')
+
+        }
     }
 
     const doneTasks = project.tasks.filter(t => t.taskState === 'done')
@@ -108,6 +133,19 @@ const ProjectManagementTable = () => {
             ): null}
             </Paper>
             </Box>
+            <Divider sx={{ my:2 }} />
+            <Box sx={{ textAlign: 'center', my: 2 }}>
+                <Typography variant='h6'>Onko projekti valmis?</Typography>
+                <Button variant='contained' sx={{ my: 2 }}
+                onClick={handleMarkProjectDone}>Aseta projekti tilaan: Valmis</Button>
+                {project.isCompletedByCustomer ? (
+                    <Typography>Asiakas on hyäksynyt projektin valmiiksi</Typography>
+                ): <Typography>Asiakas ei ole hyväksynyt vielä projektia valmiiksi</Typography>}
+                {project.isCompletedByDev ? (
+                    <Typography>Kehittäjä on hyäksynyt projektin valmiiksi</Typography>
+                ): <Typography>Kehittäjä ei ole hyväksynyt vielä projektia valmiiksi</Typography>}
+            </Box>
+            <Divider sx={{ my:2 }} />
         </Box>
     );
 };
