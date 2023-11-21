@@ -38,5 +38,6 @@
 | 18.11.23  |  4      | - Muokattu yhteydenottotapa loppuun chatista yhteydenottopyyntö-ratkaisuun <br>- Tehty sivustolle chatbot ja konfiguroitu sen workflowta <br>- tehty omionaisuus ottaa yhteyttä kehittäjän ilmoituksesta <br>- tehty yhteydenottojen ja keskustelujen sivu profiiliin|
 | 19.11.23  |  1      | - Chatbotin workflown parantelua. Lisätty chatbotille relevantteja kysymyksiä ja sisällytetty linkkejä vastauksiin |
 | 20.11.23  |  4      | - Virheenkäsittelyä ja refaktorointia, kehittäjän ja asiakkaan profiilinäkymien parantelua <br>- Paranneltu adminpaneelia korjaamalla däyttäjän disabloinnin ja asiakaspalvluekanavan bugit <br>- Ohjelmiston testausta ja frontendin services-osion parantelua <br>- Tehty API aktiivisten projektien seurannalle ja niihin liittyville tehtäville <br>- Aloitettu tekemään projektinhallinnan frontendia |
+| 21.11.23  |  3      | - Jatkettu projektiseurannan ominaisuuden tekemistä tekemällä sivu projektin ja sen tehtävien hallinnalle <br>- tehty ominaisuudet projektitehtävien lisäämiselle, poistamiselle sekä tilan ja sisällön muuttamiselle |
 
-Yhteensä: 175h
+Yhteensä: 178h

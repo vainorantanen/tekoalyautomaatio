@@ -55,6 +55,7 @@ import ModifyPortalPost from './components/Profile/ModifyPortalPost'
 import Chat from './components/Chat/Chat'
 import ChatbotComponent from './components/ChatBot/ChatBot'
 import ProjectsList from './components/Profile/ActiveProjects/ProjectsList'
+import ProjectManagementTable from './components/Profile/ActiveProjects/ProjectManagementTable'
 
 const theme = createTheme({
   typography: {
@@ -109,6 +110,7 @@ const App = () => {
           <Route path='/profiili/kehittaja/tarjouksesi' element={<DevBids />} />
           <Route path='/profiili/yhteydenotot' element={<AllContactMessages />} />
           <Route path='/profiili/projektit' element={<ProjectsList />} />
+          <Route path='/profiili/projektit/:id' element={<ProjectManagementTable />} />
           <Route path='/neuvottelu/:id' element={<Chat />} />
           <Route path='/lisaa-blogi' element={<AddBlogForm />} />
           <Route path='/kehittajat' element={<DevsList />} />

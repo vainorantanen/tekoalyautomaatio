@@ -85,29 +85,33 @@ router.post('/', userExtractor, async (request, response) => {
 
 router.post('/sendProjectTask/:id', userExtractor, async (request, response) => {
   try {
-    const { content } = request.body
+    const { content, state } = request.body
+    console.log(content, state)
 
     const user = request.user
 
     const project = await Project.findById(request.params.id)
 
-    if (!user || !Project) {
+    if (!user || !project) {
       return response.status(401).json({ error: 'Palvelinvirhe (operaatiota ei sallittu)' })
     }
+
+    console.log(project)
 
     const projectTaskToSend = new ProjectTask({
       content,
       timeStamp: new Date(),
+      taskState: state
     })
 
     projectTaskToSend.user = user._id
 
     await projectTaskToSend.save()
 
-    project.tasks = Project.tasks.concat(projectTaskToSend._id)
+    project.tasks = project.tasks.concat(projectTaskToSend._id)
     let updatedProject = await project.save()
 
-    updatedProject = await Project.findById(Project.id)
+    updatedProject = await Project.findById(project.id)
       .populate({ path: 'tasks' })
       .populate('customer', { name: 1 }).populate('developer', { name: 1 })
 
@@ -149,7 +153,7 @@ router.put('/:id/updateIsApprovedState', userExtractor, async (request, response
 router.put('/:id/updateProjectTask/:mid', userExtractor, async (request, response) => {
   try {
     const user = request.user
-    const { isApproved, content } = request.body
+    const { state, content } = request.body
 
     const projectTask = await ProjectTask.findById(request.params.mid)
     const project = await Project.findById(request.params.id)
@@ -162,8 +166,7 @@ router.put('/:id/updateProjectTask/:mid', userExtractor, async (request, respons
       return response.status(401).json({ error: 'Operaatio ei sallittu' })
     }
 
-    // Update the isApproved field of the specified ProjectTask
-    const updatedProjectTask = await ProjectTask.findByIdAndUpdate(request.params.mid, { isApproved, content }, { new: true })
+    const updatedProjectTask = await ProjectTask.findByIdAndUpdate(request.params.mid, { taskState: state, content }, { new: true })
 
     const updatedProjectTaskArray = project.tasks.map(mes =>
       mes._id.equals(updatedProjectTask._id) ? updatedProjectTask : mes
@@ -177,6 +180,32 @@ router.put('/:id/updateProjectTask/:mid', userExtractor, async (request, respons
       .populate('customer', { name: 1 }).populate('developer', { name: 1 })
 
     response.json(updatedProject)
+  } catch (error) {
+    response.status(500).json({ error: 'Palvelinvirhe' })
+  }
+})
+
+router.delete('/:id/tasks/:tid', userExtractor, async (request, response) => {
+  try {
+    const project = await Project.findById(request.params.id)
+    const user = request.user
+    const taskId = request.params.tid
+
+    const taskToDelete = await ProjectTask.findById(taskId)
+
+    if (!user || !(taskToDelete.user.toString() === user._id.toString())) {
+      return response.status(401).json({ error: 'operation not permitted' })
+    }
+
+    await taskToDelete.remove()
+
+    project.tasks = project.tasks.filter(c => c._id.toString() !== taskId)
+    let updatedProject = await project.save()
+
+    updatedProject = await Project.findById(updatedProject.id)
+      .populate('customer', { name: 1 }).populate('developer', { name: 1 })
+      .populate({ path: 'tasks' })
+    response.status(201).json(updatedProject)
   } catch (error) {
     response.status(500).json({ error: 'Palvelinvirhe' })
   }

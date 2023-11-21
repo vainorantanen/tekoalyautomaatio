@@ -30,13 +30,20 @@ const sendTask = async (object) => {
   return request.data
 }
 
-const updateTask = async (customerInfo, messageObject) => {
+const updateTask = async (project, task) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
-  const request = await axios.put(`${baseUrl}/${customerInfo.id}/updateProjectTask/${messageObject.id}`, messageObject, { headers })
+  const request = await axios.put(`${baseUrl}/${project.id}/updateProjectTask/${task.id}`, task, { headers })
+  return request.data
+}
+
+const removeTask = async (taskId, projectId) => {
+  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+  const headers = token ? { 'Authorization': token } : {}
+  const request = await axios.delete(`${baseUrl}/${projectId}/tasks/${taskId}`, { headers })
   return request.data
 }
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, sendTask, updateTask, updateIsApprovedState }
+export default { getAll, create, sendTask, updateTask, updateIsApprovedState, removeTask }

@@ -17,16 +17,9 @@ const schema = mongoose.Schema({
     type: Date,
     default: null
   },
-  stateByDev: {
+  taskState: {
     type: String,
-    enum: ['accepted', 'rejected', 'waiting', 'done'],
-    default: 'waiting',
-    required: true
-  },
-  stateByCustomer: {
-    type: String,
-    enum: ['accepted', 'rejected', 'waiting', 'done'],
-    default: 'waiting',
+    enum: ['todo', 'rejected', 'waiting', 'done', 'doing'],
     required: true
   }
 })

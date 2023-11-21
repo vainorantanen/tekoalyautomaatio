@@ -71,4 +71,15 @@ export const modifyProjectApprovedState = (project) => {
   }
 }
 
+export const removeTask = (taskId, projectId) => {
+  return async dispatch => {
+    try {
+    const data = await activeProjectService.removeTask(taskId, projectId)
+    dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
+  }
+}
+
 export default slice.reducer

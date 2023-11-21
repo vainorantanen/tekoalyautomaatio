@@ -25,7 +25,7 @@ const ProjectsList = () => {
                 notify('Tapahtui virhe hyväksyimsessä', 'error')
                 return
             } else {
-                notify('Hyväksytty onnistuneesti')
+                notify(`Muutettu tilaksi onnistuneesti: ${newState}`)
             }
         } catch (error) {
             notify('Tapahtui virhe hyväksyimsessä', 'error')
@@ -47,7 +47,7 @@ const ProjectsList = () => {
                  <ProjectCard project={project}/>
                
       <Button component={Link} to={`/profiili/projektit/${project.id}`}
-      variant='contained'>Tarkastele</Button>
+      variant='contained'>Hallintapaneeli</Button>
                              <Divider sx={{ my:2 }}/>
             </Box>
            ))
@@ -58,8 +58,13 @@ const ProjectsList = () => {
            projectRequests.map(project => (
             <Box key={project.id}>
                  <ProjectCard project={project}/>
-      <Button variant='contained' onClick={() => modifyApprovedState(project, 'accepted')}>Hyväksy</Button>
+      {user.id === project.developer.id && (
+        <Box>
+            <Button variant='contained' onClick={() => modifyApprovedState(project, 'accepted')}>Hyväksy</Button>
       <Button sx={{ color: 'red' }} onClick={() => modifyApprovedState(project, 'rejected')}>Hylkää</Button>
+            
+            </Box>
+      )}
                              <Divider sx={{ my:2 }}/>
             </Box>
            ))
@@ -71,7 +76,7 @@ const ProjectsList = () => {
             <Box key={project.id}>
                 <ProjectCard project={project}/>
                 <Button component={Link} to={`/profiili/projektit/${project.id}`}
-      variant='contained'>Tarkastele</Button>
+      variant='contained'>Hallintapaneeli</Button>
             </Box>
            ))
         ): <Typography>Ei projekteja</Typography>}
@@ -81,7 +86,9 @@ const ProjectsList = () => {
            declinedProjects.map(project => (
             <Box key={project.id}>
                 <ProjectCard project={project}/>
-                <Button variant='contained'  onClick={() => modifyApprovedState(project, 'accepted')}>Hyväksy</Button>
+                {user.id === project.developer.id && (
+                    <Button variant='contained'  onClick={() => modifyApprovedState(project, 'accepted')}>Hyväksy</Button>
+                )}
             </Box>
            ))
         ): <Typography>Ei projekteja</Typography>}
