@@ -69,7 +69,8 @@ const ProjectManagementTable = () => {
         padding: '0.5rem',
         width: '15rem',
         height: '25rem',
-        marginX: '0.5rem'
+        marginX: '0.5rem',
+        overflowY: 'auto',
     }
 
     return (

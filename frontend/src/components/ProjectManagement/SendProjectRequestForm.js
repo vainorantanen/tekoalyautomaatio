@@ -1,14 +1,12 @@
 import { Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField  } from '@mui/material';
 import React from 'react'
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ChatIcon from '@mui/icons-material/Chat';
 import { addActiveProject } from '../../reducers/activeProjects';
 import { useNotification } from '../../hooks';
 
 const SendProjectRequestForm = ({developer}) => {
-
-    const user = useSelector(({user}) => user)
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [ title, setTitle ] = useState('')
