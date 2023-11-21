@@ -4,10 +4,9 @@ class MessageParser {
     }
   
     parse(message) {
-      console.log(message);
       const lowercase = message.toLowerCase();
   
-      if (lowercase.includes("hello")) {
+      if (lowercase.includes("moi")) {
         this.actionProvider.greet();
       }
 
@@ -17,6 +16,8 @@ class MessageParser {
         this.actionProvider.handleNewProject();
       } else if (lowercase.includes("tarjouspyyntö") || lowercase.includes("saat tarjouksia")) {
         this.actionProvider.handleQuoteRequest();
+      } else if (lowercase.includes("feed") || lowercase.includes("julkaisu")) {
+        this.actionProvider.handleSeeFeed()
       }
   
     }

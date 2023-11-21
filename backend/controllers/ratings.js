@@ -23,7 +23,7 @@ router.post('/', userExtractor, async (request, response) => {
     timeStamp: new Date(),
     targetUser: targetUser._id,
     score,
-    showOnDevProfile: false
+    showOnDevProfile: true
   })
 
   const user = request.user

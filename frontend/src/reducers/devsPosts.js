@@ -32,29 +32,34 @@ export const initializeDevsPosts = () => {
 
 export const addDevPost = (object) => {
   return async dispatch => {
+    try {
     const data = await devsPostsService.create(object)
     dispatch(add(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const updateDevPost= (object) => {
   return async dispatch => {
+    try {
     const data = await devsPostsService.update(object)
     dispatch(alter(data))
-  }
-}
-
-export const commentDevPost = (id, comment) => {
-  return async dispatch => {
-    const data = await devsPostsService.comment(id, comment)
-    dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const removeDevPost = (object) => {
   return async dispatch => {
+    try {
     await devsPostsService.remove(object.id)
     dispatch(remove(object.id))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 

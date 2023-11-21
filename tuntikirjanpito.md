@@ -35,7 +35,9 @@
 | 12.11.23  |  4      | - Tehty kehittäjän profiilinäkymää ja tehty kehittäjän ilmoitusten muokkaamisen paneeli <br>- konfiguroitu uusi api projectOffers backendiin ja sille redux frontendiin <br>- tehty kehittäjän profiiliin omien tarjousten näkymä |
 | 13.11.23  |  4      | - Tehty asiakkaan profiilinäkymää <br> - Tehty projectpostin muokkauksen sivu ja yhteensovitettu se apiin <br> - Modifoitu portaalia sekä asiakkaan että kehittäjän näkökulmasta <br> - Siirretty portaali-ilmoitukset profiilista portaaliin <br>- Muokattu portaali-ilmoitukset ja tarjoukset backendiin vastaamaan aiemmin asetettuja lisäkymyksiä (muutettu myös näiden tietokantaskeemaa)|
 | 14.11.23  |  2      | - Lisätty kenttiä projectPost tarjouksen lisäämiseen <br>- Tehty ominaisuus tarjouksen epähyväksymiselle <br>- Aloitettu muokkaamaan yhteydenottotapaa chatista yhteydenottopyyntö-ratkaisuun <br>- Tehty sivustolle chatbot ja konfiguroitu sen workflowta |
-| 18.11.23  |  4      | - Muokattu yhteydenottotapa loppuun chatista yhteydenottopyyntö-ratkaisuun <br>- Tehty sivustolle chatbot ja konfiguroitu sen workflowta <br>- 
-tehty omionaisuus ottaa yhteyttä kehittäjän ilmoituksesta <br>- tehty yhteydenottojen ja keskustelujen sivu profiiliin|
+| 18.11.23  |  4      | - Muokattu yhteydenottotapa loppuun chatista yhteydenottopyyntö-ratkaisuun <br>- Tehty sivustolle chatbot ja konfiguroitu sen workflowta <br>- tehty omionaisuus ottaa yhteyttä kehittäjän ilmoituksesta <br>- tehty yhteydenottojen ja keskustelujen sivu profiiliin|
+| 19.11.23  |  1      | - Chatbotin workflown parantelua. Lisätty chatbotille relevantteja kysymyksiä ja sisällytetty linkkejä vastauksiin |
+| 20.11.23  |  4      | - Virheenkäsittelyä ja refaktorointia, kehittäjän ja asiakkaan profiilinäkymien parantelua <br>- Paranneltu adminpaneelia korjaamalla däyttäjän disabloinnin ja asiakaspalvluekanavan bugit <br>- Ohjelmiston testausta ja frontendin services-osion parantelua <br>- Tehty API aktiivisten projektien seurannalle ja niihin liittyville tehtäville <br>- Aloitettu tekemään projektinhallinnan frontendia |
+| 21.11.23  |  4      | - Jatkettu projektiseurannan ominaisuuden tekemistä tekemällä sivu projektin ja sen tehtävien hallinnalle <br>- tehty ominaisuudet projektitehtävien lisäämiselle, poistamiselle sekä tilan ja sisällön muuttamiselle <br>- tehty ominaisuus kokonaisen projektin saattamiselle valmiiksi |
 
-Yhteensä: 169h
+Yhteensä: 179h

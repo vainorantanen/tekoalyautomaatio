@@ -51,19 +51,16 @@ const userExtractor = async (request, response, next) => {
 
 const isUserDisabled = async (user) => {
   if (!user) {
-    console.log('user not passed as parameter')
     return true
   }
 
   const userFromDb = await User.findById(user.id)
 
   if (!userFromDb) {
-    console.log('user not in db')
     return true
   }
 
   const disabledState = userFromDb.disabled
-  console.log('returning disabled state', disabledState)
   return disabledState
 }
 

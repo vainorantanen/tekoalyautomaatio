@@ -1,9 +1,9 @@
 import axios from 'axios'
 import storageService from './storage'
-const baseUrl = '/api/portalposts'
+const baseUrl = '/api/activeprojects'
 
 const getAll = async () => {
-  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+    const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
   const request = await axios.get(baseUrl, { headers })
   return request.data
@@ -16,40 +16,41 @@ const create = async (object) => {
   return request.data
 }
 
-
-const update = async (object) => {
+const updateIsApprovedState = async (object) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
-  const request = await axios.put(`${baseUrl}/${object.id}`, object, { headers })
+  const request = await axios.put(`${baseUrl}/${object.id}/updateIsApprovedState`, object, { headers })
   return request.data
 }
 
-const remove = async (id) => {
+const updateProjectCompletionState = async (object) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
-  await axios.delete(`${baseUrl}/${id}`, { headers })
-}
-
-const makeoffer = async (id, content) => {
-  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
-  const headers = token ? { 'Authorization': token } : {}
-  const request = await axios.post(`${baseUrl}/${id}/portalBids`, content, { headers })
+  const request = await axios.put(`${baseUrl}/${object.id}/updateProjectCompletionState`, object, { headers })
   return request.data
 }
 
-const removeOffer = async (postId, offerId) => {
+const sendTask = async (object) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
-  const request = await axios.delete(`${baseUrl}/${postId}/portalBids/${offerId}`, { headers })
+  const request = await axios.post(`${baseUrl}/sendProjectTask/${object.id}`, object, { headers })
   return request.data
 }
 
-const modifyAccept = async (targetId, offerId) => {
+const updateTask = async (project, task) => {
   const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
   const headers = token ? { 'Authorization': token } : {}
-  const request = await axios.put(`${baseUrl}/${targetId}/portalBidsAccept/${offerId}`, {}, { headers })
+  const request = await axios.put(`${baseUrl}/${project.id}/updateProjectTask/${task.id}`, task, { headers })
   return request.data
 }
+
+const removeTask = async (taskId, projectId) => {
+  const token = await storageService.loadUser() ? `Bearer ${storageService.loadUser().token}` : null
+  const headers = token ? { 'Authorization': token } : {}
+  const request = await axios.delete(`${baseUrl}/${projectId}/tasks/${taskId}`, { headers })
+  return request.data
+}
+
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, update, remove, makeoffer, removeOffer, modifyAccept }
+export default { getAll, create, sendTask, updateTask, updateIsApprovedState, removeTask, updateProjectCompletionState }

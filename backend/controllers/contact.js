@@ -17,22 +17,10 @@ router.get('/:id', async (request, response) => {
 
 router.post('/', async (request, response) => {
   const { email, isCompany } = request.body
-  //console.log("aINFO", additionalinfo)
+
   const contact = new Contact({
     email, isCompany
   })
-  /*
-  const user = request.user
-  if (!user) {
-    return response.status(401).json({ error: 'operation not permitted' })
-  }
-
-  course.user = user._id
-
-
-  user.courses = user.courses.concat(createdCourse._id)
-  await user.save()
-*/
 
   let createdContact = await contact.save()
 
@@ -51,24 +39,5 @@ router.put('/:id', async (request, response) => {
 
   response.json(updatedPublishing)
 })
-
-/*
-router.delete('/:id', userExtractor, async (request, response) => {
-  const blog = await Blog.findById(request.params.id)
-
-  const user = request.user
-
-  if (!user || blog.user.toString() !== user.id.toString()) {
-    return response.status(401).json({ error: 'operation not permitted' })
-  }
-
-  user.blogs = user.blogs.filter(b => b.toString() !== blog.id.toString() )
-
-  await user.save()
-  await blog.remove()
-
-  response.status(204).end()
-})
-*/
 
 module.exports = router

@@ -25,6 +25,7 @@ const ordersRouter = require('./controllers/orders')
 const portalBidsRouter = require('./controllers/portalbids')
 const projectOffersRouter = require('./controllers/projectOffers')
 const customerInfoRouter = require('./controllers/customerinfo')
+const projectRouter = require('./controllers/projects')
 
 const middleware = require('./utils/middleware')
 
@@ -64,6 +65,7 @@ app.use('/api/customersupport', customerSupportRouter)
 app.use('/api/orders', ordersRouter)
 app.use('/api/projectOffers', projectOffersRouter)
 app.use('/api/customerinfo', customerInfoRouter)
+app.use('/api/activeprojects', projectRouter)
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, './build/index.html'), function(err) {

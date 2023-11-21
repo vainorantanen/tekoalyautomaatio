@@ -29,15 +29,23 @@ export const initializeOrders = () => {
 
 export const addOrder = (object) => {
   return async dispatch => {
+    try {
     const data = await ordersService.create(object)
     dispatch(add(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 
 export const endOrder = (object) => {
   return async dispatch => {
+    try {
     const data = await ordersService.endorder(object)
     dispatch(alter(data))
+    } catch (error) {
+      return { error: error };
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography, Rating } from '@mui/material'
+import { Box, Button, Container, Typography, Rating, Divider } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import {  useSelector, useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { markBlogInappropriate } from '../../reducers/blogs'
 import { useNotification } from '../../hooks'
 import ratingsService from '../../services/ratings'
 import blogsService from '../../services/blogs'
+import SendProjectRequestForm from '../ProjectManagement/SendProjectRequestForm'
 
 const SingleDevPage = () => {
   const dispatch = useDispatch()
@@ -39,15 +40,20 @@ const SingleDevPage = () => {
     fetchData();
   }, [dev]);
 
-  const handleInappropriate = (blogId)  => {
+  const handleInappropriate = async (blogId)  => {
     const confirmed = window.confirm(`Haluatko varmasti ilmoittaa tämän julkaisun epäasiallisena?`)
           if (!confirmed) {
             return // If the user clicks "Cancel," do nothing
           }
 
           try {
-            dispatch(markBlogInappropriate(blogId));
-            notifyWith('Ilmoitettu onnistuneesti', 'success');
+            const result = await dispatch(markBlogInappropriate(blogId));
+            if (result && result.error) {
+              notifyWith('Ilmeni jokin ongelma', 'error');
+              return
+            } else {
+              notifyWith('Ilmoitettu onnistuneesti', 'success');
+            }
           } catch (error) {
             notifyWith('Ilmeni jokin ongelma', 'error');
           }
@@ -75,7 +81,12 @@ const SingleDevPage = () => {
           </Box>
           <Typography>Tietoa kehittäjästä</Typography>
           <Typography>Sähköposti: {dev.email}</Typography>
-          <Box sx={{ marginBottom: '1rem', marginTop: '1rem', borderTop: '1px solid white' }}>
+          <Divider sx={{ my: 4 }} />
+          <Typography>Haluatko aloittaa projektin kehittäjän kanssa?</Typography>
+          <Typography sx={{ fontSize: '0.8rem' }}>Hyväksytyille projekteille tarjoamme projektinhallintapaneelin!</Typography>
+          <SendProjectRequestForm developer={dev}/>
+          <Divider sx={{ my: 4 }} />
+          <Box sx={{ marginBottom: '1rem'}}>
             <Typography sx={{ fontSize: '1.3rem', marginBottom: '1rem' }}>Kehittäjän blogit</Typography>
             {devBlogs.length > 0 ?
               devBlogs.map(b => (
