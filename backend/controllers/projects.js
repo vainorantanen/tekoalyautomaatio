@@ -197,7 +197,7 @@ router.delete('/:id/tasks/:tid', userExtractor, async (request, response) => {
 
     const taskToDelete = await ProjectTask.findById(taskId)
 
-    if (!user || !(taskToDelete.user.toString() === user._id.toString())) {
+    if (!user) {
       return response.status(401).json({ error: 'operation not permitted' })
     }
 

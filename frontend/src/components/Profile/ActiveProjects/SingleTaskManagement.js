@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
 import { useNotification } from '../../../hooks';
-import { removeTask, updateTask } from '../../../reducers/activeProjects';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, TextField } from '@mui/material';
 import { Edit } from '@mui/icons-material';
+import activeProjects from '../../../services/activeProjects';
+import { socket } from '../../../socket';
 
-const SingleTaskManagement = ({task, project}) => {
+const SingleTaskManagement = ({task, project, setTasks}) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [ message, setMessage ] = useState(task.content || '')
     const [ state, setState ] = useState(task.taskState || '')
 
-    const dispatch = useDispatch()
     const notifyWith = useNotification()
 
     const openDialog = () => {
@@ -19,7 +18,6 @@ const SingleTaskManagement = ({task, project}) => {
     
     const closeDialog = () => {
         setIsDialogOpen(false);
-        setMessage('')
     };
     
       const handleInfoSend = async () => {
@@ -31,11 +29,13 @@ const SingleTaskManagement = ({task, project}) => {
       closeDialog();
     
         try {
-          const result = await dispatch(updateTask(project, { ...task, content: message, state}))
+          const result = await activeProjects.updateTask(project, { ...task, content: message, state})
           if (result && result.error) {
             notifyWith(result.error.response.data.error, 'error')
             return
           } else {
+            setTasks(result.tasks)
+            socket.emit("send_task", result);
             notifyWith('Lähetetty onnistuneeti', 'success')
           }
         } catch (error) {
@@ -50,11 +50,13 @@ const SingleTaskManagement = ({task, project}) => {
           return
         }
         try {
-            const result = await dispatch(removeTask(task.id, project.id))
+            const result = await activeProjects.removeTask(task.id, project.id)
             if (result && result.error) {
               notifyWith(result.error.response.data.error, 'error')
               return
             } else {
+              setTasks(result.tasks)
+              socket.emit("send_task", result);
               notifyWith('Poistettu onnistuneeti', 'success')
             }
           } catch (error) {

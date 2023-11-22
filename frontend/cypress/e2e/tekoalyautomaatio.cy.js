@@ -83,8 +83,24 @@ describe('Projektin lisäys asiakaskäyttäjällä', function() {
 
   })
 
+  it('Feed ilmoituksen lisäys', function() {
+    cy.contains('Feed').click()
+    cy.contains('Lisää julkaisu feediin').click()
+
+    cy.get('#description').type('Testi ilmoitus feediin')
+    
+    cy.contains('Julkaise').click()
+
+    cy.contains('Postaus lisätty onnistuneesti')
+  
+    cy.contains('Feed').click()
+    cy.contains('Testi ilmoitus feediin')
+  
+  })
+
 })
-/*
+
+
 describe('Tarjouksen tekeminen devaajakäyttäjällä', function() {
   beforeEach(function() {
     cy.visit('http://localhost:3001')
@@ -103,7 +119,8 @@ describe('Tarjouksen tekeminen devaajakäyttäjällä', function() {
 
     cy.contains('Tee tarjous').click()
 
-
+    cy.get('#minPrice').type(200)
+    cy.get('#maxPrice').type(300)
     cy.get('#description').type('Testi tarjous tehtynä')
     cy.contains('Lähetä tarjous').click()
     cy.contains('Tarjoukset')
@@ -112,4 +129,3 @@ describe('Tarjouksen tekeminen devaajakäyttäjällä', function() {
   })
 
 })
-*/

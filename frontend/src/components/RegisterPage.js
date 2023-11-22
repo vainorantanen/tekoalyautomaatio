@@ -51,7 +51,7 @@ const RegisterPage = () => {
         notify('Käyttäjä rekisteröity onnistuneesti', 'success')
         navigate('/login')
     } catch (error) {
-        notify('Rekiströinti epäonnistui', 'error')
+        notify('Rekisteröinti epäonnistui', 'error')
     }
     
   }
@@ -88,7 +88,7 @@ const RegisterPage = () => {
           fontSize: '1.5rem',
         },
       }}>
-        Rekiströidy
+        Rekisteröidy
       </Typography>
       <Box sx={{ maxWidth: '30rem', }} component="form" onSubmit={handleSubmit}>
       <FormControlLabel
