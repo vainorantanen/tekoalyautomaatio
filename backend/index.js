@@ -28,6 +28,9 @@ io.on('connection', (socket) => {
     socket.to(data.id).emit('receive_message', data)
   })
 
+  socket.on('send_task', (data) => {
+    socket.to(data.id).emit('receive_tasks', data)
+  })
 
 })
 

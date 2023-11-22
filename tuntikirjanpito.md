@@ -39,5 +39,6 @@
 | 19.11.23  |  1      | - Chatbotin workflown parantelua. Lisätty chatbotille relevantteja kysymyksiä ja sisällytetty linkkejä vastauksiin |
 | 20.11.23  |  4      | - Virheenkäsittelyä ja refaktorointia, kehittäjän ja asiakkaan profiilinäkymien parantelua <br>- Paranneltu adminpaneelia korjaamalla däyttäjän disabloinnin ja asiakaspalvluekanavan bugit <br>- Ohjelmiston testausta ja frontendin services-osion parantelua <br>- Tehty API aktiivisten projektien seurannalle ja niihin liittyville tehtäville <br>- Aloitettu tekemään projektinhallinnan frontendia |
 | 21.11.23  |  4      | - Jatkettu projektiseurannan ominaisuuden tekemistä tekemällä sivu projektin ja sen tehtävien hallinnalle <br>- tehty ominaisuudet projektitehtävien lisäämiselle, poistamiselle sekä tilan ja sisällön muuttamiselle <br>- tehty ominaisuus kokonaisen projektin saattamiselle valmiiksi |
+| 22.11.23  |  2      | - Tehty projektinhallintapaneelista reaaliaikainen käyttäen websocketia: Kaikki muutokset eli lisäykset, poistot ja päivitykset näkyvät kaikille projektipaneelissa oleville käyttäjille reaaliajassa <br>- Tehty e2e testejä lisää |
 
-Yhteensä: 179h
+Yhteensä: 181h

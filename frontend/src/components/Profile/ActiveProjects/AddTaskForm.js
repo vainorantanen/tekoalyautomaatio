@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
 import { useNotification } from '../../../hooks';
-import { addTask } from '../../../reducers/activeProjects';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { socket } from '../../../socket';
+import activeProjects from '../../../services/activeProjects';
 
-const AddTaskForm = ({state, project}) => {
+const AddTaskForm = ({state, project, setTasks}) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [ message, setMessage ] = useState('')
 
-    const dispatch = useDispatch()
     const notifyWith = useNotification()
 
     const openDialog = () => {
@@ -30,11 +29,13 @@ const AddTaskForm = ({state, project}) => {
       closeDialog();
     
         try {
-          const result = await dispatch(addTask({ content: message, state, id: project.id}))
+          const result = await activeProjects.sendTask({ content: message, state, id: project.id})
           if (result && result.error) {
             notifyWith(result.error.response.data.error, 'error')
             return
           } else {
+            setTasks(result.tasks)
+            socket.emit("send_task", result);
             notifyWith('Lähetetty onnistuneeti', 'success')
           }
         } catch (error) {
